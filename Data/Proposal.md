@@ -15,10 +15,11 @@ Centers for Disease Control and Prevention (CDC)
 
 ### Name and Version
 United States and Puerto Rico Cancer Statistics, 1999-2020 Incidence
+(sorted by states, year, leading cancer site, and sex)
 
 
 ### Time period / Geography
-1999-2020 (United States)
+2000-2020 (United States)
 
 
 ### Location of Overview
@@ -43,7 +44,7 @@ Data may not be used to attempt to identify individuals listed in the study. Dat
 ### Suggested Citation
 United States Cancer Statistics - Incidence: 1999 - 2020, WONDER Online Database. United States Department"
 "of Health and Human Services, Centers for Disease Control and Prevention and National Cancer Institute; 2022 submission; 2023"
-"release. Accessed at http://wonder.cdc.gov/cancer-v2020.html on Sep 24, 2023 12:34:57 PM
+"release. Accessed at http://wonder.cdc.gov/cancer-v2020.html on Sep 25, 2023 
 
 <br>
 <br>
