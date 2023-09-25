@@ -30,7 +30,7 @@ https://wonder.cdc.gov/wonder/help/cancer-v2020.html
 
 
 ### Data formats
-txt
+CSV
 
 
 ### Terms of Use
