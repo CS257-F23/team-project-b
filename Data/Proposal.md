@@ -205,16 +205,16 @@ United States Cancer Statistics - Incidence: 1999 - 2020, WONDER Online Database
 ### Team Roles
 
 
-- Cuong Chi Tran - Facilitating discussions
+Cuong Chi Tran - Create unit tests. Help with creating the search by cancer site function.
 
 
-- Daniel Estrada - Take Notes
+- Daniel Estrada - Work on tests and help with creating the display by year function.
 
 
-- London Bettman - Setting agendas
+- London Bettman - Work on functions that create the dataset, and turn it into a list of datapoints. Help with creating the search by cancer site function.
 
 
-- Marshall Johnson - Summarize meetings+set goals
+- Marshall Johnson - Work on functions that create the dataset, and turn it into a list of datapoints. Also going to work on the get by year command.
 
 
 - Note: Very likely to change as the term goes on
