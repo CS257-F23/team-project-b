@@ -14,13 +14,16 @@ with open(file, 'r') as f: #opens csv file and reads is as a file
 
 
 def string_to_list(string_with_commas):
-        """turns a string into a convenient list, so it can be indexed"""
-        return string_with_commas.split(",")
+        """turns a string into a convenient list, so it can be indexed. It also removes new line, if that's at the end of the last item"""
+        split_entry = string_with_commas.split(",")
+        #if split_entry[9][len(split_entry[9])-1] == "\n":
+        split_entry[9] = split_entry[9].rstrip("\n")
+        return split_entry
 
 class CancerDataset:  
     def __init__(self, data_name):
         file = data_name
-        list_of_cases = []
+        self.list_of_cases = []
     
     def make_lines(self):
         """opens the data file, and reads through each line of the file, outputting each to a list"""
@@ -34,7 +37,7 @@ class CancerDataset:
         for i in range(len(raw_data)):
             line_entry = string_to_list(raw_data[i])
             case_entry = Case(line_entry[2],line_entry[3],line_entry[5],line_entry[7],line_entry[9])
-            self.list_of_cases 
+            self.list_of_cases.append(case_entry)
 
     
     
