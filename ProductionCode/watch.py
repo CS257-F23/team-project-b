@@ -13,21 +13,32 @@ with open(file, 'r') as f: #opens csv file and reads is as a file
     titles = all_lines.pop(0)   #removes first row of csv ans stores it in the list titles
 
 
-
+def string_to_list(string_with_commas):
+        """turns a string into a convenient list, so it can be indexed"""
+        return string_with_commas.split(",")
 
 class CancerDataset:  
     def __init__(self, data_name):
         file = data_name
         list_of_cases = []
-        
-        
     
-    def create_entire_dataset():
+    def make_lines(self):
+        """opens the data file, and reads through each line of the file, outputting each to a list"""
         with open(file, 'r') as f: #opens csv file and reads is as a file
             all_lines = f.readlines() 
-            titles = all_lines.pop(0)   #removes first row of csv ans stores it in the list titles
-        entire_dataset = []
-        pass
+            return all_lines   #removes first row of csv and returns it it in the list titles
+        
+    def fill_list_of_cases(self):
+        """adds individual cases to the list"""
+        raw_data = self.make_lines()
+        for i in range(len(raw_data)):
+            line_entry = string_to_list(raw_data[i])
+            case_entry = Case(line_entry[2],line_entry[3],line_entry[5],line_entry[7],line_entry[9])
+            self.list_of_cases 
+
+    
+    
+        
     
 
     def get_data_from_year(year): pass
