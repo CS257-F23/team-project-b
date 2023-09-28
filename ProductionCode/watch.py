@@ -10,6 +10,7 @@ import argparse
 parser = argparse.ArgumentParser()
 #referenced realPython tutorial for CLI implementation.
 parser.add_argument("--year",type=int, choices=range(2000,2020))
+parser.add_argument("--site",type=str)
 args = parser.parse_args()
 
 
@@ -81,7 +82,7 @@ class CancerDataset:
     def get_data_from_year(self,year): 
         data_for_year = []
         for i in range(len(self.list_of_cases)): #for each Case
-            if int(self.list_of_cases[i].get_year()) == year:
+            if int(self.list_of_cases[i].get_year()) == year: #need to convert to an int first, since the year is stored as a string
                 data_for_year.append(self.list_of_cases[i].get_details())
         return data_for_year
     
@@ -98,7 +99,10 @@ class CancerDataset:
 file = 'dummy_file.csv' #for now, just put a copy of dummy file in production code. Needs to be fixed!
 dataset = CancerDataset(file) # now has a .list_of_cases = []
 dataset.fill_list_of_cases() # now has a .list_of_cases = the whole file converted to list of Case instances
-print(dataset.get_data_from_year(args.year))
+if args.site !=None:
+    print(dataset.get_data_by_site(args.site))
+if args.year !=None:
+    print(dataset.get_data_from_year(args.year))
 
 
 
