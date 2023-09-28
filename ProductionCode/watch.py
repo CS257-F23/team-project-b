@@ -6,12 +6,12 @@ https://anyaevostinar.github.io/classes/257-f23/project-command-line
 
 import csv
 import argparse
-
-parser = argparse.ArgumentParser()
-#referenced realPython tutorial for CLI implementation.
-parser.add_argument("--year",type=int, choices=range(2000,2021))
-parser.add_argument("--site",type=str)
-args = parser.parse_args()
+if __name__ == "__main__":
+    parser = argparse.ArgumentParser()
+    #referenced realPython tutorial for CLI implementation.
+    parser.add_argument("--year",type=int, choices=range(2000,2021))
+    parser.add_argument("--site",type=str)
+    args = parser.parse_args()
 
 
 
@@ -105,12 +105,8 @@ def parse_commandline_args():
         print(dataset.get_data_from_year(args.year))
 
 
-
 def main(): 
     parse_commandline_args()
 
 if __name__ == '__main__':
     main()
-
-
-#test
