@@ -9,7 +9,7 @@ import argparse
 
 parser = argparse.ArgumentParser()
 #referenced realPython tutorial for CLI implementation.
-parser.add_argument("--year",type=int, choices=range(2000,2020))
+parser.add_argument("--year",type=int, choices=range(2000,2021))
 parser.add_argument("--site",type=str)
 args = parser.parse_args()
 
@@ -71,7 +71,7 @@ class CancerDataset:
         titles, raw_data = self.convert_dataset_into_titles_and_list_of_cases()
         for i in range(len(raw_data)):
             line_entry = split_data_string_to_list(raw_data[i])
-            case_entry = Case(line_entry[2],line_entry[3],line_entry[5],line_entry[7],line_entry[9])
+            case_entry = Case(line_entry[2],line_entry[4],line_entry[5],line_entry[7],line_entry[9])
             self.list_of_cases.append(case_entry)
 
     # Note: Merge the below get_data_* methods into a single function to obey the Single Purpose Principle
@@ -93,7 +93,7 @@ class CancerDataset:
 # example code
 # case_example = Case("us", 2002, "mouth", "male", 2003)
 
-file = 'Data/dummy_file.csv' #for now, just put a copy of dummy file in production code. Needs to be fixed!
+file = 'Data/clean_incidence.csv' #for now, just put a copy of dummy file in production code. Needs to be fixed!
 dataset = CancerDataset(file) # now has a .list_of_cases = []
 dataset.fill_list_of_cases() # now has a .list_of_cases = the whole file converted to list of Case instances
 
@@ -107,9 +107,6 @@ def parse_commandline_args():
 
 
 def main(): 
-    #file = 'Data/dummy_file.csv'
-    #dataset = CancerDataset(file) # now has a .list_of_cases = []
-    #dataset.fill_list_of_cases() # now has a .list_of_cases = the whole file converted to list of Case instances
     parse_commandline_args()
 
 if __name__ == '__main__':
