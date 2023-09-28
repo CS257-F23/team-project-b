@@ -96,7 +96,7 @@ class CancerDataset:
 # example code
 # case_example = Case("us", 2002, "mouth", "male", 2003)
 
-file = 'dummy_file.csv' #for now, just put a copy of dummy file in production code. Needs to be fixed!
+file = 'Data/dummy_file.csv' #for now, just put a copy of dummy file in production code. Needs to be fixed!
 dataset = CancerDataset(file) # now has a .list_of_cases = []
 dataset.fill_list_of_cases() # now has a .list_of_cases = the whole file converted to list of Case instances
 if args.site !=None:
