@@ -96,10 +96,13 @@ class CancerDataset:
 file = 'Data/dummy_file.csv' #for now, just put a copy of dummy file in production code. Needs to be fixed!
 dataset = CancerDataset(file) # now has a .list_of_cases = []
 dataset.fill_list_of_cases() # now has a .list_of_cases = the whole file converted to list of Case instances
-if args.site !=None:
-    print(dataset.get_data_by_site(args.site))
-if args.year !=None:
-    print(dataset.get_data_from_year(args.year))
+
+def parse_commandline_args():
+    """checks to see what arguments the user has given, and displays it."""
+    if args.site !=None:
+        print(dataset.get_data_by_site(args.site))
+    if args.year !=None:
+        print(dataset.get_data_from_year(args.year))
 
 
 
@@ -107,7 +110,7 @@ def main():
     #file = 'Data/dummy_file.csv'
     #dataset = CancerDataset(file) # now has a .list_of_cases = []
     #dataset.fill_list_of_cases() # now has a .list_of_cases = the whole file converted to list of Case instances
-    pass
+    parse_commandline_args()
 
 if __name__ == '__main__':
     main()
