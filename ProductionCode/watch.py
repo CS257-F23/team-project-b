@@ -5,6 +5,14 @@ https://anyaevostinar.github.io/classes/257-f23/project-command-line
 """
 
 import csv
+import argparse
+
+parser = argparse.ArgumentParser()
+#referenced realPython tutorial for CLI implementation.
+parser.add_argument("--year",type=int, choices=range(2000,2020))
+args = parser.parse_args()
+
+
 
 # Drafts. Has been copied into use
 # file = 'Data/dummy_file.csv' -> main()
@@ -35,20 +43,7 @@ class Case:
     def get_count(self):
         return self.count
     
-    
-
-class CancerDataset: 
-    def __init__(self, dataset_name):
-        self.file = dataset_name # the .csv dataset file being accessed for the data
-        self.list_of_cases = [] # list of cases, each of which is stored as a Case instance
-    
-    def convert_dataset_into_titles_and_list_of_cases(self):
-        """opens the data file, and reads through each line of the file, outputting each to a list"""
-        with open(self.file, 'r') as f: #opens csv file and reads is as a file
-            all_lines = f.readlines() # get all the lines form the file
-            return all_lines[0], all_lines[1:]   #removes first row of csv and returns it in the list titles
-        
-    def split_data_string_to_list(string_with_commas):
+def split_data_string_to_list(string_with_commas):
         """Split a string read from the .csv file into a convenient list, so it can be indexed. 
         It also removes new line, if that's at the end of the last item.
         If the list is empty, return empty list"""
@@ -59,12 +54,25 @@ class CancerDataset:
         except IndexError:
             split_entry = []
         return split_entry
+
+class CancerDataset: 
+    def __init__(self, dataset_name):
+        self.file = dataset_name # the .csv dataset file being accessed for the data
+        self.list_of_cases = [] # list of cases, each of which is stored as a Case instance
+    
+    def convert_dataset_into_titles_and_list_of_cases(self):
+        """opens the data file, and reads through each line of the file, outputting each to a list"""
+        with open(self.file, 'r') as f: #opens csv file and reads it as a file
+            all_lines = f.readlines() # get all the lines form the file
+            return all_lines[0], all_lines[1:]   #removes first row of csv and returns it in the list titles
+        
+    
     
     def fill_list_of_cases(self):
         """adds individual Case instances to the list"""
         titles, raw_data = self.convert_dataset_into_titles_and_list_of_cases()
         for i in range(len(raw_data)):
-            line_entry = self.split_data_string_to_list(raw_data[i])
+            line_entry = split_data_string_to_list(raw_data[i])
             case_entry = Case(line_entry[2],line_entry[3],line_entry[5],line_entry[7],line_entry[9])
             self.list_of_cases.append(case_entry)
 
@@ -73,7 +81,7 @@ class CancerDataset:
     def get_data_from_year(self,year): 
         data_for_year = []
         for i in range(len(self.list_of_cases)): #for each Case
-            if self.list_of_cases[i].get_year() == year:
+            if int(self.list_of_cases[i].get_year()) == year:
                 data_for_year.append(self.list_of_cases[i].get_details())
         return data_for_year
     
@@ -87,10 +95,18 @@ class CancerDataset:
 # example code
 # case_example = Case("us", 2002, "mouth", "male", 2003)
 
+file = 'dummy_file.csv' #for now, just put a copy of dummy file in production code. Needs to be fixed!
+dataset = CancerDataset(file) # now has a .list_of_cases = []
+dataset.fill_list_of_cases() # now has a .list_of_cases = the whole file converted to list of Case instances
+print(dataset.get_data_from_year(args.year))
+
+
+
 def main(): 
-    file = 'Data/dummy_file.csv'
-    dataset = CancerDataset(file) # now has a .list_of_cases = []
-    dataset.fill_list_of_cases() # now has a .list_of_cases = the whole file converted to list of Case instances
+    #file = 'Data/dummy_file.csv'
+    #dataset = CancerDataset(file) # now has a .list_of_cases = []
+    #dataset.fill_list_of_cases() # now has a .list_of_cases = the whole file converted to list of Case instances
+    pass
 
 if __name__ == '__main__':
     main()
