@@ -15,10 +15,15 @@ with open(file, 'r') as f: #opens csv file and reads is as a file
 
 
 def split_data_string_to_list(string_with_commas):
-        """Split a string read from the .csv file into a convenient list, so it can be indexed. It also removes new line, if that's at the end of the last item"""
-        split_entry = string_with_commas.split(",")
-        #if split_entry[9][len(split_entry[9])-1] == "\n":
-        split_entry[-1] = split_entry[-1].rstrip("\n")
+        """Split a string read from the .csv file into a convenient list, so it can be indexed. 
+        It also removes new line, if that's at the end of the last item.
+        If the list is empty, return empty list"""
+        try:
+            split_entry = string_with_commas.split(",")
+            #if split_entry[9][len(split_entry[9])-1] == "\n":
+            split_entry[-1] = split_entry[-1].strip("\n")
+        except IndexError:
+            split_entry = []
         return split_entry
 
 class Case:
@@ -52,9 +57,9 @@ class CancerDataset:
 
     def get_data_from_year(year): pass
 
-# example codes
+# example code
 #case_example = Case("us", 2002, "mouth", "male", 2003)
-#CancerDataset.dataset[1] = CancerDataset(case_example)
+
 
 
 
