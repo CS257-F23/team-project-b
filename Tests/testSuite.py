@@ -24,13 +24,13 @@ class testFunctions(unittest.TestCase):
     def test_string_to_list_real_output(self):
         """Tests to make sure that the string to list function works in a real use case"""
         example = ",Alabama,1,2000,2000,Breast,26000,Female,F,2964\n"
-        output = split_data_string_to_list(example)
+        output = CancerDataset.split_data_string_to_list(example)
         self.assertEqual(output,["","Alabama","1","2000","2000","Breast","26000","Female","F","2964"], "Failed to split a CSV line correctly.")
     
     def test_string_to_list_no_input(self):
         """Tests to make sure that the string to list function works in an edge case of no input"""
         example = ""
-        output = split_data_string_to_list(example)
+        output = CancerDataset.split_data_string_to_list(example)
         self.assertEqual(output,[], "Failed to return empty list for no input.")
 
 
