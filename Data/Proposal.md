@@ -205,7 +205,7 @@ United States Cancer Statistics - Incidence: 1999 - 2020, WONDER Online Database
 ### Team Roles
 
 
-Cuong Chi Tran - Create unit tests. Help with creating the search by cancer site function.
+- Cuong Chi Tran - Create unit tests. Help with creating the search by cancer site and by year function.
 
 
 - Daniel Estrada - Work on tests and help with creating the display by year function.
