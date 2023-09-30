@@ -20,8 +20,22 @@ class Case:
         self.sex = sex
         self.count = count
     
-    def case_details(self): 
-        print (f"State: {self.state}; Year: {self.year}; Leading Site: {self.leading_site}; Sex: {self.sex}; Count: {self.count}; ")
+    def get_details(self): 
+        return (f"State: {self.state}; Year: {self.year}; Leading Site: {self.leading_site}; Sex: {self.sex}; Count: {self.count}")
+    
+    def get_year(self):
+        return self.year
+    
+    def get_leading_site(self):
+        return self.leading_site
+    
+    def get_sex(self):
+        return self.sex
+    
+    def get_count(self):
+        return self.count
+    
+    
 
 class CancerDataset: 
     def __init__(self, dataset_name):
@@ -54,10 +68,13 @@ class CancerDataset:
             case_entry = Case(line_entry[2],line_entry[3],line_entry[5],line_entry[7],line_entry[9])
             self.list_of_cases.append(case_entry)
 
-    def get_data_from_year(year): pass
+    def get_data_from_year(self,year): 
+        for i in range(len(self.list_of_cases)): #for each Case
+            if self.list_of_cases[i].get_year() == year:
+                print (self.list_of_cases[i].get_details())
 
 # example code
-#case_example = Case("us", 2002, "mouth", "male", 2003)
+# case_example = Case("us", 2002, "mouth", "male", 2003)
 
 def main(): 
     file = 'Data/dummy_file.csv'
