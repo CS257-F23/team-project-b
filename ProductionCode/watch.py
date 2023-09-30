@@ -20,7 +20,8 @@ class Case:
         self.sex = sex
         self.count = count
     
-    def case_details(self): pass
+    def case_details(self): 
+        print (f"State: {self.state}; Year: {self.year}; Leading Site: {self.leading_site}; Sex: {self.sex}; Count: {self.count}; ")
 
 class CancerDataset: 
     def __init__(self, dataset_name):
@@ -52,9 +53,6 @@ class CancerDataset:
             line_entry = self.split_data_string_to_list(raw_data[i])
             case_entry = Case(line_entry[2],line_entry[3],line_entry[5],line_entry[7],line_entry[9])
             self.list_of_cases.append(case_entry)
-    
-    def convert_dataset_to_local_dataset(self):
-        self.convert_dataset_into_titles_and_list_of_cases(self)
 
     def get_data_from_year(year): pass
 
