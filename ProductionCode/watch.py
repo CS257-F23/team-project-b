@@ -68,9 +68,16 @@ class CancerDataset:
             case_entry = Case(line_entry[2],line_entry[3],line_entry[5],line_entry[7],line_entry[9])
             self.list_of_cases.append(case_entry)
 
+    # Note: Merge the below get_data_* methods into a single function to obey the Single Purpose Principle
+    
     def get_data_from_year(self,year): 
         for i in range(len(self.list_of_cases)): #for each Case
             if self.list_of_cases[i].get_year() == year:
+                print (self.list_of_cases[i].get_details())
+    
+    def get_data_by_site(self,leading_site): 
+        for i in range(len(self.list_of_cases)): #for each Case
+            if self.list_of_cases[i].get_leading_site() == leading_site:
                 print (self.list_of_cases[i].get_details())
 
 # example code
