@@ -6,8 +6,8 @@ from ProductionCode.watch import *
 class testFunctions(unittest.TestCase):
     def test_make_lines(self):
         """Test to make sure that data can be fetched from .csv file and converted to list of CSV strings"""
-        expected_list = ['Notes,States,States Code,Year,Year Code,Leading Cancer Sites,Leading Cancer Sites Code,Sex,Sex Code,Count\n', 
-                         ",Alabama,1,2000,2000,Breast,26000,Female,F,2964\n",
+        expected_list = ("Notes,States,States Code,Year,Year Code,Leading Cancer Sites,Leading Cancer Sites Code,Sex,Sex Code,Count\n", 
+                         [",Alabama,1,2000,2000,Breast,26000,Female,F,2964\n",
                          ",Alabama,1,2003,2003,Myeloma,34000,Female,F,119\n",
                          ",Alaska,2,2006,2006,Lung and Bronchus,22030,Female,F,152\n",
                          ",Alaska,2,2011,2011,Melanoma of the Skin,25010,Male,M,40\n",
@@ -17,6 +17,7 @@ class testFunctions(unittest.TestCase):
                          ',New Mexico,35,2016,2016,Oral Cavity and Pharynx,20010-20100,Male,M,170\n',
                          ',New York,36,2002,2002,Stomach,21020,Male,M,1088'
                          ]
+                         )
         data_file = CancerDataset("dummy_file.csv")
         output = data_file.convert_dataset_into_titles_and_list_of_cases()
         self.assertEqual(output,expected_list,"Failed fetching the expected list and convert it to a list of CSV strings.")
