@@ -34,8 +34,7 @@ class testFunctions(unittest.TestCase):
         """Tests to make sure that the string to list function works in an edge case of no input"""
         example = ""
         output = CancerDataset.split_data_string_to_list(example)
-        self.assertEqual(
-            output, [], "Failed to return empty list for no input.")
+        self.assertEqual(output, [], "Failed to return empty list for no input.")
 
 # First try at test (Most Likely will DELETE)
     '''def test_get_data_from_year(self): 
@@ -45,7 +44,7 @@ class testFunctions(unittest.TestCase):
                          "Failed to display the corresponding data for specified year")'''
 
     def test_get_data_from_year(self):
-        output_from_tested_function = CancerDataset.get_data_from_year(2002)
+        output_from_tested_function = CancerDataset.get_data_from_year(self,"2002")
         for cases in range(len(output_from_tested_function)):
             self.assertEqual(int(cases.get_year), 2002,
                              "Failed to display the corresponding data for specified year")
@@ -60,8 +59,7 @@ class testFunctions(unittest.TestCase):
 
     def test_get_data_by_site(self):
         example_site = 'mouth'
-        output_from_tested_function = CancerDataset.get_data_by_site(
-            example_site)
+        output_from_tested_function = CancerDataset.get_data_by_site(self,example_site)
         for cases in range(len(output_from_tested_function)):
             self.assertEqual(cases.get_leading_site, example_site,
                              "Failed to display the corresponding data for specified leading site")
