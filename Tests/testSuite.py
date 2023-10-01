@@ -18,7 +18,7 @@ class testFunctions(unittest.TestCase):
                           ',New York,36,2002,2002,Stomach,21020,Male,M,1088'
                           ]
                          )
-        data_file = CancerDataset("dummy_file.csv")
+        data_file = CancerDataset("Data/dummy_file.csv")
         output = data_file.convert_dataset_into_titles_and_list_of_cases()
         self.assertEqual(output, expected_list,
                          "Failed fetching the expected list and convert it to a list of CSV strings.")
