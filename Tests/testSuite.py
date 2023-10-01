@@ -35,13 +35,23 @@ class testFunctions(unittest.TestCase):
         self.assertEqual(output,[], "Failed to return empty list for no input.")
 
 
-# test that pop works
-# = [1,2,3]
-#print (test.pop(0))
-
-# test that .readlines() convert the whole .csv to lines
-#with open(file, 'r') as f: #opens csv file and reads is as a file
-    #all_lines = f.readlines() 
+    def create_text_file_for_test(self):
+        file_name = "text_file.txt"
+        file = open(file_name, "x")
+        file.write("line 1")
+        file.write("line 2")
+        file.write("line 3")
+        file.close()
+        return file_name
+    
+    def test_file_reading(self):
+        with open(testFunctions.create_text_file_for_test(), 'r') as f: #opens csv file and reads is as a file
+            all_lines = f.readlines() 
+        expected_result = ["line 1\n",
+                           "line 2\n",
+                           "line 3\n",
+                           ]
+        self.assertEqual(all_lines, expected_result, "Failed to correctly retrieve text file content.")
 
 if __name__ == '__main__':
     unittest.main()
