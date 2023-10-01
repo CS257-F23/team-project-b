@@ -34,20 +34,37 @@ class testFunctions(unittest.TestCase):
         """Tests to make sure that the string to list function works in an edge case of no input"""
         example = ""
         output = CancerDataset.split_data_string_to_list(example)
-        self.assertEqual(output, [], "Failed to return empty list for no input.")
+        self.assertEqual(
+            output, [], "Failed to return empty list for no input.")
 
-    def test_get_data_from_year(self):
+# First try at test (Most Likely will DELETE)
+    '''def test_get_data_from_year(self): 
         """Test to make sure that the case details of all cases from the specified year are displayed"""
         output = CancerDataset.get_data_from_year(2002)
         self.assertEqual(output.get_year, 2002,
-                         "Failed to display the corresponding data for specified year")
+                         "Failed to display the corresponding data for specified year")'''
 
-    def test_get_data_by_site(self):
+    def test_get_data_from_year(self):
+        output_from_tested_function = CancerDataset.get_data_from_year(2002)
+        for cases in range(len(output_from_tested_function)):
+            self.assertEqual(int(cases.get_year), 2002,
+                             "Failed to display the corresponding data for specified year")
+
+# First try at test (Most Likely will DELETE)
+    '''def test_get_data_by_site(self):
         "Test to make sure that the case details of all cases from the specified leading site are displayed"
         example_site = 'mouth'
         output = CancerDataset.get_data_by_site(example_site)
         self.assertEqual(output.get_leading_site, example_site,
-                         "Failed to display the corresponding data for specified leading site")
+                         "Failed to display the corresponding data for specified leading site")'''
+
+    def test_get_data_by_site(self):
+        example_site = 'mouth'
+        output_from_tested_function = CancerDataset.get_data_by_site(
+            example_site)
+        for cases in range(len(output_from_tested_function)):
+            self.assertEqual(cases.get_leading_site, example_site,
+                             "Failed to display the corresponding data for specified leading site")
 
 
 if __name__ == '__main__':
