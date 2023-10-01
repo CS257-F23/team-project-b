@@ -44,7 +44,7 @@ class testFunctions(unittest.TestCase):
                          "Failed to display the corresponding data for specified year")'''
 
     def test_get_data_from_year(self):
-        output_from_tested_function = CancerDataset.get_data_from_year(self,"2002")
+        output_from_tested_function = CancerDataset.get_data_from_year(self,2002)
         for cases in range(len(output_from_tested_function)):
             self.assertEqual(int(cases.get_year), 2002,
                              "Failed to display the corresponding data for specified year")

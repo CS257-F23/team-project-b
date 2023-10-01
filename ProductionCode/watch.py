@@ -73,7 +73,7 @@ class CancerDataset:
     def get_data_from_year(self,year): 
         data_for_year = []
         for i in range(len(self.list_of_cases)): #for each Case
-            if self.list_of_cases[i].get_year() == year:
+            if int(self.list_of_cases[i].get_year()) == year:
                 data_for_year.append(self.list_of_cases[i].get_details())
         return data_for_year
     
