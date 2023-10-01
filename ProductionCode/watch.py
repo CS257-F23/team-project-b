@@ -71,14 +71,18 @@ class CancerDataset:
     # Note: Merge the below get_data_* methods into a single function to obey the Single Purpose Principle
     
     def get_data_from_year(self,year): 
+        data_for_year = []
         for i in range(len(self.list_of_cases)): #for each Case
             if self.list_of_cases[i].get_year() == year:
-                print (self.list_of_cases[i].get_details())
+                data_for_year.append(self.list_of_cases[i].get_details())
+        return data_for_year
     
     def get_data_by_site(self,leading_site): 
+        data_for_site = []
         for i in range(len(self.list_of_cases)): #for each Case
             if self.list_of_cases[i].get_leading_site() == leading_site:
-                print (self.list_of_cases[i].get_details())
+                data_for_site.append(self.list_of_cases[i].get_details())
+        return data_for_site
 
 # example code
 # case_example = Case("us", 2002, "mouth", "male", 2003)
