@@ -52,12 +52,9 @@ class CancerDataset:
         """Split a string read from the .csv file into a convenient list, so it can be indexed. 
         It also removes new line, if that's at the end of the last item.
         If the list is empty, return empty list"""
-        try:
-            split_entry = string_with_commas.split(",")
-            #if split_entry[9][len(split_entry[9])-1] == "\n":
-            split_entry[-1] = split_entry[-1].strip("\n")
-        except IndexError:
-            split_entry = []
+        split_entry = string_with_commas.split(",")
+        #if split_entry[9][len(split_entry[9])-1] == "\n":
+        split_entry[-1] = split_entry[-1].strip("\n")
         return split_entry
     
     def fill_list_of_cases(self):
