@@ -34,8 +34,7 @@ class testFunctions(unittest.TestCase):
         """Tests to make sure that the string to list function works in an edge case of no input"""
         example = ""
         output = CancerDataset.split_data_string_to_list(example)
-        self.assertEqual(
-            output, [], "Failed to return empty list for no input.")
+        self.assertEqual(output, [], "Failed to return empty list for no input.")
 
     def create_text_file_for_test(self):
         file_name = "text_file.txt"
