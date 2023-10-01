@@ -44,7 +44,9 @@ class testFunctions(unittest.TestCase):
                          "Failed to display the corresponding data for specified year")'''
 
     def test_get_data_from_year(self):
-        output_from_tested_function = CancerDataset.get_data_from_year(self,2002)
+        data_file = CancerDataset("Data/dummy_file.csv")
+        example_year = 2002
+        output_from_tested_function = data_file.get_data_from_year(example_year)
         for cases in range(len(output_from_tested_function)):
             self.assertEqual(int(cases.get_year), 2002,
                              "Failed to display the corresponding data for specified year")
@@ -58,8 +60,9 @@ class testFunctions(unittest.TestCase):
                          "Failed to display the corresponding data for specified leading site")'''
 
     def test_get_data_by_site(self):
+        data_file = CancerDataset("Data/dummy_file.csv")
         example_site = 'mouth'
-        output_from_tested_function = CancerDataset.get_data_by_site(self,example_site)
+        output_from_tested_function = data_file.get_data_by_site(example_site)
         for cases in range(len(output_from_tested_function)):
             self.assertEqual(cases.get_leading_site, example_site,
                              "Failed to display the corresponding data for specified leading site")
