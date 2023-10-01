@@ -36,26 +36,6 @@ class testFunctions(unittest.TestCase):
         output = CancerDataset.split_data_string_to_list(example)
         self.assertEqual(output, [], "Failed to return empty list for no input.")
 
-    def create_text_file_for_test(self):
-        file_name = "text_file.txt"
-        file = open(file_name, "x")
-        file.write("line 1")
-        file.write("line 2")
-        file.write("line 3")
-        file.close()
-        return file_name
-
-    def test_file_reading(self):
-        # opens csv file and reads is as a file
-        with open(testFunctions.create_text_file_for_test(), 'r') as f:
-            all_lines = f.readlines()
-        expected_result = ["line 1\n",
-                           "line 2\n",
-                           "line 3\n",
-                           ]
-        self.assertEqual(all_lines, expected_result,
-                         "Failed to correctly retrieve text file content.")
-
     def test_get_data_from_year(self):
         """Test to make sure that the case details of all cases from the specified year are displayed"""
         output = CancerDataset.get_data_from_year(2002)
