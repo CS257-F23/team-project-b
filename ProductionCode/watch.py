@@ -92,13 +92,13 @@ dataset.fill_list_of_cases() # now has a .list_of_cases = the whole file convert
 def parse_commandline_args():
     """checks to see what arguments the user has given, and displays it."""
     if args.site !=None:
-        print(dataset.get_data_by_site(args.site))
+        return (dataset.get_data_by_site(args.site))
     if args.year !=None:
-        print(dataset.get_data_from_year(args.year))
+        return (dataset.get_data_from_year(args.year))
 
 
 def main(): 
-    parse_commandline_args()
+    print(parse_commandline_args())
 
 if __name__ == '__main__':
     main()
