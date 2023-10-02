@@ -15,7 +15,7 @@ class testFunctions(unittest.TestCase):
         test_count = "2964"
         test_case = Case(test_state, test_year, test_site, test_sex, test_count)
         expected_output = f"State: {test_state}; Year: {test_year}; Leading Site: {test_site}; Sex: {test_sex}; Count: {test_count}"
-        self.assertEqual(test_case, expected_output, "Failed formatting get_details().")
+        self.assertEqual(test_case.get_details(), expected_output, "Failed formatting get_details().")
     
     def test_make_lines(self):
         """Test to make sure that data can be fetched from .csv file and converted to list of CSV strings"""
@@ -92,7 +92,7 @@ class testFunctions(unittest.TestCase):
     def test_main_year(self):
         """Test for main() working for valid command line arguments for the year 2007. Due to the expected result's ENORMOUS size, only the last returned element is used to compare."""
         CLI_command_as_list = ['python3', 'ProductionCode/watch.py', "--year", "2007"]
-        expected_result = "2"
+        expected_result = 'State: Wyoming; Year: 2007; Leading Site: Urinary Bladder invasive and in situ; Sex: Male; Count: 103'
         failed_test_message = 'Failed to get data for the year 2007'
         def enter_CLI_command_return_code():
             return subprocess.Popen(CLI_command_as_list, stdin=subprocess.PIPE, stdout=subprocess.PIPE, encoding='utf8')
@@ -100,15 +100,15 @@ class testFunctions(unittest.TestCase):
             code = enter_CLI_command_return_code()
             output, err = code.communicate()
             code.terminate()
-            return output.strip()
+            return output.strip()[-1]
         def execute_test():
             self.assertEqual(run_CLI_command_return_result(), expected_result, failed_test_message)
         execute_test()
     
     def test_main_site(self):
-        """Test for main() working for valid command line arguments for the site ???. Due to the expected result's ENORMOUS size, only the last returned element is used to compare."""
-        CLI_command_as_list = ['python3', 'ProductionCode/watch.py', "--site", "''"]
-        expected_result = "2"
+        """Test for main() working for valid command line arguments for the site 'Liver' (single quotes included). Due to the expected result's ENORMOUS size, only the last returned element is used to compare."""
+        CLI_command_as_list = ['python3', 'ProductionCode/watch.py', "--site", "'Liver'"]
+        expected_result = 'State: Wyoming; Year: 2020; Leading Site: Liver; Sex: Male; Count: 29'
         failed_test_message = "Failed to get data for the site ''."
         def enter_CLI_command_return_code():
             return subprocess.Popen(CLI_command_as_list, stdin=subprocess.PIPE, stdout=subprocess.PIPE, encoding='utf8')
@@ -116,7 +116,7 @@ class testFunctions(unittest.TestCase):
             code = enter_CLI_command_return_code()
             output, err = code.communicate()
             code.terminate()
-            return output.strip()
+            return output.strip()[-1]
         def execute_test():
             self.assertEqual(run_CLI_command_return_result(), expected_result, failed_test_message)
         execute_test()
