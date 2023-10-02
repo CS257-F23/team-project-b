@@ -46,7 +46,7 @@ class testFunctions(unittest.TestCase):
     def test_string_to_list_no_input(self):
         """Tests to make sure that the string to list function works in an edge case of no input"""
         example = ""
-        output = CancerDataset.split_data_string_to_list(example)
+        output = split_data_string_to_list(example)
         self.assertEqual(output, [""], "Failed to return empty list for no input.")
 
 # First try at test (Most Likely will DELETE)
@@ -107,7 +107,7 @@ class testFunctions(unittest.TestCase):
     
     def test_main_site(self):
         """Test for main() working for valid command line arguments for the site 'Liver' (single quotes included). Due to the expected result's ENORMOUS size, only the last returned element is used to compare."""
-        CLI_command_as_list = ['python3', 'ProductionCode/watch.py', "--site", "'Liver'"] # python3 ProductionCode/watch.py --site 'Liver'
+        CLI_command_as_list = ['python3', 'ProductionCode/watch.py', "--site", "Liver"] # python3 ProductionCode/watch.py --site Liver
         expected_result = 'State: Wyoming; Year: 2020; Leading Site: Liver; Sex: Male; Count: 29'
         failed_test_message = "Failed to get data for the site 'Liver'."
         def enter_CLI_command_return_code():
@@ -116,8 +116,7 @@ class testFunctions(unittest.TestCase):
             code = enter_CLI_command_return_code()
             output, err = code.communicate()
             code.terminate()
-            print(output)
-            return output.strip()
+            return output.strip()[-71:-2]
         def execute_test():
             self.assertEqual(run_CLI_command_return_result(), expected_result, failed_test_message)
         execute_test()
