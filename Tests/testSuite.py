@@ -100,23 +100,24 @@ class testFunctions(unittest.TestCase):
             code = enter_CLI_command_return_code()
             output, err = code.communicate()
             code.terminate()
-            return output.strip()[-1]
+            return output.strip()[-103:-2]
         def execute_test():
             self.assertEqual(run_CLI_command_return_result(), expected_result, failed_test_message)
         execute_test()
     
     def test_main_site(self):
         """Test for main() working for valid command line arguments for the site 'Liver' (single quotes included). Due to the expected result's ENORMOUS size, only the last returned element is used to compare."""
-        CLI_command_as_list = ['python3', 'ProductionCode/watch.py', "--site", "'Liver'"]
+        CLI_command_as_list = ['python3', 'ProductionCode/watch.py', "--site", "'Liver'"] # python3 ProductionCode/watch.py --site 'Liver'
         expected_result = 'State: Wyoming; Year: 2020; Leading Site: Liver; Sex: Male; Count: 29'
-        failed_test_message = "Failed to get data for the site ''."
+        failed_test_message = "Failed to get data for the site 'Liver'."
         def enter_CLI_command_return_code():
             return subprocess.Popen(CLI_command_as_list, stdin=subprocess.PIPE, stdout=subprocess.PIPE, encoding='utf8')
         def run_CLI_command_return_result():
             code = enter_CLI_command_return_code()
             output, err = code.communicate()
             code.terminate()
-            return output.strip()[-1]
+            print(output)
+            return output.strip()
         def execute_test():
             self.assertEqual(run_CLI_command_return_result(), expected_result, failed_test_message)
         execute_test()
