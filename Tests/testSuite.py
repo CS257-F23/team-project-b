@@ -61,28 +61,37 @@ class testFunctions(unittest.TestCase):
                          "Failed to display the corresponding data for specified year")'''
 
     def test_get_data_from_year(self):
+        """ Tests the get_data_from_year function with a VALID year. Input: 2002 Expected output: all the cases corresponding to the year 2002"""
         data_file = CancerDataset("Data/dummy_file.csv")
         example_year = 2002
         output_from_tested_function = data_file.get_data_from_year(example_year)
         for cases in range(len(output_from_tested_function)):
             self.assertEqual(int(cases.get_year), 2002,
                              "Failed to display the corresponding data for specified year")
-
-# First try at test (Most Likely will DELETE)
-    '''def test_get_data_by_site(self):
-        "Test to make sure that the case details of all cases from the specified leading site are displayed"
-        example_site = 'mouth'
-        output = CancerDataset.get_data_by_site(example_site)
-        self.assertEqual(output.get_leading_site, example_site,
-                         "Failed to display the corresponding data for specified leading site")'''
+           
+    def test_get_data_from_year_INVALID(self):
+        """ Tests the get_data_from_year function with an INVALID year. Input: 3030 Expected output: [] (an empty list)"""
+        data_file = CancerDataset("Data/dummy_file.csv")
+        example_year = 3030
+        output_from_get_data_from_year = data_file.get_data_from_year(example_year)
+        self.assertEqual(output_from_get_data_from_year, [])
+       
 
     def test_get_data_by_site(self):
+        """ Tests the get_data_by_site function with a VALID cancer site. Input: mouth Expected output: all the cases where the leading cancer site is mouth """
         data_file = CancerDataset("Data/dummy_file.csv")
         example_site = 'mouth'
         output_from_tested_function = data_file.get_data_by_site(example_site)
         for cases in range(len(output_from_tested_function)):
             self.assertEqual(cases.get_leading_site, example_site,
                              "Failed to display the corresponding data for specified leading site")
+           
+    def test_get_data_by_site_INVALID(self):
+        """ Tests the get_data_by_site function with a INVALID cancer site. Input: toe Expected output: [] (an empty list)"""
+        data_file = CancerDataset("Data/dummy_file.csv")
+        example_site = 'toe'
+        output_from_get_data_by_site = data_file.get_data_by_site(example_site)
+        self.assertEqual(output_from_get_data_by_site, [])
 
     def test_CLI_year_no_input(self):
         test_input = ["python3", "ProductionCode/watch.py", "--year"]
