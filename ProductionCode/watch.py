@@ -13,14 +13,6 @@ if __name__ == "__main__":
     parser.add_argument("--site",type=str)
     args = parser.parse_args()
 
-
-
-# Drafts. Has been copied into use
-# file = 'Data/dummy_file.csv' -> main()
-# with open(file, 'r') as f: #opens csv file and reads is as a file ->  convert_dataset_into_titles_and_list_of_cases()
-#     all_lines = f.readlines()
-#     titles = all_lines.pop(0)   #removes first row of csv ans stores it in the list titles
-
 class Case:
     def __init__(self, state, year, leading_site, sex, count):
         self.state = state
