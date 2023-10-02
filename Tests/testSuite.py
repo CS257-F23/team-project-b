@@ -116,7 +116,7 @@ class testFunctions(unittest.TestCase):
             code = enter_CLI_command_return_code()
             output, err = code.communicate()
             code.terminate()
-            return output.strip()[-103:-2]
+            return output.strip()
         def execute_test():
             self.assertEqual(run_CLI_command_return_result(), expected_result, failed_test_message)
         execute_test()
@@ -148,7 +148,7 @@ class testFunctions(unittest.TestCase):
             code = enter_CLI_command_return_code()
             output, err = code.communicate()
             code.terminate()
-            return output.strip()[-103:-2]
+            return output.strip()
         def execute_test():
             self.assertEqual(run_CLI_command_return_result(), expected_result, failed_test_message)
         execute_test()
