@@ -1,7 +1,24 @@
 import unittest
+#from watch import *
+import sys
+#sys.path.append("/../Data")
+sys.path.insert(0,"../ProductionCode")
+#referenced https://docs.python.org/3/tutorial/modules.html for this functionality
+
 from Data import *
 from ProductionCode.watch import *
+import subprocess
 
+def run_input_from_command_line(input_list):
+    """Runs a list of strings on the terminal and returns output. Takes a list of strings, which will be ran in a virtual terminal.
+    Based off TDD Lab."""
+    code = subprocess.Popen(input,
+                            stdin=subprocess.PIPE, stdout=subprocess.PIPE, 
+                            encoding='utf8')
+    output, err = code.communicate()
+    code.terminate()
+    return output.strip()
+    
 
 class testFunctions(unittest.TestCase):
     def test_make_lines(self):
@@ -51,22 +68,14 @@ class testFunctions(unittest.TestCase):
         for cases in range(len(output_from_tested_function)):
             self.assertEqual(int(cases.get_year), 2002,
                              "Failed to display the corresponding data for specified year")
-            
+           
     def test_get_data_from_year_INVALID(self):
         """ Tests the get_data_from_year function with an INVALID year. Input: 3030 Expected output: [] (an empty list)"""
         data_file = CancerDataset("Data/dummy_file.csv")
         example_year = 3030
         output_from_get_data_from_year = data_file.get_data_from_year(example_year)
         self.assertEqual(output_from_get_data_from_year, [])
-        
-
-# First try at test (Most Likely will DELETE)
-    '''def test_get_data_by_site(self):
-        "Test to make sure that the case details of all cases from the specified leading site are displayed"
-        example_site = 'mouth'
-        output = CancerDataset.get_data_by_site(example_site)
-        self.assertEqual(output.get_leading_site, example_site,
-                         "Failed to display the corresponding data for specified leading site")'''
+       
 
     def test_get_data_by_site(self):
         """ Tests the get_data_by_site function with a VALID cancer site. Input: mouth Expected output: all the cases where the leading cancer site is mouth """
@@ -76,13 +85,18 @@ class testFunctions(unittest.TestCase):
         for cases in range(len(output_from_tested_function)):
             self.assertEqual(cases.get_leading_site, example_site,
                              "Failed to display the corresponding data for specified leading site")
-            
+           
     def test_get_data_by_site_INVALID(self):
         """ Tests the get_data_by_site function with a INVALID cancer site. Input: toe Expected output: [] (an empty list)"""
         data_file = CancerDataset("Data/dummy_file.csv")
         example_site = 'toe'
         output_from_get_data_by_site = data_file.get_data_by_site(example_site)
         self.assertEqual(output_from_get_data_by_site, [])
+
+    def test_CLI_year_no_input(self):
+        test_input = ["python3", "ProductionCode/watch.py", "--year"]
+        output = run_input_from_command_line(test_input)
+        self.assertEqual(output, "usage: watch.py [-h] [--year {2000,2001,2002,2003,2004,2005,2006,2007,2008,2009,2010,2011,2012,2013,2014,2015,2016,2017,2018,2019,2020}]\n[--site SITE]\nwatch.py: error: argument --year: expected one argument")
 
 
 if __name__ == '__main__':
