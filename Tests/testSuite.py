@@ -105,6 +105,22 @@ class testFunctions(unittest.TestCase):
             self.assertEqual(run_CLI_command_return_result(), expected_result, failed_test_message)
         execute_test()
     
+    def test_main_year_edge(self):
+        """Test for main() working for edge case command line arguments for an invalid year (3007)."""
+        CLI_command_as_list = ['python3', 'ProductionCode/watch.py', "--year", "3007"]
+        expected_result = ''
+        failed_test_message = 'Failed to return empty string for --year edge case.'
+        def enter_CLI_command_return_code():
+            return subprocess.Popen(CLI_command_as_list, stdin=subprocess.PIPE, stdout=subprocess.PIPE, encoding='utf8')
+        def run_CLI_command_return_result():
+            code = enter_CLI_command_return_code()
+            output, err = code.communicate()
+            code.terminate()
+            return output.strip()[-103:-2]
+        def execute_test():
+            self.assertEqual(run_CLI_command_return_result(), expected_result, failed_test_message)
+        execute_test()
+    
     def test_main_site(self):
         """Test for main() working for valid command line arguments for the site 'Liver' (single quotes included). Due to the expected result's ENORMOUS size, only the last returned element is used to compare."""
         CLI_command_as_list = ['python3', 'ProductionCode/watch.py', "--site", "Liver"] # python3 ProductionCode/watch.py --site Liver
@@ -117,6 +133,22 @@ class testFunctions(unittest.TestCase):
             output, err = code.communicate()
             code.terminate()
             return output.strip()[-71:-2]
+        def execute_test():
+            self.assertEqual(run_CLI_command_return_result(), expected_result, failed_test_message)
+        execute_test()
+    
+    def test_main_site_edge(self):
+        """Test for main() working for edge case command line arguments for an invalid site (Planet)."""
+        CLI_command_as_list = ['python3', 'ProductionCode/watch.py', "--site", "Planet"]
+        expected_result = ''
+        failed_test_message = 'Failed to return empty string for --site edge case.'
+        def enter_CLI_command_return_code():
+            return subprocess.Popen(CLI_command_as_list, stdin=subprocess.PIPE, stdout=subprocess.PIPE, encoding='utf8')
+        def run_CLI_command_return_result():
+            code = enter_CLI_command_return_code()
+            output, err = code.communicate()
+            code.terminate()
+            return output.strip()[-103:-2]
         def execute_test():
             self.assertEqual(run_CLI_command_return_result(), expected_result, failed_test_message)
         execute_test()
