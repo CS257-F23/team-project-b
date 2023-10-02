@@ -56,8 +56,8 @@ class testFunctions(unittest.TestCase):
         """ Tests the get_data_from_year function with an INVALID year. Input: 3030 Expected output: [] (an empty list)"""
         data_file = CancerDataset("Data/dummy_file.csv")
         example_year = 3030
-        output_from_tested_funtion = data_file.get_data_from_year(example_year)
-        self.assertEqual(output_from_tested_funtion, [])
+        output_from_get_data_from_year = data_file.get_data_from_year(example_year)
+        self.assertEqual(output_from_get_data_from_year, [])
         
 
 # First try at test (Most Likely will DELETE)
@@ -76,6 +76,13 @@ class testFunctions(unittest.TestCase):
         for cases in range(len(output_from_tested_function)):
             self.assertEqual(cases.get_leading_site, example_site,
                              "Failed to display the corresponding data for specified leading site")
+            
+    def test_get_data_by_site_INVALID(self):
+        """ Tests the get_data_by_site function with a INVALID cancer site. Input: toe Expected output: [] (an empty list)"""
+        data_file = CancerDataset("Data/dummy_file.csv")
+        example_site = 'toe'
+        output_from_get_data_by_site = data_file.get_data_by_site(example_site)
+        self.assertEqual(output_from_get_data_by_site, [])
 
 
 if __name__ == '__main__':
