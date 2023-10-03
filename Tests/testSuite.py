@@ -1,4 +1,5 @@
-"""A collection of tests for the watch.py program. To run, navigate to /team-project-b/ and send 'python3 -m unittest discover Tests/' """
+"""
+A collection of tests for the watch.py program. To run, navigate to /team-project-b/ and send 'python3 -m unittest discover Tests/' """
 import unittest
 from Data import *
 from ProductionCode.watch import *

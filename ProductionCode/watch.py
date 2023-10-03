@@ -78,6 +78,7 @@ class CancerDataset:
     # Note: Merge the below get_data_* methods into a single function to obey the Single Purpose Principle
     
     def get_data_from_year(self,year): 
+        """given a valid input year, returns a list of all cases associated with that year"""
         data_for_year = []
         for i in range(len(self.list_of_cases)): #for each Case
             if int(self.list_of_cases[i].get_year()) == year: #need to convert to an int first, since the year is stored as a string
@@ -85,6 +86,7 @@ class CancerDataset:
         return data_for_year
     
     def get_data_by_site(self,leading_site): 
+        """given a valid input cancer site, returns a list of all cases associated with that site"""
         data_for_site = []
         for i in range(len(self.list_of_cases)): #for each Case
             if self.list_of_cases[i].get_leading_site() == leading_site:
