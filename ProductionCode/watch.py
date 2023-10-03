@@ -63,7 +63,7 @@ class CancerDataset:
         titles, raw_data = self.convert_dataset_into_titles_and_list_of_cases()
         for i in range(len(raw_data)):
             line_entry = split_data_string_to_list(raw_data[i])
-            case_entry = Case(line_entry[2],line_entry[4],line_entry[5],line_entry[7],line_entry[9])
+            case_entry = Case(line_entry[1],line_entry[4],line_entry[5],line_entry[7],line_entry[9])
             self.list_of_cases.append(case_entry)
 
     # Note: Merge the below get_data_* methods into a single function to obey the Single Purpose Principle
