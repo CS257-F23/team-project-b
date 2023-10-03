@@ -1,3 +1,4 @@
+"""A collection of tests for the watch.py program. To run, navigate to /team-project-b/ and 'send python3 -m unittest discover Tests/' """
 import unittest
 from Data import *
 from ProductionCode.watch import *
@@ -48,13 +49,6 @@ class testFunctions(unittest.TestCase):
         example = ""
         output = split_data_string_to_list(example)
         self.assertEqual(output, [""], "Failed to return empty list for no input.")
-
-# First try at test (Most Likely will DELETE)
-    '''def test_get_data_from_year(self): 
-        """Test to make sure that the case details of all cases from the specified year are displayed"""
-        output = CancerDataset.get_data_from_year(2002)
-        self.assertEqual(output.get_year, 2002,
-                         "Failed to display the corresponding data for specified year")'''
 
     def test_get_data_from_year(self):
         """ Tests the get_data_from_year function with a VALID year. Input: 2002 Expected output: all the cases corresponding to the year 2002"""

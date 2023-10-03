@@ -1,4 +1,10 @@
 """
+A simple command line program that provides the user with data from the cdc US cancer database from 2000-2020. 
+To use, send "python3 /ProductionCode/watch.py --(argument) --(data of interest)
+Currently, two arguments are supported:
+--year (year between 2000-2020)
+--site '(site)'
+*must choose from list of availible sites. to see which are availible, try using the -h command.
 Important links:
 https://docs.python.org/3/library/csv.html
 https://anyaevostinar.github.io/classes/257-f23/project-command-line
@@ -14,6 +20,8 @@ if __name__ == "__main__":
     args = parser.parse_args()
 
 class Case:
+    """An object that represents an individual line of the data file. Contains the total number of individuals with cancer for 
+    each unique combination of state,year,cancer-site, and gender."""
     def __init__(self, state, year, leading_site, sex, count):
         self.state = state
         self.year = year
@@ -46,6 +54,7 @@ def split_data_string_to_list(string_with_commas):
         return split_entry
 
 class CancerDataset: 
+    """A class that contains each case (line) from the full data set. """
     def __init__(self, dataset_name):
         self.file = dataset_name # the .csv dataset file being accessed for the data
         self.list_of_cases = [] # list of cases, each of which is stored as a Case instance
@@ -81,9 +90,6 @@ class CancerDataset:
             if self.list_of_cases[i].get_leading_site() == leading_site:
                 data_for_site.append(self.list_of_cases[i].get_details())
         return data_for_site
-
-# example code
-# case_example = Case("us", 2002, "mouth", "male", 2003)
 
 file = 'Data/clean_incidence.csv' #for now, just put a copy of dummy file in production code. Needs to be fixed!
 dataset = CancerDataset(file) # now has a .list_of_cases = []
