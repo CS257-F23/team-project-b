@@ -1,0 +1,50 @@
+<html>
+    <head>
+        <title>{{ title }}</title>
+    </head>
+    <body>
+        <h1>Greetings!</h1>
+        <p>This is my (Cuong's) homepage for my group's Cancer Incidences dataset navigation software: the W. A. T. C. H. - Web Analysis Tool (of) Cancer History.</p>
+        <p>The purpose of this home page is to guide you in the journey of further discovering the intricacies of out group's dataset. Specifically, this  is about the number of occurences of cancer within the U.S.</p>
+        <p>The data is categorized by:
+            <ul>
+                <li>The [State] it happened in</li>
+                <li>The [Year] it happened (we only have the cases from the year 2000 to 2021)</li>
+                <li>The leading [Site] on the body where it happened</li>
+                <li>The [Sex] of the person unfortunately inflicted with cancer</li>
+                <li>Plus, a [Count] of occurences of each unique combination of the above factors.</li>
+            </ul>
+        </p>
+        <p>Currently, our team has created some basic code to look up the counts of combinations, filtered based on the [Year] and [Site] provided. To ss them, please add ONLY ONE of the following to the URL of the homepage:
+            <ul>
+                <li>To filter by [Year], add the following into the URL: /year/[year_argument]</li>
+                <li>To filter by [Site], add the following into the URL: /site/[site_argument]</li>
+            </ul>
+        </p>
+        <p>With each [*_argument] being replaced with a year/site that you are interested in from the following list:</p>
+        <p>Years:
+            <ul>
+                {% for year in (range(2000,2021)):%}
+                <li>{{year}}</li>
+                {% endfor %}
+            </ul>
+        </p>
+        <p>Sites:
+            <ul>
+                {% for site in (['Brain and Other Nervous System', 'Breast', 'Cervix Uteri', 'Colon and Rectum', 'Corpus Uteri', 'Esophagus', 'Gallbladder', 'Kidney and Renal Pelvis', 'Larynx', 'Leukemias', 'Liver', 'Lung and Bronchus', 'Melanoma of the Skin', 'Myeloma', 'Non-Hodgkin Lymphoma', 'Oral Cavity and Pharynx', 'Ovary', 'Pancreas', 'Prostate', 'Stomach', 'Thyroid', 'Urinary Bladder invasive and in situ']) :%}
+                <li>{{site}}</li>
+                {% endfor %}
+            </ul>
+        </p>
+        <p>Examples:
+            <ul>
+                <li>
+                    /year/2007 = Get all cases occurring in the year 2007
+                </li>
+                <li>
+                    /site/Liver = Get all Liver cancer cases
+                </li>
+            </ul>
+        </p>
+    </body>
+</html>
