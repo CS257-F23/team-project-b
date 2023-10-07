@@ -95,10 +95,13 @@ def parse_commandline_args():
     if args.year !=None:
         return (dataset.get_data_from_year(args.year))
 
+def make_dataset_instance():
+    file = 'Data/clean_incidence.csv' #for now, just put a copy of dummy file in production code. Needs to be fixed!
+    dataset = CancerDataset(file) # now has a .list_of_cases = []
+    dataset.fill_list_of_cases() # now has a .list_of_cases = the whole file converted to list of Case instances
+    return dataset
 
-file = 'Data/clean_incidence.csv' #for now, just put a copy of dummy file in production code. Needs to be fixed!
-dataset = CancerDataset(file) # now has a .list_of_cases = []
-dataset.fill_list_of_cases() # now has a .list_of_cases = the whole file converted to list of Case instances
+dataset = make_dataset_instance() #make a dataset file for all the functions to call.
 
 def main(): 
     print(parse_commandline_args())
