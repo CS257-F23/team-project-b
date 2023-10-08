@@ -86,7 +86,15 @@ class CancerDataset:
         for i in range(len(self.list_of_cases)): #for each Case
             if self.list_of_cases[i].get_leading_site() == leading_site:
                 data_for_site.append(self.list_of_cases[i].get_details())
-        return data_for_site    
+        return data_for_site
+
+    def get_total_for_site(self,leading_site):
+        """calculates and returns the total number of cancer incidinces for a given site between the years 2000-2020"""
+        total_cases = 0
+        for case in self.list_of_cases:
+            if case.get_leading_site() == leading_site:
+                total_cases += int(case.get_count())  
+        return total_cases
 
 def parse_commandline_args():
     """checks to see what arguments the user has given, and displays it."""
@@ -97,6 +105,7 @@ def parse_commandline_args():
 
 def make_primary_dataset_instance():
     """Creates an instance of the primary dataset file. (primary = initial dataset from CDC; not supplementary, like mortality, race etc)"""
+    #file = 'Data/dummy_file.csv'
     file = 'Data/clean_incidence.csv' #for now, just put a copy of dummy file in production code. Needs to be fixed!
     dataset = CancerDataset(file) # now has a .list_of_cases = []
     dataset.fill_list_of_cases() # now has a .list_of_cases = the whole file converted to list of Case instances
