@@ -106,6 +106,7 @@ class CancerDataset:
         return total_cases
 
     def get_top_ten_by_year_and_site(self, year, leading_site):
+        """Creates and returns a top 10 list of the states with the most counts for the leading cancer site and year specified by the user"""
         top_10_list_unsorted = []
         for case in range(len(self.list_of_cases)):
             if ((int(self.list_of_cases[case].get_year()) == int(year)) and (self.list_of_cases[case].get_leading_site() == leading_site)):
@@ -113,6 +114,13 @@ class CancerDataset:
                     int(self.list_of_cases[case].get_count()), self.list_of_cases[case].get_state()))
         sorted_top_10_list = sorted(top_10_list_unsorted, reverse=True)
         return sorted_top_10_list[:10]
+
+    def get_total_for_year_and_site(self, year, leading_site):
+        total_cases = 0
+        for case in range(len(self.list_of_cases)):
+            if ((int(self.list_of_cases[case].get_year()) == int(year)) and (self.list_of_cases[case].get_leading_site() == leading_site)):
+                total_cases += int(self.list_of_cases[case].get_count())
+        return total_cases
 
 
 def parse_commandline_args():
