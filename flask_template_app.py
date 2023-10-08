@@ -27,7 +27,7 @@ def get_site_data(site_argument):
     """From the URL input, run the imported production method to fetch the details in the form of a list, then make it presentable. For unavailable URL, return the error message."""
     filtered_data = (dataset.get_data_by_site(site_argument))
     if filtered_data == []: return render_template("error_message.html", title = "Error!", message = "The leading site that you have entered is invalid.")
-    else: return render_template("subset_display.html", title = "Site subset", field = "leading site", data = site_argument, subset = filtered_data)
+    else: return render_template("subset_display.html", title = "Site subset", field = "leading site", data = site_argument, subset = filtered_data, total_count = dataset.get_total_for_site(site_argument))
 
 @app.errorhandler(404)
 def page_not_found(e):
