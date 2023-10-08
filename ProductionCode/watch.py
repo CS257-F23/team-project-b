@@ -98,7 +98,7 @@ class CancerDataset:
         return data_for_site
 
     def get_total_for_site(self, leading_site):
-        """calculates and returns the total number of cancer incidinces for a given site between the years 2000-2020"""
+        """calculates and returns the total number of cancer incidences for a given site between the years 2000-2020"""
         total_cases = 0
         for case in self.list_of_cases:
             if case.get_leading_site() == leading_site:
@@ -116,6 +116,7 @@ class CancerDataset:
         return sorted_top_10_list[:10]
 
     def get_total_for_year_and_site(self, year, leading_site):
+        "Calculates and returns the total number of cancer incidences for the leading cancer site and year specified by the user"
         total_cases = 0
         for case in range(len(self.list_of_cases)):
             if ((int(self.list_of_cases[case].get_year()) == int(year)) and (self.list_of_cases[case].get_leading_site() == leading_site)):
@@ -147,6 +148,7 @@ dataset = make_primary_dataset_instance()
 
 
 def main():
+    print(dataset.get_top_ten_by_year_and_site(2000, "Liver"))
     print(parse_commandline_args())
 
 
