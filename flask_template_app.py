@@ -20,7 +20,7 @@ def get_year_data(year_argument):
     """From the URL input, run the imported production method to fetch the details in the form of a list, then make it presentable. For unavailable URL, return the error message."""
     filtered_data = dataset.get_data_from_year(int(year_argument))
     if filtered_data == []: return render_template("error_message.html", title = "Error!", message = "The year that you have entered is invalid.")
-    else: return render_template("subset_display.html", title = "Year subset", field = "year", data = year_argument, subset = filtered_data)
+    else: return render_template("subset_display.html", title = "Year subset", field = "year", data = year_argument, subset = filtered_data, total_count = dataset.get_total_for_year(year_argument))
 
 @app.route('/site/<site_argument>', strict_slashes=False)
 def get_site_data(site_argument):
