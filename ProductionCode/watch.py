@@ -106,14 +106,12 @@ class CancerDataset:
         return total_cases
 
     def get_top_ten_by_year_and_site(self, year, leading_site):
-        top_10_list = []
-        for i in range(len(self.list_of_cases)):
-            if ((int(self.list_of_cases[i].get_year()) == int(year)) and (self.list_of_cases[i].get_leading_site() == leading_site)):
-                '''top_10_list.append(
-                    int(self.list_of_cases[i].get_count()), self.list_of_cases[i].get_state())'''
-                top_10_list.append((
-                    int(self.list_of_cases[i].get_count()), self.list_of_cases[i].get_state()))
-        sorted_top_10_list = sorted(top_10_list, reverse=True)
+        top_10_list_unsorted = []
+        for case in range(len(self.list_of_cases)):
+            if ((int(self.list_of_cases[case].get_year()) == int(year)) and (self.list_of_cases[case].get_leading_site() == leading_site)):
+                top_10_list_unsorted.append((
+                    int(self.list_of_cases[case].get_count()), self.list_of_cases[case].get_state()))
+        sorted_top_10_list = sorted(top_10_list_unsorted, reverse=True)
         return sorted_top_10_list[:10]
 
 
