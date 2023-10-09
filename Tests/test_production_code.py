@@ -100,22 +100,22 @@ class TestCaseClass(unittest.TestCase):
     dummy_case = Case("Minnesota","2000","Liver","Female","2")
     
     def test_get_details(self): 
-        self.assertEquals(dummy_case.get_details(), "State: Minnesota; Year: 2000; Leading Site: Liver; Sex: Female; Count: 2", "Failed to get details of a Case.")
+        self.assertEqual(dummy_case.get_details(), "State: Minnesota; Year: 2000; Leading Site: Liver; Sex: Female; Count: 2", "Failed to get details of a Case.")
     
     def test_get_state(self): 
-        self.assertEquals(dummy_case.get_state(), "Minnesota", "Failed to get the state of a Case.")
+        self.assertEqual(dummy_case.get_state(), "Minnesota", "Failed to get the state of a Case.")
     
     def test_get_year(self): 
-        self.assertEquals(dummy_case.get_year(), "2000", "Failed to get the year of a Case.")
+        self.assertEqual(dummy_case.get_year(), "2000", "Failed to get the year of a Case.")
     
     def test_get_leading_site(self): 
-        self.assertEquals(dummy_case.get_leading_site(), "Liver", "Failed to get the leading site of a Case.")
+        self.assertEqual(dummy_case.get_leading_site(), "Liver", "Failed to get the leading site of a Case.")
     
     def test_get_sex(self): 
-        self.assertEquals(dummy_case.get_sex(), "Female", "Failed to get the sex of a Case victim.")
+        self.assertEqual(dummy_case.get_sex(), "Female", "Failed to get the sex of a Case victim.")
     
     def test_get_count(self): 
-        self.assertEquals(dummy_case.get_count(), "2", "Failed to get the cou of a Case victim.")
+        self.assertEqual(dummy_case.get_count(), "2", "Failed to get the cou of a Case victim.")
     
     def test_verify_match_user_input_and_normal_input(self):
         """simple test to make sure that the verify match user input works given the and parameter"""
@@ -132,14 +132,22 @@ class TestCaseClass(unittest.TestCase):
 
 class testGreatFilter(unittest.TestCase):
     """Includes tests related to the great filter functionality"""
-    
+    global dataset
+    dataset = CancerDataset("Data/clean_incidence.csv")
 
-    def test_get_total_and_details_normal_value(self):
-        dataset = CancerDataset("Data/clean_incidence.csv")
-        """tests to see if the get total and details works with expected values"""
+    def test_get_total_and_details_normal_value_and(self):
+        """tests to see if the get total and details works with expected values using the 'and' combination"""
         function_output = dataset.get_total_and_details("and",["Alabama","Male","Liver","2000"])
-        expected_output = {'total_count': 122, 'valid input': ['Alabama', 'Male', 'Liver', '2000'], 'invalid input': [], 'case details': ['State: Alabama; Year: 2000; Leading Site: Liver; Sex: Male; Count: 122']}
+        expected_output = {'total count': 122, 'valid input': ['Alabama', 'Male', 'Liver', '2000'], 'invalid input': [], 'case details': ['State: Alabama; Year: 2000; Leading Site: Liver; Sex: Male; Count: 122']}
         self.assertEqual(function_output, expected_output)
+    
+    def test_get_total_and_details_normal_value_or(self):
+        """tests to see if the get total and details works with expected values"""
+        function_output = dataset.get_total_and_details("or",["Alabama","Male","Liver","2000"])
+        print(function_output["total count"], function_output['valid input'], function_output['invalid input'])
+        self.assertEqual(function_output['total count'], 32497716)
+    
+    
 
 
 class testMain(unittest.TestCase):

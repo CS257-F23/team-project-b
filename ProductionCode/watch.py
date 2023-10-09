@@ -211,7 +211,7 @@ class CancerDataset:
         
         # Craft the output to be rendered into the Template
         return {
-            'total_count': total_cases,
+            'total count': total_cases,
             'valid input': sucessfully_matched_data,
             'invalid input': not_matched_data,
             'case details': data_for_site
