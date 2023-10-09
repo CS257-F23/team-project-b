@@ -190,8 +190,7 @@ class CancerDataset:
         not_matched_data = list(target_datas)
         data_for_site = []
         
-        for i in range(len(self.list_of_cases)):  # for each index of a Case in the CancerDataset
-            current_case = self.list_of_cases[i] # the currently considered Case
+        for current_case in self.list_of_cases:  # for each Case in the CancerDataset
             verification_output = current_case.verify_match_user_input(combination_method, target_datas) # the Case is tested for matching the user input
             if verification_output['result']: # the Case passed the matching process
                 # Increase the total [count] of all matched Cases
