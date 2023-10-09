@@ -139,6 +139,7 @@ class testGreatFilter(unittest.TestCase):
         """tests to see if the get total and details works with expected values"""
         function_output = dataset.get_total_and_details("and",["Alabama","Male","Liver","2000"])
         expected_output = {'total_count': 122, 'valid input': ['Alabama', 'Male', 'Liver', '2000'], 'invalid input': [], 'case details': ['State: Alabama; Year: 2000; Leading Site: Liver; Sex: Male; Count: 122']}
+        self.assertEqual(function_output, expected_output)
 
 
 class testMain(unittest.TestCase):
