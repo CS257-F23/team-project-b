@@ -97,19 +97,13 @@ class Case:
                     flags['sex'] = 'matched'
                     output['matched'].append(self.get_sex())
         
-        if self.get_state() == "Colorado" and self.get_year() == '2007' and self.get_leading_site() == "Liver":
-            print (target_datas)
-            print(flags)
-            print(output)
         # Checking if the verification 'result' is True
         if combination_method == 'or' and 'matched' in flags.values(): 
             # if the combination_method is 'or', this Case can be included in the result as long as any of self's field match a targeted data
             output['result'] = True
-            print(f"{output['matched']} are verified for 'or' combination.")
         elif combination_method == 'and' and 'matched' in flags.values() and 'not matched' not in flags.values(): 
             # if the combination_method is 'and', this Case can be included in the result only if there is at least 1 'matched' field (meaning user did ask for information in that field and this Case satisfies it) and the rest are 'untracked' fields (meaning user did not ask for information in that field). 
             output['result'] = True
-            print(f"{output['matched']} are verified for 'and' combination.")
         
         return output
 
