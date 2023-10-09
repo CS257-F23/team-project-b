@@ -31,6 +31,7 @@ class testBasicFunctions(unittest.TestCase):
                          "Failed fetching the expected list and convert it to a list of CSV strings.")
 
 class testStringToList(unittest.TestCase):
+    setUp()
     def test_string_to_list_real_output(self):
         """Tests to make sure that the string to list function works in a real use case. Input a .csv line and output a list of string of the data pieces"""
         example = ",Alabama,1,2000,2000,Breast,26000,Female,F,2964\n"
@@ -45,9 +46,7 @@ class testStringToList(unittest.TestCase):
         self.assertEqual(output, [""], "Failed to return empty list for no input.")
 
 class testGetYearData(unittest.TestCase):
-    global data_file
-    data_file = CancerDataset("Data/dummy_file.csv")
-    
+    setUp()
     def test_get_data_from_year(self):
         """ Tests the get_data_from_year function with a VALID year. Input: 2002 Expected output: The only case in year 2002 in dummy_file."""
         example_year = 2002
@@ -83,9 +82,7 @@ class testGetYearData(unittest.TestCase):
         self.assertEqual(output_from_get_data_by_site, 0)
        
 class testGetSiteData(unittest.TestCase):
-    global data_file
-    data_file = CancerDataset("Data/dummy_file.csv")
-    
+    setUp()
     def test_get_data_by_site(self):
         """ Tests the get_data_by_site function with a VALID cancer site. Input: mouth Expected output: all the cases where the leading cancer site is mouth """
         example_site = 'Myeloma'
@@ -120,9 +117,7 @@ class testGetSiteData(unittest.TestCase):
         self.assertEqual(output_from_get_data_by_site, 0)
 
 class testCounts(unittest.TestCase):
-    global data_file
-    data_file = CancerDataset("Data/dummy_file.csv")
-    
+    setUp()
     def test_get_total_for_year_and_site(self):
         """ Tests the get_total_for_year_and_site function with a valid cancer site and year. Input: Breast and 2000 Expected output: 2964"""
         
@@ -186,9 +181,7 @@ class TestCaseClass(unittest.TestCase):
 
 
 class testGreatFilter(unittest.TestCase):
-    global dataset
-    dataset = CancerDataset("Data/dummy_file.csv")
-    
+    setUp()
     def run_URL_and_assert_total_count(self, combination_method, target_datas, expected_count):
         """Helper function to the various tests for the Great Filter. Accept the supposed user inputs and assertEqual() the resultant total count as they are highly unprobable to repeat with 2 different input."""
         function_output = dataset.get_total_and_details(combination_method, target_datas)
