@@ -57,9 +57,11 @@ class testGetYearData(unittest.TestCase):
         data_file = CancerDataset("Data/dummy_file.csv")
         example_year = 2002
         output_from_tested_function = data_file.get_data_from_year(example_year)
-        for cases in range(len(output_from_tested_function)):
-            self.assertEqual(int(cases.get_year), 2002,
-                             "Failed to display the corresponding data for specified year")
+        expected_output = ['State: New York; Year: 2002; Leading Site: Stomach; Sex: Male; Count: 1088']
+        self.assertEqual(expected_output, output_from_tested_function, "Failed to display the corresponding data for specified year")
+        # for cases in range(len(output_from_tested_function)):
+        #     self.assertEqual(int(cases.get_year()), 2002,
+        #                      "Failed to display the corresponding data for specified year")
            
     def test_get_data_from_year_INVALID(self):
         """ Tests the get_data_from_year function with an INVALID year. Input: 3030 Expected output: [] (an empty list)"""
@@ -122,7 +124,10 @@ class TestCaseClass(unittest.TestCase):
         self.assertEqual(function_output,desired_output)
 
     def test_verify_match_user_input_and_none_matching(self):
-    pass
+        """simple test to make sure that the verify match user input works given the and parameter"""
+        function_output = dummy_case.verify_match_user_input("and",["The U.s.","2222","Whole Body"])
+        desired_output = {'result': False, 'matched': []}
+        self.assertEqual(function_output,desired_output)
 
 class testMain(unittest.TestCase):
     def test_main_year(self):

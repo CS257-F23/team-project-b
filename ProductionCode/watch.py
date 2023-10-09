@@ -247,7 +247,7 @@ def parse_commandline_args():
 def main():
     global dataset
     dataset = CancerDataset("Data/clean_incidence.csv")
-    print(dataset.get_total_for_year_and_site(2000, "Liver")) # Example code for testing
+    # print(dataset.get_total_for_year_and_site(2000, "Liver")) # Example code for testing
     print(parse_commandline_args())
 
 
