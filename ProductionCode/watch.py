@@ -124,6 +124,7 @@ class CancerDataset:
     def __init__(self, dataset_name):
         self.file = dataset_name  # the .csv dataset file being accessed for the data
         self.list_of_cases = []  # list of cases, each of which is stored as a Case instance
+        self.fill_list_of_cases() # fills the list with cases
 
     def convert_dataset_into_titles_and_list_of_cases(self):
         """opens the data file, and reads through each line of the file, outputting each to a list"""
@@ -216,8 +217,8 @@ class CancerDataset:
             'case details': data_for_site
         }
         
-
-    def get_top_ten_by_year_and_site(self, year, leading_site):
+    #Not ready for submission, but almost
+    '''def get_top_ten_by_year_and_site(self, year, leading_site):
         """Creates and returns a top 10 list of the states with the most counts for the leading cancer site and year specified by the user"""
         top_10_list_unsorted = []
         for case in range(len(self.list_of_cases)):
@@ -225,7 +226,7 @@ class CancerDataset:
                 top_10_list_unsorted.append((
                     int(self.list_of_cases[case].get_count()), self.list_of_cases[case].get_state()))
         sorted_top_10_list = sorted(top_10_list_unsorted, reverse=True)
-        return sorted_top_10_list[:10]
+        return sorted_top_10_list[:10]'''
 
     def get_total_for_year_and_site(self, year, leading_site):
         "Calculates and returns the total number of cancer incidences for the leading cancer site and year specified by the user"
@@ -243,22 +244,10 @@ def parse_commandline_args():
     if args.year != None:
         return (dataset.get_data_from_year(args.year))
 
-def make_primary_dataset_instance():
-    """Creates an instance of the primary dataset file. (primary = initial dataset from CDC; not supplementary, like mortality, race etc)"""
-    #file = 'Data/dummy_file.csv' #left around for testing
-    file = 'Data/clean_incidence.csv'
-    dataset = CancerDataset(file)  # now has a .list_of_cases = []
-    # now has a .list_of_cases = the whole file converted to list of Case instances
-    dataset.fill_list_of_cases()
-    return dataset
-
-
-# make a dataset file for all the functions to call.
-dataset = make_primary_dataset_instance()
-
-
 def main():
-    # print(dataset.get_top_ten_by_year_and_site(2000, "Liver")) # Example code for testing
+    global dataset
+    dataset = CancerDataset("Data/clean_incidence.csv")
+    print(dataset.get_total_for_year_and_site(2000, "Liver")) # Example code for testing
     print(parse_commandline_args())
 
 

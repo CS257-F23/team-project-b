@@ -84,6 +84,45 @@ class testGetSiteData(unittest.TestCase):
         example_site = 'toe'
         output_from_get_data_by_site = data_file.get_data_by_site(example_site)
         self.assertEqual(output_from_get_data_by_site, [])
+class testCounts(unittest.TestCase):
+    def test_get_total_for_year_and_site(self):
+        data_file = CancerDataset("Data/clean_incidence.csv")
+        test_site = "Liver"
+        test_year = 2000
+        expected_result = 11780
+        output_from_get_total_for_year_and_site = data_file.get_total_for_year_and_site(test_year, test_site)
+        self.assertEqual(output_from_get_total_for_year_and_site, expected_result)
+
+class TestCaseClass(unittest.TestCase):
+    global dummy_case
+    dummy_case = Case("Minnesota","2000","Liver","Female","2")
+    
+    def test_get_details(self): 
+        self.assertEquals(dummy_case.get_details(), "State: Minnesota; Year: 2000; Leading Site: Liver; Sex: Female; Count: 2", "Failed to get details of a Case.")
+    
+    def test_get_state(self): 
+        self.assertEquals(dummy_case.get_state(), "Minnesota", "Failed to get the state of a Case.")
+    
+    def test_get_year(self): 
+        self.assertEquals(dummy_case.get_year(), "2000", "Failed to get the year of a Case.")
+    
+    def test_get_leading_site(self): 
+        self.assertEquals(dummy_case.get_leading_site(), "Liver", "Failed to get the leading site of a Case.")
+    
+    def test_get_sex(self): 
+        self.assertEquals(dummy_case.get_sex(), "Female", "Failed to get the sex of a Case victim.")
+    
+    def test_get_count(self): 
+        self.assertEquals(dummy_case.get_count(), "2", "Failed to get the cou of a Case victim.")
+    
+    def test_verify_match_user_input_and_normal_input(self):
+        """simple test to make sure that the verify match user input works given the and parameter"""
+        function_output = dummy_case.verify_match_user_input("and",["Minnesota","2000","Liver"])
+        desired_output = {'result': True, 'matched': ["Minnesota","2000","Liver"]}
+        self.assertEqual(function_output,desired_output)
+
+    def test_verify_match_user_input_and_none_matching(self):
+    pass
 
 class testMain(unittest.TestCase):
     def test_main_year(self):

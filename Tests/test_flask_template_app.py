@@ -8,7 +8,7 @@ class TestLoadData(unittest.TestCase):
     def test_load_data(self):
         """Test that load_data has created a global variable"""
         self.assertIsNotNone(dataset)
-        
+
     
 class TestRoutes(unittest.TestCase):
     """Helper function to reduce duplicated code. It runs the route provided and return the data of the resultant webpage."""
@@ -16,6 +16,7 @@ class TestRoutes(unittest.TestCase):
         self.app = app.test_client()
         response = self.app.get(route, follow_redirects=True)
         return response.data
+    
 
 class TestHomePage(TestRoutes):
     def test_home_page_route(self):
@@ -60,6 +61,7 @@ class TestYearDisplayPage(TestRoutes):
         expected_portion = b"undo all changes"
         failure_response = "Failed to fetch the error page correctly."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)
+        
 
 class TestSiteDisplayPage(TestRoutes):
     def test_get_site_data_route(self):
@@ -90,6 +92,7 @@ class TestSiteDisplayPage(TestRoutes):
         failure_response = "Failed to fetch the error page correctly."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)
 
+    
 if __name__ == '__main__':
     load_data()
     unittest.main()
