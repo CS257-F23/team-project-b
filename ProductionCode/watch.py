@@ -73,37 +73,43 @@ class Case:
             'matched': []
         }
         
-        for target_data in target_datas: 
+        for current_target_data in target_datas: 
             # If the target data is in one of the possible fields (state, year, etc.), the field itself is considered to be tracked but 'not matched'. This is used only for the 'and' combination_method
             # If self's corresponding field is a target data, the field and the target data is considered to be 'matched'
-            if target_data in self.possible_states:
+            if current_target_data in self.possible_states:
                 flags['state'] = 'not matched'
-                if self.get_state() in target_data: 
+                if self.get_state() in target_datas: 
                     flags['state'] = 'matched'
                     output['matched'].append(self.get_state())
-            elif target_data in self.possible_years:
+            elif current_target_data in self.possible_years:
                 flags['year'] = 'not matched'
-                if self.get_year() in target_data: 
+                if self.get_year() in target_datas: 
                     flags['year'] = 'matched'
                     output['matched'].append(self.get_year())
-            elif target_data in self.possible_leading_sites:
+            elif current_target_data in self.possible_leading_sites:
                 flags['leading_site'] = 'not matched'
-                if self.get_leading_site() in target_data: 
+                if self.get_leading_site() in target_datas: 
                     flags['leading_site'] = 'matched'
                     output['matched'].append(self.get_leading_site())
-            elif target_data in self.possible_sexes:
+            elif current_target_data in self.possible_sexes:
                 flags['sex'] = 'not matched'
-                if self.get_sex() in target_data: 
+                if self.get_sex() in target_datas: 
                     flags['sex'] = 'matched'
                     output['matched'].append(self.get_sex())
         
+        if self.get_state() == "Colorado" and self.get_year() == '2007' and self.get_leading_site() == "Liver":
+            print (target_datas)
+            print(flags)
+            print(output)
         # Checking if the verification 'result' is True
         if combination_method == 'or' and 'matched' in flags.values(): 
             # if the combination_method is 'or', this Case can be included in the result as long as any of self's field match a targeted data
             output['result'] = True
+            print(f"{output['matched']} are verified for 'or' combination.")
         elif combination_method == 'and' and 'matched' in flags.values() and 'not matched' not in flags.values(): 
             # if the combination_method is 'and', this Case can be included in the result only if there is at least 1 'matched' field (meaning user did ask for information in that field and this Case satisfies it) and the rest are 'untracked' fields (meaning user did not ask for information in that field). 
             output['result'] = True
+            print(f"{output['matched']} are verified for 'and' combination.")
         
         return output
 
@@ -189,7 +195,6 @@ class CancerDataset:
         sucessfully_matched_data = []
         not_matched_data = list(target_datas)
         data_for_site = []
-        print (target_datas)
         
         for i in range(len(self.list_of_cases)):  # for each index of a Case in the CancerDataset
             current_case = self.list_of_cases[i] # the currently considered Case

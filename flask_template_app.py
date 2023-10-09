@@ -14,7 +14,6 @@ def parse_URL_string_to_list(URL_string_input):
     separated_target_data = proper_whitespace_string.split(",")
     list_of_target_data = list(separated_target_data)
     striped_list_of_target_data = [data.strip() for data in list_of_target_data]
-    
     return striped_list_of_target_data
 
 app = Flask(__name__)
