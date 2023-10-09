@@ -90,29 +90,29 @@ class TestSiteDisplayPage(LoadData):
 class TestGreatFilterDisplayPage(LoadData):
     load_data()
     def test_get_site_data_route(self):
-        """Test that the site subset display page appears as expected in the normal case and has the correct content."""
-        url = '/site/Liver/'
-        expected_portion = b"Leading Site: Liver"
+        """Test that the info display page appears as expected in the normal case and has the correct content."""
+        url = '/and/Liver/'
+        expected_portion = b"Greetings"
         failure_response = "Failed to fetch data for the leading site 'Liver' correctly."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)
         
-    def test_get_site_data_route_edge_start(self):
-        """Test that the site subset display page appears as expected in a working edge case at the starting end of the possible input and has the correct content."""
-        url = '/site/Brain and Other Nervous System/'
-        expected_portion = b"Leading Site: Brain and Other Nervous System"
+    def test_get_site_data_route_edge_one(self):
+        """Test that the info display page appears as expected in a working edge case at only 1 input."""
+        url = '/or/Brain and Other Nervous System/'
+        expected_portion = b"Greetings"
         failure_response = "Failed to fetch data for the edge case leading site 'Brain and Other Nervous System' correctly."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)
     
-    def test_get_site_data_route_edge_end(self):
-        """Test that the site subset display page appears as expected in a working edge case at the closing end of the possible input and has the correct content."""
-        url = '/site/Urinary Bladder invasive and in situ/'
-        expected_portion = b"Leading Site: Urinary Bladder invasive and in situ"
+    def test_get_site_data_route_edge_all(self):
+        """Test that the site subset display page appears as expected in a working edge case at input that output all of the full dataset."""
+        url = '/or/Male,Female/'
+        expected_portion = b"Greetings"
         failure_response = "Failed to fetch data for the edge case leading site 'Urinary Bladder invasive and in situ' correctly."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)        
     
     def test_get_site_data_route_edge_fail(self):
         """Test that the error page appears as expected when entering an unavailable site URL and has the correct content."""
-        url = '/site/corpse/'
+        url = '/and/'
         expected_portion = b"undo all changes"
         failure_response = "Failed to fetch the error page correctly."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)
