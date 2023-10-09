@@ -86,6 +86,7 @@ class testGetSiteData(unittest.TestCase):
         example_site = 'toe'
         output_from_get_data_by_site = data_file.get_data_by_site(example_site)
         self.assertEqual(output_from_get_data_by_site, [])
+
 class testCounts(unittest.TestCase):
     def test_get_total_for_year_and_site(self):
         data_file = CancerDataset("Data/clean_incidence.csv")

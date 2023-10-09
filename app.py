@@ -40,14 +40,14 @@ def get_site_data(site_argument):
 @app.route('/<combination_method>/<target_datas>', strict_slashes=False)
 def get_filtered_data(combination_method, target_datas):
     """From the URL input, run the imported production method to fetch the details in the form of a dictionary consisting of: 
-        - 'total_count': The total [count] of all matched Cases
+        - 'total count': The total [count] of all matched Cases
         - 'valid input': Which target_data has found matched Cases
         - 'invalid input': Which target_data has NOT found matched Cases
         - 'case details': Listing out the details of all matched Cases
     For unavailable URL, return the error message."""
     filtered_data = dataset.get_total_and_details(combination_method, parse_URL_string_to_list(target_datas))
-    if filtered_data["total_count"] == 0: return render_template("error_message.html", title = "Error!", message = "The input that you have entered has no matching cases.")
-    else: return render_template("information_display.html", title = "Site subset", total_count = filtered_data['total_count'], valid_input = filtered_data['valid input'], invalid_input = filtered_data['invalid input'], subset = filtered_data['case details'])
+    if filtered_data["total count"] == 0: return render_template("error_message.html", title = "Error!", message = "The input that you have entered has no matching cases.")
+    else: return render_template("information_display.html", title = "Site subset", total_count = filtered_data['total count'], valid_input = filtered_data['valid input'], invalid_input = filtered_data['invalid input'], subset = filtered_data['case details'])
     
 @app.errorhandler(404)
 def page_not_found(e):

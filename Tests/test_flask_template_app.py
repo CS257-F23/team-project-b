@@ -10,8 +10,6 @@ class LoadData(unittest.TestCase):
         self.app = app.test_client()
         response = self.app.get(route, follow_redirects=True)
         return response.data
-    
-    
 
 class TestHomePage(LoadData):
     load_data()
@@ -57,8 +55,7 @@ class TestYearDisplayPage(LoadData):
         url = '/year/1248/'
         expected_portion = b"undo all changes"
         failure_response = "Failed to fetch the error page correctly."
-        self.assertIn(expected_portion, self.get_route_data(url), failure_response)
-        
+        self.assertIn(expected_portion, self.get_route_data(url), failure_response) 
 
 class TestSiteDisplayPage(LoadData):
     load_data()
@@ -90,6 +87,35 @@ class TestSiteDisplayPage(LoadData):
         failure_response = "Failed to fetch the error page correctly."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)
 
+class TestGreatFilterDisplayPage(LoadData):
+    load_data()
+    def test_get_site_data_route(self):
+        """Test that the site subset display page appears as expected in the normal case and has the correct content."""
+        url = '/site/Liver/'
+        expected_portion = b"Leading Site: Liver"
+        failure_response = "Failed to fetch data for the leading site 'Liver' correctly."
+        self.assertIn(expected_portion, self.get_route_data(url), failure_response)
+        
+    def test_get_site_data_route_edge_start(self):
+        """Test that the site subset display page appears as expected in a working edge case at the starting end of the possible input and has the correct content."""
+        url = '/site/Brain and Other Nervous System/'
+        expected_portion = b"Leading Site: Brain and Other Nervous System"
+        failure_response = "Failed to fetch data for the edge case leading site 'Brain and Other Nervous System' correctly."
+        self.assertIn(expected_portion, self.get_route_data(url), failure_response)
+    
+    def test_get_site_data_route_edge_end(self):
+        """Test that the site subset display page appears as expected in a working edge case at the closing end of the possible input and has the correct content."""
+        url = '/site/Urinary Bladder invasive and in situ/'
+        expected_portion = b"Leading Site: Urinary Bladder invasive and in situ"
+        failure_response = "Failed to fetch data for the edge case leading site 'Urinary Bladder invasive and in situ' correctly."
+        self.assertIn(expected_portion, self.get_route_data(url), failure_response)        
+    
+    def test_get_site_data_route_edge_fail(self):
+        """Test that the error page appears as expected when entering an unavailable site URL and has the correct content."""
+        url = '/site/corpse/'
+        expected_portion = b"undo all changes"
+        failure_response = "Failed to fetch the error page correctly."
+        self.assertIn(expected_portion, self.get_route_data(url), failure_response)
     
 if __name__ == '__main__':
     unittest.main()
