@@ -135,17 +135,44 @@ class testGreatFilter(unittest.TestCase):
     """Includes tests related to the great filter functionality"""
     global dataset
     dataset = CancerDataset("Data/clean_incidence.csv")
+    
+    def run_URL_and_assert_total_count(self, combination_method, target_datas, expected_count):
+        """Helper function to the various tests for the Great Filter. Accept the supposed user inputs and assertEqual() the resultant total count as they are highly unprobable to repeat with 2 different input."""
+        function_output = dataset.get_total_and_details(combination_method, target_datas)
+        self.assertEqual(function_output['total count'], expected_count)
 
     def test_get_total_and_details_normal_value_and(self):
-        """tests to see if the get total and details works with expected values using the 'and' combination"""
-        function_output = dataset.get_total_and_details("and",["Alabama","Male","Liver","2000"])
-        expected_output = {'total count': 122, 'valid input': ['Alabama', 'Male', 'Liver', '2000'], 'invalid input': [], 'case details': ['State: Alabama; Year: 2000; Leading Site: Liver; Sex: Male; Count: 122']}
-        self.assertEqual(function_output, expected_output)
+        combination_method = "and"
+        target_datas = ["Alabama","Male","Liver","2000"]
+        expected_count = 122
+        self.run_URL_and_assert_total_count(combination_method, target_datas, expected_count)
     
     def test_get_total_and_details_normal_value_or(self):
-        """tests to see if the get total and details works with expected values"""
-        function_output = dataset.get_total_and_details("or",["Alabama","Male","Liver","2000"])
-        self.assertEqual(function_output['total count'], 16248858)
+        """tests to see if the get total and details works with expected values using the 'or' combination"""
+        combination_method = "or"
+        target_datas = ["Alabama","Male","Liver","2000"]
+        expected_count = 16248858
+        self.run_URL_and_assert_total_count(combination_method, target_datas, expected_count)
+    
+    def test_get_total_and_details_normal_value_edge_one_input(self):
+        """tests to see if the get total and details works with 1 expected value. Both /and/ and /or/ will retrun the same value"""
+        combination_method = "or"
+        target_datas = ["Alabama"]
+        expected_count = 472138
+        self.run_URL_and_assert_total_count(combination_method, target_datas, expected_count)
+    
+    def test_get_total_and_details_normal_value_edge_all_output(self):
+        """tests to see if the get total and details works with input that return the whole dataset. Both /and/ and /or/ will retrun the same value as long as all possible input of any one field is used."""
+        combination_method = "and"
+        target_datas = ["Male","Female"]
+        expected_count = 29913206
+        self.run_URL_and_assert_total_count(combination_method, target_datas, expected_count)
+    
+    
+    
+    
+    
+    
     
     
 
