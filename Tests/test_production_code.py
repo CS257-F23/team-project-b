@@ -87,7 +87,7 @@ class testGetSiteData(unittest.TestCase):
         """ Tests the get_data_by_site function with a VALID cancer site. Input: mouth Expected output: all the cases where the leading cancer site is mouth """
         example_site = 'Myeloma'
         output_from_tested_function = data_file.get_data_by_site(example_site)
-        self.assertIn('Myeloma',output_from_tested_function,"Failed to display the corresponding data for specified leading site")
+        self.assertIn('Myeloma',output_from_tested_function[0],"Failed to display the corresponding data for specified leading site")
         # for cases in range(len(output_from_tested_function)):
         #     self.assertEqual(cases.get_leading_site, example_site,
         #                      "Failed to display the corresponding data for specified leading site")

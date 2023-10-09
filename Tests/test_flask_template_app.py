@@ -89,30 +89,44 @@ class TestSiteDisplayPage(LoadData):
 
 class TestGreatFilterDisplayPage(LoadData):
     load_data()
-    def test_get_site_data_route(self):
+    def test_get_data_route(self):
         """Test that the info display page appears as expected in the normal case and has the correct content."""
         url = '/and/Liver/'
         expected_portion = b"Greetings"
         failure_response = "Failed to fetch data for the leading site 'Liver' correctly."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)
         
-    def test_get_site_data_route_edge_one(self):
+    def test_get_data_route_whitespaces(self):
+        """Test that the info display page appears as expected in the normal case and has the correct content with extra whitespaces."""
+        url = '/and/ Liver , Alabama/'
+        expected_portion = b"Greetings"
+        failure_response = "Failed to fetch data for the leading site 'Liver' correctly."
+        self.assertIn(expected_portion, self.get_route_data(url), failure_response)
+        
+    def test_get_data_route_edge_one(self):
         """Test that the info display page appears as expected in a working edge case at only 1 input."""
         url = '/or/Brain and Other Nervous System/'
         expected_portion = b"Greetings"
         failure_response = "Failed to fetch data for the edge case leading site 'Brain and Other Nervous System' correctly."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)
     
-    def test_get_site_data_route_edge_all(self):
+    def test_get_data_route_edge_all(self):
         """Test that the site subset display page appears as expected in a working edge case at input that output all of the full dataset."""
         url = '/or/Male,Female/'
         expected_portion = b"Greetings"
         failure_response = "Failed to fetch data for the edge case leading site 'Urinary Bladder invasive and in situ' correctly."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)        
     
-    def test_get_site_data_route_edge_fail(self):
+    def test_get_data_route_edge_fail(self):
         """Test that the error page appears as expected when entering an unavailable site URL and has the correct content."""
-        url = '/and/'
+        url = '/and/L1ver'
+        expected_portion = b"undo all changes"
+        failure_response = "Failed to fetch the error page correctly."
+        self.assertIn(expected_portion, self.get_route_data(url), failure_response)
+    
+    def test_get_data_route_edge_nothing(self):
+        """Test that the error page appears as expected when not entering anything after the combination method."""
+        url = '/and/nothing'
         expected_portion = b"undo all changes"
         failure_response = "Failed to fetch the error page correctly."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)
