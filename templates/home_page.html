@@ -15,6 +15,32 @@
                 <li>Plus, a [Count] of occurences of each unique combination of the above factors.</li>
             </ul>
         </p>
+        <h1>The Great Filter</h1>
+        <p>To use the Great Filter, first choose the Combination Method:
+            <ul>
+                <li>If you want to require all of the inputs be present before a Case is included in the result, add /and/</li>
+                <li>If you want to require only 1 of the inputs be present before a Case is included in the result, add /or/</li>
+                <li>Only these 2 combination methods are possible.</li>
+            </ul>
+        </p>
+        <p>Then, add whatever data you want to be used to filter the dataset, in any order and separated by commas (the data can have whitespaces, but they will be split by commas). For example:
+            <ul>
+                <li>[/and/Liver, 2007] for both total and list of any cases that occurred in 2007 AND in the Liver</li>
+                <li>[/or/Wyoming, 2013, Breast] for both total and list of any cases that occurred in 2013, in Wyoming, OR in the Breast</li>
+                <li>Lastly, [/and/ Liver, the state of Death, 2010, Texas, 2003, Gallbladder] will translate to the combined list of any Case that match any of the possible AND combination, such as (Texas, 2010, Liver), (Texas,2003, Liver), (Texas, 2010, Gallbladder), etc.</li>
+                <li>Notice how the order doesn't matter, and invalid entries won't affect the result.</li>
+                <li>At least, that's what I hope to happen.</li> 
+            </ul>
+        </p>
+        <p>State entries to be used to filter:
+            <ul>
+                {% for site in (['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming']) :%}
+                <li>{{site}}</li>
+                {% endfor %}
+            </ul>
+        </p>
+        <h1>End of the great filter</h1>
+        
         <p>Currently, our team has created some basic code to look up the counts of combinations, filtered based on the [Year] and [Site] provided. To ss them, please add ONLY ONE of the following to the URL of the homepage:
             <ul>
                 <li>To filter by [Year], add the following into the URL: /year/[year_argument]</li>

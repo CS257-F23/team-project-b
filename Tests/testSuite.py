@@ -6,8 +6,7 @@ from ProductionCode.watch import *
 import subprocess
 
 
-class testFunctions(unittest.TestCase):
-    
+class testBasicFunctions(unittest.TestCase):
     def test_get_details(self):
         """Test to make sure that the get_details() method properly format the Case data."""
         test_state = "Alabama"
@@ -38,6 +37,7 @@ class testFunctions(unittest.TestCase):
         self.assertEqual(output, expected_list,
                          "Failed fetching the expected list and convert it to a list of CSV strings.")
 
+class testStringToList(unittest.TestCase):
     def test_string_to_list_real_output(self):
         """Tests to make sure that the string to list function works in a real use case"""
         example = ",Alabama,1,2000,2000,Breast,26000,Female,F,2964\n"
@@ -51,6 +51,7 @@ class testFunctions(unittest.TestCase):
         output = split_data_string_to_list(example)
         self.assertEqual(output, [""], "Failed to return empty list for no input.")
 
+class testGetYearData(unittest.TestCase):
     def test_get_data_from_year(self):
         """ Tests the get_data_from_year function with a VALID year. Input: 2002 Expected output: all the cases corresponding to the year 2002"""
         data_file = CancerDataset("Data/dummy_file.csv")
@@ -67,7 +68,7 @@ class testFunctions(unittest.TestCase):
         output_from_get_data_from_year = data_file.get_data_from_year(example_year)
         self.assertEqual(output_from_get_data_from_year, [])
        
-
+class testGetSiteData(unittest.TestCase):
     def test_get_data_by_site(self):
         """ Tests the get_data_by_site function with a VALID cancer site. Input: mouth Expected output: all the cases where the leading cancer site is mouth """
         data_file = CancerDataset("Data/dummy_file.csv")
@@ -83,7 +84,8 @@ class testFunctions(unittest.TestCase):
         example_site = 'toe'
         output_from_get_data_by_site = data_file.get_data_by_site(example_site)
         self.assertEqual(output_from_get_data_by_site, [])
-    
+
+class testMain(unittest.TestCase):
     def test_main_year(self):
         """Test for main() working for valid command line arguments for the year 2007. Due to the expected result's ENORMOUS size, only the last returned element is used to compare."""
         CLI_command_as_list = ['python3', 'ProductionCode/watch.py', "--year", "2007"]

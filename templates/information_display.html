@@ -5,7 +5,14 @@
     <body>
         <h1>Greetings!</h1>
         <p>This is our information display page for my group's Cancer Incidences dataset navigation software: the W. A. T. C. H. - Web Analysis Tool (of) Cancer History.</p>
-        <p>Below, you can see a portion of our dataset, filtered for those that match the {{field}} '{{data}}':</p>
+        <p>Summary:
+            <ul>
+                <li>The total number of cases matching your description is: {{total_count}}</li>
+                <li>These pieces of data has found corresponding cases under your chosen combination method: {{valid_input}}</li>
+                <li>These pieces of data has not found corresponding cases: {{invalid_input}}</li>
+            </ul>
+        </p>
+        <p>Below, you can see the portion of our dataset matching your desired data:</p>
         <p>
             <ul>
                 {% for case in subset:%}
