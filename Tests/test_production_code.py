@@ -184,7 +184,7 @@ class testGreatFilter(unittest.TestCase):
     setUp()
     def run_URL_and_assert_total_count(self, combination_method, target_datas, expected_count):
         """Helper function to the various tests for the Great Filter. Accept the supposed user inputs and assertEqual() the resultant total count as they are highly unprobable to repeat with 2 different input."""
-        function_output = dataset.get_total_and_details(combination_method, target_datas)
+        function_output = data_file.get_total_and_details(combination_method, target_datas)
         self.assertEqual(function_output['total count'], expected_count)
 
     def test_get_total_and_details_normal_value_and(self):
