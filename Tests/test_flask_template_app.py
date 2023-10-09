@@ -1,5 +1,5 @@
 import unittest
-from flask_template_app import *
+from app import *
 
 class LoadData(unittest.TestCase):
     def setUp(self):
