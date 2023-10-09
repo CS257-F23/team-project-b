@@ -129,6 +129,18 @@ class TestCaseClass(unittest.TestCase):
         desired_output = {'result': False, 'matched': []}
         self.assertEqual(function_output,desired_output)
 
+
+class testGreatFilter(unittest.TestCase):
+    """Includes tests related to the great filter functionality"""
+    
+
+    def test_get_total_and_details_normal_value(self):
+        dataset = CancerDataset("Data/clean_incidence.csv")
+        """tests to see if the get total and details works with expected values"""
+        function_output = dataset.get_total_and_details("and",["Alabama","Male","Liver","2000"])
+        expected_output = {'total_count': 122, 'valid input': ['Alabama', 'Male', 'Liver', '2000'], 'invalid input': [], 'case details': ['State: Alabama; Year: 2000; Leading Site: Liver; Sex: Male; Count: 122']}
+
+
 class testMain(unittest.TestCase):
     def test_main_year(self):
         """Test for main() working for valid command line arguments for the year 2007. Due to the expected result's ENORMOUS size, only the last returned element is used to compare."""
