@@ -145,8 +145,7 @@ class testGreatFilter(unittest.TestCase):
     def test_get_total_and_details_normal_value_or(self):
         """tests to see if the get total and details works with expected values"""
         function_output = dataset.get_total_and_details("or",["Alabama","Male","Liver","2000"])
-        print(function_output["total count"], function_output['valid input'], function_output['invalid input'])
-        self.assertEqual(function_output['total count'], 32497716)
+        self.assertEqual(function_output['total count'], 16248858)
     
     
 

@@ -5,8 +5,7 @@ def load_data():
     """Create the global 'dataset' variable to used in later functions."""
     global dataset
     file = 'Data/clean_incidence.csv' #for now, just put a copy of dummy file in production code. Needs to be fixed!
-    dataset = CancerDataset(file) # now has a .list_of_cases = []
-    dataset.fill_list_of_cases() # now has a .list_of_cases = the whole file converted to list of Case instances
+    dataset = CancerDataset(file) # now has a .list_of_cases = the whole file converted to list of Case instances
 
 def parse_URL_string_to_list(URL_string_input):
     """Helper function to get_filtered_data. Convert inputs like 'Liver,%202007' from the URL into ['Liver', '2007'] for uses in the method get_total_and_details in watch.py."""
