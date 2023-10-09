@@ -92,5 +92,4 @@ class TestSiteDisplayPage(LoadData):
 
     
 if __name__ == '__main__':
-    load_data()
     unittest.main()
