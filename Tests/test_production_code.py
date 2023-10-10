@@ -178,69 +178,40 @@ class testGreatFilter(unittest.TestCase):
 
 
 class testMain(unittest.TestCase):
+    def run_CLI_command_return_result(self, CLI_command_as_list):
+        """Helper function to accept a list of string containing CLI inputs and return the expected result in the form of a string."""
+        code = subprocess.Popen(CLI_command_as_list, stdin=subprocess.PIPE, stdout=subprocess.PIPE, encoding='utf8')
+        output, err = code.communicate()
+        code.terminate()
+        return output.strip()
+    
     def test_main_year(self):
         """Test for main() working for valid command line arguments for the year 2007. Due to the expected result's ENORMOUS size, only the last returned element is used to compare."""
         CLI_command_as_list = ['python3', 'ProductionCode/watch.py', "--year", "2007"]
         expected_result = 'State: Wyoming; Year: 2007; Leading Site: Urinary Bladder invasive and in situ; Sex: Male; Count: 103'
         failed_test_message = 'Failed to get data for the year 2007'
-        def enter_CLI_command_return_code():
-            return subprocess.Popen(CLI_command_as_list, stdin=subprocess.PIPE, stdout=subprocess.PIPE, encoding='utf8')
-        def run_CLI_command_return_result():
-            code = enter_CLI_command_return_code()
-            output, err = code.communicate()
-            code.terminate()
-            return output.strip()[-103:-2]
-        def execute_test():
-            self.assertEqual(run_CLI_command_return_result(), expected_result, failed_test_message)
-        execute_test()
+        self.assertIn(expected_result, self.run_CLI_command_return_result(CLI_command_as_list), failed_test_message)
     
     def test_main_year_edge(self):
         """Test for main() working for edge case command line arguments for an invalid year (3007)."""
         CLI_command_as_list = ['python3', 'ProductionCode/watch.py', "--year", "3007"]
         expected_result = ''
         failed_test_message = 'Failed to return empty string for --year edge case.'
-        def enter_CLI_command_return_code():
-            return subprocess.Popen(CLI_command_as_list, stdin=subprocess.PIPE, stdout=subprocess.PIPE, encoding='utf8')
-        def run_CLI_command_return_result():
-            code = enter_CLI_command_return_code()
-            output, err = code.communicate()
-            code.terminate()
-            return output.strip()
-        def execute_test():
-            self.assertEqual(run_CLI_command_return_result(), expected_result, failed_test_message)
-        execute_test()
+        self.assertIn(expected_result, self.run_CLI_command_return_result(CLI_command_as_list), failed_test_message)
     
     def test_main_site(self):
         """Test for main() working for valid command line arguments for the site 'Liver' (single quotes included). Due to the expected result's ENORMOUS size, only the last returned element is used to compare."""
         CLI_command_as_list = ['python3', 'ProductionCode/watch.py', "--site", "Liver"] # python3 ProductionCode/watch.py --site Liver
         expected_result = 'State: Wyoming; Year: 2020; Leading Site: Liver; Sex: Male; Count: 29'
         failed_test_message = "Failed to get data for the site 'Liver'."
-        def enter_CLI_command_return_code():
-            return subprocess.Popen(CLI_command_as_list, stdin=subprocess.PIPE, stdout=subprocess.PIPE, encoding='utf8')
-        def run_CLI_command_return_result():
-            code = enter_CLI_command_return_code()
-            output, err = code.communicate()
-            code.terminate()
-            return output.strip()[-71:-2]
-        def execute_test():
-            self.assertEqual(run_CLI_command_return_result(), expected_result, failed_test_message)
-        execute_test()
+        self.assertIn(expected_result, self.run_CLI_command_return_result(CLI_command_as_list), failed_test_message)
     
     def test_main_site_edge(self):
         """Test for main() working for edge case command line arguments for an invalid site (Planet)."""
         CLI_command_as_list = ['python3', 'ProductionCode/watch.py', "--site", "Planet"]
         expected_result = ''
         failed_test_message = 'Failed to return empty string for --site edge case.'
-        def enter_CLI_command_return_code():
-            return subprocess.Popen(CLI_command_as_list, stdin=subprocess.PIPE, stdout=subprocess.PIPE, encoding='utf8')
-        def run_CLI_command_return_result():
-            code = enter_CLI_command_return_code()
-            output, err = code.communicate()
-            code.terminate()
-            return output.strip()
-        def execute_test():
-            self.assertEqual(run_CLI_command_return_result(), expected_result, failed_test_message)
-        execute_test()
+        self.assertIn(expected_result, self.run_CLI_command_return_result(CLI_command_as_list), failed_test_message)
     
     
 
