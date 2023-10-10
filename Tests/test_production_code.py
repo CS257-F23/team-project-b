@@ -115,7 +115,7 @@ class testGetSiteData(unittest.TestCase):
     
     def test_get_total_for_year_edge_valid(self):
         """ Tests the get_total_for_site function with a valid edge case site. Input: 'Urinary Bladder, invasive and in situ' Expected output: 95"""
-        example_site = 'Urinary Bladder, invasive and in situ'
+        example_site = 'Urinary Bladder invasive and in situ'
         output_from_get_data_by_site = data_file.get_total_for_site(example_site)
         self.assertEqual(output_from_get_data_by_site, 95)
     
