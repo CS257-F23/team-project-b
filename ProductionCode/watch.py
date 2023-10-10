@@ -240,9 +240,9 @@ class CancerDataset:
 def parse_commandline_args():
     """checks to see what arguments the user has given, and displays it."""
     if args.site != None:
-        return (dataset.get_data_by_site(args.site))
+        return (str(dataset.get_data_by_site(args.site))+"\ntotal cases: "+str(dataset.get_total_for_site(args.site))) #added total for revision of CLI
     if args.year != None:
-        return (dataset.get_data_from_year(args.year))
+        return (str(dataset.get_data_from_year(args.year))+"\ntotal cases: "+str(dataset.get_total_for_year(args.year)))
 
 def main():
     global dataset
