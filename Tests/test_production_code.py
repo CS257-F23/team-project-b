@@ -72,22 +72,22 @@ class testGetYearData(unittest.TestCase):
         self.assertEqual(output_from_get_data_from_year, [])
     
     def test_get_total_for_year(self):
-        """ Tests the get_total_for_year function with a valid year. Input: 2007 Expected output: 1398545"""
-        example_site = '2007'
+        """ Tests the get_total_for_year function with a valid year. Input: 2007 Expected output: 119"""
+        example_site = '2003'
         output_from_get_data_by_site = data_file.get_total_for_year(example_site)
-        self.assertEqual(output_from_get_data_by_site, 1398545)
+        self.assertEqual(output_from_get_data_by_site, 119)
     
     def test_get_total_for_year_edge_valid(self):
-        """ Tests the get_total_for_year function with a valid edge case year. Input: 2000 Expected output: 1227167"""
+        """ Tests the get_total_for_year function with a valid edge case year. Input: 2000 Expected output: 2964"""
         example_site = '2000'
         output_from_get_data_by_site = data_file.get_total_for_year(example_site)
-        self.assertEqual(output_from_get_data_by_site, 1227167)
+        self.assertEqual(output_from_get_data_by_site, 2964)
     
     def test_get_total_for_year_edge_invalid(self):
-        """ Tests the get_total_for_year function with an invalid edge case year. Input: 2222 Expected output: the help message"""
-        example_site = 'toe'
+        """ Tests the get_total_for_year function with an invalid edge case year. Input: 2222 Expected output: 0"""
+        example_site = '2222'
         output_from_get_data_by_site = data_file.get_total_for_year(example_site)
-        self.assertIn("usage", output_from_get_data_by_site)
+        self.assertEqual(output_from_get_data_by_site, 0)
        
 class testGetSiteData(unittest.TestCase):
     global data_file
@@ -108,22 +108,22 @@ class testGetSiteData(unittest.TestCase):
         self.assertEqual(output_from_get_data_by_site, [])
     
     def test_get_total_for_site(self):
-        """ Tests the get_total_for_site function with a valid site. Input: Liver Expected output: 470712"""
-        example_site = 'Liver'
+        """ Tests the get_total_for_site function with a valid site. Input: Myeloma Expected output: 119"""
+        example_site = 'Myeloma'
         output_from_get_data_by_site = data_file.get_total_for_site(example_site)
-        self.assertEqual(output_from_get_data_by_site, 470712)
+        self.assertEqual(output_from_get_data_by_site, 119)
     
     def test_get_total_for_year_edge_valid(self):
-        """ Tests the get_total_for_site function with a valid edge case site. Input: 'Brain and Other Nervous System' Expected output: 454652"""
-        example_site = 'Brain and Other Nervous System'
+        """ Tests the get_total_for_site function with a valid edge case site. Input: 'Urinary Bladder, invasive and in situ' Expected output: 95"""
+        example_site = 'Urinary Bladder, invasive and in situ'
         output_from_get_data_by_site = data_file.get_total_for_site(example_site)
-        self.assertEqual(output_from_get_data_by_site, 454652)
+        self.assertEqual(output_from_get_data_by_site, 95)
     
     def test_get_total_for_year_edge_invalid(self):
-        """ Tests the get_total_for_site function with an invalid cancer site. Input: 2222 Expected output: the help message"""
+        """ Tests the get_total_for_site function with an invalid cancer site. Input: body Expected output: 0"""
         example_site = 'body'
         output_from_get_data_by_site = data_file.get_total_for_site(example_site)
-        self.assertIn("usage", output_from_get_data_by_site)
+        self.assertEqual(output_from_get_data_by_site, 0)
 
 class testCounts(unittest.TestCase):
     def test_get_total_for_year_and_site(self):
@@ -206,14 +206,6 @@ class testGreatFilter(unittest.TestCase):
         expected_count = 29913206
         self.run_URL_and_assert_total_count(combination_method, target_datas, expected_count)
     
-    
-    
-    
-    
-    
-    
-    
-
 
 class testMain(unittest.TestCase):
     def run_CLI_command_return_result(self, CLI_command_as_list):
