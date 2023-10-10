@@ -125,24 +125,6 @@ class testGetSiteData(unittest.TestCase):
         output_from_get_data_by_site = data_file.get_data_by_site(example_site)
         self.assertIn("usage", output_from_get_data_by_site)
 
-"""
-    def get_total_for_site(self, leading_site):
-        """calculates and returns the total number of cancer incidences for a given site between the years 2000-2020"""
-        total_cases = 0
-        for case in self.list_of_cases:
-            if case.get_leading_site() == leading_site:
-                total_cases += int(case.get_count())
-        return total_cases
-    
-    def get_total_for_year(self,year):
-        """calculates and returns the total number of cancer incidences for a given year"""
-        total_cases = 0
-        for case in self.list_of_cases:
-            if case.get_year() == str(year):
-                total_cases += int(case.get_count())
-        return total_cases
-        """
-
 class testCounts(unittest.TestCase):
     def test_get_total_for_year_and_site(self):
         data_file = CancerDataset("Data/clean_incidence.csv")
