@@ -245,7 +245,7 @@ def parse_commandline_args():
         return (str(dataset.get_data_from_year(args.year))+"\ntotal cases: "+str(dataset.get_total_for_year(args.year)))
     else: #if the user enters no arguments, they'll get a helpful statement telling them how to proceed!
         print("\n------Welcome to the WATCH app------ \n \nTo use via command line, try sending --year or --site, followed by the information of interest. \n \nFor more information, please consult the readme. You can also run --help to see valid arguments for each command")
-        return "" #returns empty string to avoid printing of None
+        return "" #returns empty string to avoid printing of 'None'
 
 def main():
     global dataset

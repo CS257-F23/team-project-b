@@ -5,8 +5,12 @@ from Data import *
 from ProductionCode.watch import *
 import subprocess
 
+def setUp():
+    global data_file
+    data_file = CancerDataset("Data/dummy_file.csv")
 
 class testBasicFunctions(unittest.TestCase):
+    setUp()
     def test_make_lines(self):
         """Test to make sure that data can be fetched from .csv file and converted to list of CSV strings"""
         expected_list = ("Notes,States,States Code,Year,Year Code,Leading Cancer Sites,Leading Cancer Sites Code,Sex,Sex Code,Count\n",
