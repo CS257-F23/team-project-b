@@ -74,19 +74,19 @@ class testGetYearData(unittest.TestCase):
     def test_get_total_for_year(self):
         """ Tests the get_total_for_year function with a valid year. Input: 2007 Expected output: 1398545"""
         example_site = '2007'
-        output_from_get_data_by_site = data_file.get_data_by_site(example_site)
+        output_from_get_data_by_site = data_file.get_total_for_year(example_site)
         self.assertEqual(output_from_get_data_by_site, 1398545)
     
     def test_get_total_for_year_edge_valid(self):
         """ Tests the get_total_for_year function with a valid edge case year. Input: 2000 Expected output: 1227167"""
         example_site = '2000'
-        output_from_get_data_by_site = data_file.get_data_by_site(example_site)
+        output_from_get_data_by_site = data_file.get_total_for_year(example_site)
         self.assertEqual(output_from_get_data_by_site, 1227167)
     
     def test_get_total_for_year_edge_invalid(self):
         """ Tests the get_total_for_year function with an invalid edge case year. Input: 2222 Expected output: the help message"""
         example_site = 'toe'
-        output_from_get_data_by_site = data_file.get_data_by_site(example_site)
+        output_from_get_data_by_site = data_file.get_total_for_year(example_site)
         self.assertIn("usage", output_from_get_data_by_site)
        
 class testGetSiteData(unittest.TestCase):
@@ -110,19 +110,19 @@ class testGetSiteData(unittest.TestCase):
     def test_get_total_for_site(self):
         """ Tests the get_total_for_site function with a valid site. Input: Liver Expected output: 470712"""
         example_site = 'Liver'
-        output_from_get_data_by_site = data_file.get_data_by_site(example_site)
+        output_from_get_data_by_site = data_file.get_total_for_site(example_site)
         self.assertEqual(output_from_get_data_by_site, 470712)
     
     def test_get_total_for_year_edge_valid(self):
         """ Tests the get_total_for_site function with a valid edge case site. Input: 'Brain and Other Nervous System' Expected output: 454652"""
         example_site = 'Brain and Other Nervous System'
-        output_from_get_data_by_site = data_file.get_data_by_site(example_site)
+        output_from_get_data_by_site = data_file.get_total_for_site(example_site)
         self.assertEqual(output_from_get_data_by_site, 454652)
     
     def test_get_total_for_year_edge_invalid(self):
         """ Tests the get_total_for_site function with an invalid cancer site. Input: 2222 Expected output: the help message"""
         example_site = 'body'
-        output_from_get_data_by_site = data_file.get_data_by_site(example_site)
+        output_from_get_data_by_site = data_file.get_total_for_site(example_site)
         self.assertIn("usage", output_from_get_data_by_site)
 
 class testCounts(unittest.TestCase):
