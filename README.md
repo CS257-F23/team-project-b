@@ -19,13 +19,13 @@ The great Filter is a tool that allows the user to look for data entries that co
 ### Get Site
 
 The functionality of get site is considerably simpler: if you're only interested in one specific cancer site, and want to see all data entries that correspond to that site, simply type /site/ followed by the name of the cancer. The availible sites are listed on the home page.<br>
-<br>For example, if you wanted to see every instance of Liver cancer, simply type: "https://127.0.0.1:5000/site/Liver"
+<br>For example, if you wanted to see every instance of Liver cancer, simply type in: "http://127.0.0.1:5000/site/Liver"
 
 <br>
 
 ### Get Year
 <br> 
 Get year works almost identically to get site: simply add /year/ to the url followed by the year you're interested in. This will output every piece of data that occurred in the given year. <br>
-<br> For example, to find every piece of data from 2007, simply type: "https://127.0.0.1:5000/year/2007"
+<br> For example, to find every piece of data from 2007, simply type in: "http://127.0.0.1:5000/year/2007"
 
 
