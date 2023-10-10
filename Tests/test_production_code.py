@@ -27,7 +27,7 @@ class testBasicFunctions(unittest.TestCase):
                           ",Alaska,2,2011,2011,Melanoma of the Skin,25010,Male,M,40\n",
                           ",Alaska,2,2017,2017,Oral Cavity and Pharynx,20010-20100,Female,F,27\n",
                           ",Kansas,20,2009,2009,Thyroid,32010,Female,F,320\n",
-                          ',New Mexico,35,2015,2015,"Urinary Bladder, invasive and in situ",29010,Female,F,95\n',
+                          ',New Mexico,35,2015,2015,"Urinary Bladder invasive and in situ",29010,Female,F,95\n',
                           ',New Mexico,35,2016,2016,Oral Cavity and Pharynx,20010-20100,Male,M,170\n',
                           ',New York,36,2002,2002,Stomach,21020,Male,M,1088'
                           ]
