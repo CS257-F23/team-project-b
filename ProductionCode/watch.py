@@ -243,6 +243,9 @@ def parse_commandline_args():
         return (str(dataset.get_data_by_site(args.site))+"\ntotal cases: "+str(dataset.get_total_for_site(args.site))) #added total for revision of CLI
     if args.year != None:
         return (str(dataset.get_data_from_year(args.year))+"\ntotal cases: "+str(dataset.get_total_for_year(args.year)))
+    else:
+        print("\n------Welcome to the WATCH app------ \n \nTo use via command line, try sending --year or --site, followed by the information of interest. \n \nFor more information, please consult the readme. Below, you'll find all the valid arguments supported by the CLI. \n \n")
+        parser.print_usage()
 
 def main():
     global dataset
