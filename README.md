@@ -26,6 +26,6 @@ The functionality of get site is considerably simpler: if you're only interested
 ### Get Year
 <br> 
 Get year works almost identically to get site: simply add /year/ to the url followed by the year you're interested in. This will output every piece of data that occurred in the given year. <br>
-<br> For example, to find every piece of data from 2007, simply type: "https:127.0.0.1:5000/year/2007"
+<br> For example, to find every piece of data from 2007, simply type: "https://127.0.0.1:5000/year/2007"
 
 
