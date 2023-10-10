@@ -52,9 +52,11 @@ class testStringToList(unittest.TestCase):
         self.assertEqual(output, [""], "Failed to return empty list for no input.")
 
 class testGetYearData(unittest.TestCase):
+    global data_file
+    data_file = CancerDataset("Data/dummy_file.csv")
+    
     def test_get_data_from_year(self):
         """ Tests the get_data_from_year function with a VALID year. Input: 2002 Expected output: all the cases corresponding to the year 2002"""
-        data_file = CancerDataset("Data/dummy_file.csv")
         example_year = 2002
         output_from_tested_function = data_file.get_data_from_year(example_year)
         expected_output = ['State: New York; Year: 2002; Leading Site: Stomach; Sex: Male; Count: 1088']
@@ -65,15 +67,34 @@ class testGetYearData(unittest.TestCase):
            
     def test_get_data_from_year_INVALID(self):
         """ Tests the get_data_from_year function with an INVALID year. Input: 3030 Expected output: [] (an empty list)"""
-        data_file = CancerDataset("Data/dummy_file.csv")
         example_year = 3030
         output_from_get_data_from_year = data_file.get_data_from_year(example_year)
         self.assertEqual(output_from_get_data_from_year, [])
+    
+    def test_get_total_for_year(self):
+        """ Tests the get_total_for_year function with a valid year. Input: 2007 Expected output: 1398545"""
+        example_site = '2007'
+        output_from_get_data_by_site = data_file.get_data_by_site(example_site)
+        self.assertEqual(output_from_get_data_by_site, 1398545)
+    
+    def test_get_total_for_year_edge_valid(self):
+        """ Tests the get_total_for_year function with a valid edge case year. Input: 2000 Expected output: 1227167"""
+        example_site = '2000'
+        output_from_get_data_by_site = data_file.get_data_by_site(example_site)
+        self.assertEqual(output_from_get_data_by_site, 1227167)
+    
+    def test_get_total_for_year_edge_invalid(self):
+        """ Tests the get_total_for_year function with an invalid edge case year. Input: 2222 Expected output: the help message"""
+        example_site = 'toe'
+        output_from_get_data_by_site = data_file.get_data_by_site(example_site)
+        self.assertIn("usage", output_from_get_data_by_site)
        
 class testGetSiteData(unittest.TestCase):
+    global data_file
+    data_file = CancerDataset("Data/dummy_file.csv")
+    
     def test_get_data_by_site(self):
         """ Tests the get_data_by_site function with a VALID cancer site. Input: mouth Expected output: all the cases where the leading cancer site is mouth """
-        data_file = CancerDataset("Data/dummy_file.csv")
         example_site = 'mouth'
         output_from_tested_function = data_file.get_data_by_site(example_site)
         for cases in range(len(output_from_tested_function)):
@@ -82,10 +103,45 @@ class testGetSiteData(unittest.TestCase):
            
     def test_get_data_by_site_INVALID(self):
         """ Tests the get_data_by_site function with a INVALID cancer site. Input: toe Expected output: [] (an empty list)"""
-        data_file = CancerDataset("Data/dummy_file.csv")
         example_site = 'toe'
         output_from_get_data_by_site = data_file.get_data_by_site(example_site)
         self.assertEqual(output_from_get_data_by_site, [])
+    
+    def test_get_total_for_site(self):
+        """ Tests the get_total_for_site function with a valid site. Input: Liver Expected output: 470712"""
+        example_site = 'Liver'
+        output_from_get_data_by_site = data_file.get_data_by_site(example_site)
+        self.assertEqual(output_from_get_data_by_site, 470712)
+    
+    def test_get_total_for_year_edge_valid(self):
+        """ Tests the get_total_for_site function with a valid edge case site. Input: 'Brain and Other Nervous System' Expected output: 454652"""
+        example_site = 'Brain and Other Nervous System'
+        output_from_get_data_by_site = data_file.get_data_by_site(example_site)
+        self.assertEqual(output_from_get_data_by_site, 454652)
+    
+    def test_get_total_for_year_edge_invalid(self):
+        """ Tests the get_total_for_site function with an invalid cancer site. Input: 2222 Expected output: the help message"""
+        example_site = 'body'
+        output_from_get_data_by_site = data_file.get_data_by_site(example_site)
+        self.assertIn("usage", output_from_get_data_by_site)
+
+"""
+    def get_total_for_site(self, leading_site):
+        """calculates and returns the total number of cancer incidences for a given site between the years 2000-2020"""
+        total_cases = 0
+        for case in self.list_of_cases:
+            if case.get_leading_site() == leading_site:
+                total_cases += int(case.get_count())
+        return total_cases
+    
+    def get_total_for_year(self,year):
+        """calculates and returns the total number of cancer incidences for a given year"""
+        total_cases = 0
+        for case in self.list_of_cases:
+            if case.get_year() == str(year):
+                total_cases += int(case.get_count())
+        return total_cases
+        """
 
 class testCounts(unittest.TestCase):
     def test_get_total_for_year_and_site(self):
@@ -184,6 +240,14 @@ class testMain(unittest.TestCase):
         output, err = code.communicate()
         code.terminate()
         return output.strip()
+    
+    
+    def test_main_edge_no_input(self):
+        """Test for main() for edge case command line arguments for no entry."""
+        CLI_command_as_list = ['python3', 'ProductionCode/watch.py']
+        expected_result = ''
+        failed_test_message = 'Failed to return ???.'
+        self.assertIn(expected_result, self.run_CLI_command_return_result(CLI_command_as_list), failed_test_message)
     
     def test_main_year(self):
         """Test for main() working for valid command line arguments for the year 2007. Due to the expected result's ENORMOUS size, only the last returned element is used to compare."""
