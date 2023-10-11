@@ -258,6 +258,17 @@ class testMain(unittest.TestCase):
         expected_result = ''
         failed_test_message = 'Failed to return empty string for --site edge case.'
         self.assertIn(expected_result, self.run_CLI_command_return_result(CLI_command_as_list), failed_test_message)
+
+    def test_parse_command_line_args_year(self):
+        """uses identical parser to main file in order to test whether or not parse_command_line_args works"""
+        dataset = CancerDataset("Data/dummy_file.csv")
+        test_parser = argparse.ArgumentParser()
+        test_parser.add_argument("--year", type=int, choices=range(2000, 2021))
+        test_parser.add_argument("--site", type=str, choices=['Brain and Other Nervous System', 'Breast', 'Cervix Uteri', 'Colon and Rectum', 'Corpus Uteri', 'Esophagus', 'Gallbladder', 'Kidney and Renal Pelvis', 'Larynx', 'Leukemias',
+                        'Liver', 'Lung and Bronchus', 'Melanoma of the Skin', 'Myeloma', 'Non-Hodgkin Lymphoma', 'Oral Cavity and Pharynx', 'Ovary', 'Pancreas', 'Prostate', 'Stomach', 'Thyroid', 'Urinary Bladder invasive and in situ'])
+        args = test_parser.parse_args(['--year','2005'])
+        self.assertEqual('[]\ntotal cases: 0',parse_commandline_args(args,dataset)) #dummy file has no 2005, so this just checks to make sure it returns an empty list
+        
     
     
 

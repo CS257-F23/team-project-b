@@ -245,8 +245,8 @@ class CancerDataset:
         return sorted_top_10_list[:10]'''
 
 
-def parse_commandline_args():
-    """checks to see what arguments the user has given, and displays it."""
+def parse_commandline_args(args,dataset):
+    """checks to see what arguments the user has given, and displays it. takes args, a Namespace containing args for year and site, and a CancerData object"""
     if args.site != None:
         # added total for revision of CLI
         return (str(dataset.get_data_by_site(args.site))+"\ntotal cases: "+str(dataset.get_total_for_site(args.site)))
@@ -262,7 +262,7 @@ def main():
     dataset = CancerDataset("Data/clean_incidence.csv")
     print(dataset.get_total_for_year_and_site(
         2000, "Liver"))  # Example code for testing
-    print(parse_commandline_args())
+    print(parse_commandline_args(args,dataset))
 
 
 if __name__ == "__main__":
