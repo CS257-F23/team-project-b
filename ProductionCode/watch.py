@@ -25,21 +25,24 @@ class Case:
         self.sex = sex
         self.count = count
 
-    possible_states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming']
-    
-    possible_years = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008, 2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
+    possible_states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri',
+                       'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming']
+
+    possible_years = [2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008,
+                      2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020]
     possible_years = [str(year) for year in possible_years]
-    
-    possible_leading_sites = ['Brain and Other Nervous System', 'Breast', 'Cervix Uteri', 'Colon and Rectum', 'Corpus Uteri', 'Esophagus', 'Gallbladder', 'Kidney and Renal Pelvis', 'Larynx', 'Leukemias', 'Liver', 'Lung and Bronchus', 'Melanoma of the Skin', 'Myeloma', 'Non-Hodgkin Lymphoma', 'Oral Cavity and Pharynx', 'Ovary', 'Pancreas', 'Prostate', 'Stomach', 'Thyroid', 'Urinary Bladder invasive and in situ']
-    
+
+    possible_leading_sites = ['Brain and Other Nervous System', 'Breast', 'Cervix Uteri', 'Colon and Rectum', 'Corpus Uteri', 'Esophagus', 'Gallbladder', 'Kidney and Renal Pelvis', 'Larynx', 'Leukemias', 'Liver',
+                              'Lung and Bronchus', 'Melanoma of the Skin', 'Myeloma', 'Non-Hodgkin Lymphoma', 'Oral Cavity and Pharynx', 'Ovary', 'Pancreas', 'Prostate', 'Stomach', 'Thyroid', 'Urinary Bladder invasive and in situ']
+
     possible_sexes = ['Female', 'Male']
-    
+
     def get_details(self):
         return (f"State: {self.state}; Year: {self.year}; Leading Site: {self.leading_site}; Sex: {self.sex}; Count: {self.count}")
 
     def get_state(self):
         return self.state
-    
+
     def get_year(self):
         return self.year
 
@@ -51,16 +54,16 @@ class Case:
 
     def get_count(self):
         return self.count
-    
+
     def verify_match_user_input(self, combination_method, target_datas):
         """Translate the multiple arguments in target_datas entered by users to filter the primary dataset for output in the get_total_and_details() method. 
-        
+
         The arguments can be in any order, but must be separated by commas. The arguments can have whitespaces, but they will be split by commas.
-        
+
         The returned result is the dictionary of the relevant elements of a Case instance, as well as whether to combine them by an OR or AND operator. the combination_method only works with 'or' or 'and'.
-        
+
         Further explanations in the templates/home_page.html file.
-        
+
         """
         flags = {
             'state': 'untracked',
@@ -72,39 +75,39 @@ class Case:
             'result': False,
             'matched': []
         }
-        
-        for current_target_data in target_datas: 
+
+        for current_target_data in target_datas:
             # If the target data is in one of the possible fields (state, year, etc.), the field itself is considered to be tracked but 'not matched'. This is used only for the 'and' combination_method
             # If self's corresponding field is a target data, the field and the target data is considered to be 'matched'
             if current_target_data in self.possible_states:
                 flags['state'] = 'not matched'
-                if self.get_state() in target_datas: 
+                if self.get_state() in target_datas:
                     flags['state'] = 'matched'
                     output['matched'].append(self.get_state())
             elif current_target_data in self.possible_years:
                 flags['year'] = 'not matched'
-                if self.get_year() in target_datas: 
+                if self.get_year() in target_datas:
                     flags['year'] = 'matched'
                     output['matched'].append(self.get_year())
             elif current_target_data in self.possible_leading_sites:
                 flags['leading_site'] = 'not matched'
-                if self.get_leading_site() in target_datas: 
+                if self.get_leading_site() in target_datas:
                     flags['leading_site'] = 'matched'
                     output['matched'].append(self.get_leading_site())
             elif current_target_data in self.possible_sexes:
                 flags['sex'] = 'not matched'
-                if self.get_sex() in target_datas: 
+                if self.get_sex() in target_datas:
                     flags['sex'] = 'matched'
                     output['matched'].append(self.get_sex())
-        
+
         # Checking if the verification 'result' is True
-        if combination_method == 'or' and 'matched' in flags.values(): 
+        if combination_method == 'or' and 'matched' in flags.values():
             # if the combination_method is 'or', this Case can be included in the result as long as any of self's field match a targeted data
             output['result'] = True
-        elif combination_method == 'and' and 'matched' in flags.values() and 'not matched' not in flags.values(): 
-            # if the combination_method is 'and', this Case can be included in the result only if there is at least 1 'matched' field (meaning user did ask for information in that field and this Case satisfies it) and the rest are 'untracked' fields (meaning user did not ask for information in that field). 
+        elif combination_method == 'and' and 'matched' in flags.values() and 'not matched' not in flags.values():
+            # if the combination_method is 'and', this Case can be included in the result only if there is at least 1 'matched' field (meaning user did ask for information in that field and this Case satisfies it) and the rest are 'untracked' fields (meaning user did not ask for information in that field).
             output['result'] = True
-        
+
         return output
 
 
@@ -124,7 +127,7 @@ class CancerDataset:
     def __init__(self, dataset_name):
         self.file = dataset_name  # the .csv dataset file being accessed for the data
         self.list_of_cases = []  # list of cases, each of which is stored as a Case instance
-        self.fill_list_of_cases() # fills the list with cases
+        self.fill_list_of_cases()  # fills the list with cases
 
     def convert_dataset_into_titles_and_list_of_cases(self):
         """opens the data file, and reads through each line of the file, outputting each to a list"""
@@ -146,20 +149,19 @@ class CancerDataset:
     # Note: Merge the below get_data_* methods into a single function to obey the Single Purpose Principle
 
     def get_data_from_year(self, year):
-        """given a valid input year, returns a list of all cases associated with that year"""
+        """Given a valid input year, returns a list of all cases associated with that year"""
         data_for_year = []
-        for i in range(len(self.list_of_cases)):  # for each Case
-            # need to convert to an int first, since the year is stored as a string
-            if int(self.list_of_cases[i].get_year()) == year:
-                data_for_year.append(self.list_of_cases[i].get_details())
+        for case in self.list_of_cases:
+            if int(case.get_year()) == year:
+                data_for_year.append(case.get_details())
         return data_for_year
 
     def get_data_by_site(self, leading_site):
-        """given a valid input cancer site, returns a list of all cases associated with that site"""
+        """Given a valid input cancer site, returns a list of all cases associated with that site"""
         data_for_site = []
-        for i in range(len(self.list_of_cases)):  # for each Case
-            if self.list_of_cases[i].get_leading_site() == leading_site:
-                data_for_site.append(self.list_of_cases[i].get_details())
+        for case in self.list_of_cases:
+            if case.get_leading_site() == leading_site:
+                data_for_site.append(case.get_details())
         return data_for_site
 
     def get_total_for_site(self, leading_site):
@@ -169,8 +171,8 @@ class CancerDataset:
             if case.get_leading_site() == leading_site:
                 total_cases += int(case.get_count())
         return total_cases
-    
-    def get_total_for_year(self,year):
+
+    def get_total_for_year(self, year):
         """calculates and returns the total number of cancer incidences for a given year"""
         total_cases = 0
         for case in self.list_of_cases:
@@ -178,7 +180,14 @@ class CancerDataset:
                 total_cases += int(case.get_count())
         return total_cases
 
-               
+    def get_total_for_year_and_site(self, year, leading_site):
+        """Calculates and returns the toral number of cancer incidences for the leading cancer site and year specified by the user"""
+        total_cases = 0
+        for case in self.list_of_cases:
+            if (int(case.get_year()) == int(year)) and (case.get_leading_site() == leading_site):
+                total_cases += int(case.get_count())
+        return total_cases
+
     def get_total_and_details(self, combination_method, target_datas):
         """List all cases which has one of its data pieces (states/year) match the provided information. This is based on the fact that there is no overlapping names between the fields, such as there is no State named Liver.
         The output will include:
@@ -190,25 +199,32 @@ class CancerDataset:
         sucessfully_matched_data = []
         not_matched_data = list(target_datas)
         data_for_site = []
-        
+
         for current_case in self.list_of_cases:  # for each Case in the CancerDataset
-            verification_output = current_case.verify_match_user_input(combination_method, target_datas) # the Case is tested for matching the user input
-            if verification_output['result']: # the Case passed the matching process
+            verification_output = current_case.verify_match_user_input(
+                combination_method, target_datas)  # the Case is tested for matching the user input
+            # the Case passed the matching process
+            if verification_output['result']:
                 # Increase the total [count] of all matched Cases
                 total_cases += int(current_case.get_count())
-                
+
                 # Move data that has successfully found corresponding Cases out of the not_matched list into the sucessfully_matched list
                 for data in verification_output['matched']:
-                    try: 
-                        index_of_matched_data = not_matched_data.index(data) # get the index of an item that has been used to sucessfully obtain Cases to be displayed. Raise ValueError if nothing is fond, in which case ignore it.
-                        matched_data = not_matched_data.pop(index_of_matched_data) # remove that item from the not_matched list. Raises IndexError if it fails to remove an item, which should be impossible without triggering ValueError, but just in case.
-                        sucessfully_matched_data.append(matched_data) # Add the matched data to the sucessfully_matched list
-                    except ValueError or IndexError: pass
-                
+                    try:
+                        # get the index of an item that has been used to sucessfully obtain Cases to be displayed. Raise ValueError if nothing is fond, in which case ignore it.
+                        index_of_matched_data = not_matched_data.index(data)
+                        # remove that item from the not_matched list. Raises IndexError if it fails to remove an item, which should be impossible without triggering ValueError, but just in case.
+                        matched_data = not_matched_data.pop(
+                            index_of_matched_data)
+                        # Add the matched data to the sucessfully_matched list
+                        sucessfully_matched_data.append(matched_data)
+                    except ValueError or IndexError:
+                        pass
+
                 # Add the full Case data into data_for_site to be displayed.
                 data_for_site.append(current_case.get_details())
                 pass
-        
+
         # Craft the output to be rendered into the Template
         return {
             'total count': total_cases,
@@ -216,8 +232,8 @@ class CancerDataset:
             'invalid input': not_matched_data,
             'case details': data_for_site
         }
-        
-    #Not ready for submission, but almost
+
+    # Not ready for submission, but almost
     '''def get_top_ten_by_year_and_site(self, year, leading_site):
         """Creates and returns a top 10 list of the states with the most counts for the leading cancer site and year specified by the user"""
         top_10_list_unsorted = []
@@ -228,29 +244,24 @@ class CancerDataset:
         sorted_top_10_list = sorted(top_10_list_unsorted, reverse=True)
         return sorted_top_10_list[:10]'''
 
-    def get_total_for_year_and_site(self, year, leading_site):
-        "Calculates and returns the total number of cancer incidences for the leading cancer site and year specified by the user"
-        total_cases = 0
-        for case in range(len(self.list_of_cases)):
-            if ((int(self.list_of_cases[case].get_year()) == int(year)) and (self.list_of_cases[case].get_leading_site() == leading_site)):
-                total_cases += int(self.list_of_cases[case].get_count())
-        return total_cases
-
 
 def parse_commandline_args():
     """checks to see what arguments the user has given, and displays it."""
     if args.site != None:
-        return (str(dataset.get_data_by_site(args.site))+"\ntotal cases: "+str(dataset.get_total_for_site(args.site))) #added total for revision of CLI
+        # added total for revision of CLI
+        return (str(dataset.get_data_by_site(args.site))+"\ntotal cases: "+str(dataset.get_total_for_site(args.site)))
     if args.year != None:
         return (str(dataset.get_data_from_year(args.year))+"\ntotal cases: "+str(dataset.get_total_for_year(args.year)))
-    else: #if the user enters no arguments, they'll get a helpful statement telling them how to proceed!
+    else:  # if the user enters no arguments, they'll get a helpful statement telling them how to proceed!
         print("\n------Welcome to the WATCH app------ \n \nTo use via command line, try sending --year or --site, followed by the information of interest. \n \nFor more information, please consult the readme. You can also run --help to see valid arguments for each command")
-        return "" #returns empty string to avoid printing of 'None'
+        return ""  # returns empty string to avoid printing of 'None'
+
 
 def main():
     global dataset
     dataset = CancerDataset("Data/clean_incidence.csv")
-    # print(dataset.get_total_for_year_and_site(2000, "Liver")) # Example code for testing
+    print(dataset.get_total_for_year_and_site(
+        2000, "Liver"))  # Example code for testing
     print(parse_commandline_args())
 
 
