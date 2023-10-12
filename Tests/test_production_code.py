@@ -9,6 +9,14 @@ def setUp():
     global data_file
     data_file = CancerDataset("Data/dummy_file.csv")
 
+def makeParser():
+    """a function that makes a parser object, so command line parsing can be tested"""
+    test_parser = argparse.ArgumentParser()
+    test_parser.add_argument("--year", type=int, choices=range(2000, 2021))
+    test_parser.add_argument("--site", type=str, choices=['Brain and Other Nervous System', 'Breast', 'Cervix Uteri', 'Colon and Rectum', 'Corpus Uteri', 'Esophagus', 'Gallbladder', 'Kidney and Renal Pelvis', 'Larynx', 'Leukemias',
+                            'Liver', 'Lung and Bronchus', 'Melanoma of the Skin', 'Myeloma', 'Non-Hodgkin Lymphoma', 'Oral Cavity and Pharynx', 'Ovary', 'Pancreas', 'Prostate', 'Stomach', 'Thyroid', 'Urinary Bladder invasive and in situ'])
+    return test_parser
+
 class testBasicFunctions(unittest.TestCase):
     setUp()
     def test_make_lines(self):
@@ -260,15 +268,19 @@ class testMain(unittest.TestCase):
         self.assertIn(expected_result, self.run_CLI_command_return_result(CLI_command_as_list), failed_test_message)
 
     def test_parse_command_line_args_year(self):
-        """uses identical parser to main file in order to test whether or not parse_command_line_args works"""
-        dataset = CancerDataset("Data/dummy_file.csv")
-        test_parser = argparse.ArgumentParser()
-        test_parser.add_argument("--year", type=int, choices=range(2000, 2021))
-        test_parser.add_argument("--site", type=str, choices=['Brain and Other Nervous System', 'Breast', 'Cervix Uteri', 'Colon and Rectum', 'Corpus Uteri', 'Esophagus', 'Gallbladder', 'Kidney and Renal Pelvis', 'Larynx', 'Leukemias',
-                        'Liver', 'Lung and Bronchus', 'Melanoma of the Skin', 'Myeloma', 'Non-Hodgkin Lymphoma', 'Oral Cavity and Pharynx', 'Ovary', 'Pancreas', 'Prostate', 'Stomach', 'Thyroid', 'Urinary Bladder invasive and in situ'])
-        args = test_parser.parse_args(['--year','2005'])
-        self.assertEqual('[]\ntotal cases: 0',parse_commandline_args(args,dataset)) #dummy file has no 2005, so this just checks to make sure it returns an empty list
+        """uses identical parser to main file in order to test whether or not parse_command_line_args works for year"""
+        dummy_set = CancerDataset("Data/dummy_file.csv")
+        parser = makeParser()
+        args = parser.parse_args(['--year','2005'])
+        self.assertEqual('[]\ntotal cases: 0',parse_commandline_args(args,dummy_set)) #dummy file has no 2005, so this just checks to make sure it returns an empty list
         
+    def test_parse_command_line_args_site(self):
+        """uses identical parser to main file in order to test whether or not parse_command_line_args works for site"""
+        dummy_set = CancerDataset("Data/dummy_file.csv")
+        parser = makeParser()
+        args = parser.parse_args(['--site','Liver'])
+        self.assertEqual('[]\ntotal cases: 0',parse_commandline_args(args,dummy_set)) 
+
     
     
 
