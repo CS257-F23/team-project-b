@@ -1,0 +1,82 @@
+body {
+    margin-left: 5%;
+    margin-right: 5%;
+    background-color: whitesmoke;
+    font-family: Verdana, Geneva, sans-serif; 
+}
+
+h1 {
+    padding-top: 1em;
+    padding-bottom: 1em;
+    background-color: #EBA51A;
+    color: white;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    border-radius: 8px;
+}
+
+.category {
+    text-decoration: underline;
+    font-style: italic;
+}
+
+nav ul {
+    border: 2px dashed #EB641A;
+    border-radius: 8px;
+    list-style-type: none;
+    overflow: hidden;
+    width: 95%;
+}
+
+nav li {
+    float: left;
+    padding: 10px;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+nav li a {
+    display: block;
+    color: #EB881A;
+    text-decoration: none;
+    text-align: center;
+    padding: 14px 16px;
+}
+
+nav li a:hover {
+    color: white;
+    background-color: #EB881A;
+    text-decoration: underline;
+    font-style: italic;
+}
+
+nav li {
+    float: left;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+p {
+    font-family: Verdana, Geneva, sans-serif;
+    /* This next line gives us some extras pacing within a paragraph*/
+    line-height: 1.4;
+}
+
+ul {
+    width: 100%;
+}
+ 
+li {
+    font-family: Verdana, Geneva, sans-serif;
+    line-height: 1.4;
+}
+
+
+.row {
+    display: flex;
+}   
+
+.column {
+    flex: 33%;
+}
+
