@@ -235,21 +235,6 @@ class CancerDataset:
             'case details': data_for_site
         }
 
-    # Not ready for submission, but almost
-    '''def get_top_ten_by_year_and_site(self, year, leading_site):
-        """Creates and returns a top 10 list of the states with the most counts for the leading cancer site and year specified by the user"""
-        top_10_list_unsorted = []
-        for case in range(len(self.list_of_cases)):
-            if ((int(self.list_of_cases[case].get_year()) == int(year)) and (self.list_of_cases[case].get_leading_site() == leading_site)):
-                top_10_list_unsorted.append((
-                    int(self.list_of_cases[case].get_count()), self.list_of_cases[case].get_state()))
-        sorted_top_10_list = sorted(top_10_list_unsorted, reverse=True)
-        return sorted_top_10_list[:10]'''
-
-
-
-
-
 def main():
     global dataset
     dataset = CancerDataset("Data/clean_incidence.csv")
@@ -257,11 +242,4 @@ def main():
 
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(
-        description="A simple program that allows a user to access cancer data. To use, try using --year (a year between 2000-2000) or --site '(a cancer site)'. To see availible sites, try sending -h' ")
-    # referenced realPython tutorial for CLI implementation.
-    #parser.add_argument("--year", type=int, choices=range(2000, 2021))
-    #parser.add_argument("--site", type=str, choices=['Brain and Other Nervous System', 'Breast', 'Cervix Uteri', 'Colon and Rectum', 'Corpus Uteri', 'Esophagus', 'Gallbladder', 'Kidney and Renal Pelvis', 'Larynx', 'Leukemias',
-    #                    'Liver', 'Lung and Bronchus', 'Melanoma of the Skin', 'Myeloma', 'Non-Hodgkin Lymphoma', 'Oral Cavity and Pharynx', 'Ovary', 'Pancreas', 'Prostate', 'Stomach', 'Thyroid', 'Urinary Bladder invasive and in situ'])
-    #args = parser.parse_args()
     main()
