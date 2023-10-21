@@ -121,10 +121,13 @@ def create_comparison_plot(title, categories, counts):
     fig, ax = plt.subplots()
 
     bars = ax.barh(categories, counts)
+
     ax.set_xlabel('Number of cases')
     ax.set_title("Cases by " + title)
     ax.bar_label(bars, label_type='center')
-
+    ax.set_facecolor('green') # Graph's background color
+    for bar in bars: bar.set_color("yellow") # Bars' color
+    
     return fig
 
 app = Flask(__name__)
