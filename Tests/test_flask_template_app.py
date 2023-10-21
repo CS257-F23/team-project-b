@@ -16,7 +16,7 @@ class TestHomePage(LoadData):
     def test_home_page_route(self):
         """Test that the home page appears as expected and has the correct content."""
         url = '/'
-        expected_portion = b"This is Group B's homepage for our Cancer Incidences dataset navigation software: the W. A. T. C. H. - Web Analysis Tool (of) Cancer History."
+        expected_portion = b"For a more in-depth introduction"
         failure_response = "Failed to fetch the home page correctly."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)
     
