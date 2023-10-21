@@ -58,7 +58,7 @@ class Case:
     def verify_match_user_input(self, combination_method, target_datas):
         """Translate the multiple arguments in target_datas entered by users to filter the primary dataset for output in the get_total_and_details() method. 
 
-        The arguments can be in any order, but must be separated by commas. The arguments can have whitespaces, but they will be split by commas.
+        The target_datas arguments can be in any order, but must be separated by commas. The arguments can have whitespaces, but they will be split by commas.
 
         The returned result is the dictionary of the relevant elements of a Case instance, as well as whether to combine them by an OR or AND operator. the combination_method only works with 'or' or 'and'.
 
@@ -189,7 +189,9 @@ class CancerDataset:
         return total_cases
 
     def get_total_and_details(self, combination_method, target_datas):
-        """List all cases which has one of its data pieces (states/year) match the provided information. This is based on the fact that there is no overlapping names between the fields, such as there is no State named Liver.
+        """List all cases which has one of its data pieces (states/year/etc.) matching the provided information. This is based on the fact that there is no overlapping names between the fields, such as there is no State named Liver.
+        The input are:
+        - A string ('or'/'and') from combination_method
         The output will include:
         - The total [count] of all matched Cases
         - Which target_data has found matched Cases

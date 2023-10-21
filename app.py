@@ -173,9 +173,10 @@ def display_hard_coded_data():
     elif request.method == "GET":
         combination_method=request.args["combination"]
         target_data=request.args["filter targets"]
-    filtered_data = core.get_total_and_details_hard_coded() # Using the target data and combination method, obtain the list of cases matching user input. It's hardcoded for now.
+    target_data = parse_URL_string_to_list(target_data) # The target data needs to be translated into list form for get_total_and_details()
+    filtered_data = dataset.get_total_and_details(combination_method, target_data) # Using the target data and combination method, obtain the list of cases matching user input. 
     plotting_data = reformat_to_plot_data(filtered_data['case details'])
-    return render_template("hard_display.html", title = "Site subset", total_count = filtered_data['total count'], valid_input = filtered_data['valid input'], invalid_input = filtered_data['invalid input'], subset = filtered_data['case details'])
+    return render_template("information_display.html", title = "Site subset", total_count = filtered_data['total count'], valid_input = filtered_data['valid input'], invalid_input = filtered_data['invalid input'], subset = filtered_data['case details'])
 
 @app.route('/plot/<category>.png')
 def plot_png(category):
