@@ -3,6 +3,7 @@ A collection of tests for the watch.py program. To run, navigate to /team-projec
 import unittest
 from Data import *
 from ProductionCode.watch import *
+from ProductionCode.cl import *
 import subprocess
 
 def setUp():
@@ -255,7 +256,7 @@ class testMain(unittest.TestCase):
     
     def test_main_site(self):
         """Test for main() working for valid command line arguments for the site 'Liver' (single quotes included). Due to the expected result's ENORMOUS size, only the last returned element is used to compare."""
-        CLI_command_as_list = ['python3', 'ProductionCode/watch.py', "--site", "Liver"] # python3 ProductionCode/watch.py --site Liver
+        CLI_command_as_list = ['python3', 'ProductionCode/cl.py', "--site", "Liver"] # python3 ProductionCode/watch.py --site Liver
         expected_result = 'State: Wyoming; Year: 2020; Leading Site: Liver; Sex: Male; Count: 29'
         failed_test_message = "Failed to get data for the site 'Liver'."
         self.assertIn(expected_result, self.run_CLI_command_return_result(CLI_command_as_list), failed_test_message)
