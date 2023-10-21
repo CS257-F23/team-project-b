@@ -74,7 +74,7 @@ def make_dictionary_of_comparison_data(case_details):
     return comparison_data
 
 def reformat_to_plot_data(case_details):
-    """Helper function to create_comparison_plots(). Parse through the dictionary from make_dictionary_of_comparison_data() and sort them in a way that Matplotlib can use to make bar graphs.
+    """Helper function to display_filtered_and_sorted_data(). Parse through the dictionary from make_dictionary_of_comparison_data() and sort them in a way that Matplotlib can use to make bar graphs.
     
     For ID3, this input should be:
     comparison_data = { 
@@ -114,14 +114,24 @@ def reformat_to_plot_data(case_details):
     
     return plotting_data
 
+def sort_categories_by_counts(categories, counts):
+    zip_counts_with_categories = sorted(zip(counts, categories))
+    categories = []
+    counts = []
+    for pair in zip_counts_with_categories:
+        categories.append(pair[1])
+        counts.append(pair[0])
+    
+    return categories, counts
+
 def create_comparison_plot(title, categories, counts):
-    """Make a horizontal bar graph displaying the categories (string) in the y-axis and the counts (integers) in the x-axis. The input is obtained through relevant helper functions that can be found above and passed to this function by the plot_png() functions.
+    """Make a horizontal bar graph displaying the categories (string) in the y-axis and the counts (integers) in the x-axis. The data is sorted by the count of each category. The input is obtained through relevant helper functions that can be found above and passed to this function by the plot_png() functions.
     """        
 
+    categories, counts = sort_categories_by_counts(categories, counts)
+
     fig, ax = plt.subplots()
-
     bars = ax.barh(categories, counts)
-
     ax.set_xlabel('Number of cases')
     ax.set_title("Cases by " + title)
     ax.bar_label(bars, label_type='center')
@@ -163,11 +173,10 @@ def get_filtered_data(combination_method, target_datas):
     else: return render_template("information_display.html", title = "Site subset", total_count = filtered_data['total count'], valid_input = filtered_data['valid input'], invalid_input = filtered_data['invalid input'], subset = filtered_data['case details'])
 
 @app.route('/data', strict_slashes=False, methods = ['GET', 'POST'])
-def display_hard_coded_data():
+def display_filtered_and_sorted_data():
     """Run the imported production method to fetch the hard-coded details and present it. Does get the form data initially but overwrite it with the hard-coded data, it's here to prepare for full implementation.
     Only doable thanks to this article: https://towardsdatascience.com/how-to-easily-show-your-matplotlib-plots-and-pandas-dataframes-dynamically-on-your-website-a9613eff7ae3 
     """
-    global plotting_data # Made global so that the /plot/*.png routes can work.
     # Get user data. Unused for ID3 but will play a role in the group component
     if request.method == "POST":
         combination_method=request.form["combination"]
@@ -177,6 +186,7 @@ def display_hard_coded_data():
         target_data=request.args["filter targets"]
     target_data = parse_URL_string_to_list(target_data) # The target data needs to be translated into list form for get_total_and_details()
     filtered_data = dataset.get_total_and_details(combination_method, target_data) # Using the target data and combination method, obtain the list of cases matching user input. 
+    global plotting_data # Made global so that the /plot/*.png routes can work.
     plotting_data = reformat_to_plot_data(filtered_data['case details'])
     return render_template("information_display.html", title = "Site subset", total_count = filtered_data['total count'], valid_input = filtered_data['valid input'], invalid_input = filtered_data['invalid input'], subset = filtered_data['case details'])
 
