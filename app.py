@@ -139,6 +139,8 @@ def create_comparison_plot(title, categories, counts, top_bracket):
     else:
         if len(categories) < top_bracket: bars = ax.barh(categories, counts)
         else: bars = ax.barh(categories[-top_bracket:], counts[-top_bracket:]) # Only get the top x cases in number
+        # fig.set_size_inches(5, 7, forward=True) # Enough space to see everything easily
+        # ax.set_xlim(left=100)
         ax.bar_label(bars, label_type='center')
     
     plt.yticks(wrap=True)
