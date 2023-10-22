@@ -124,17 +124,28 @@ def sort_categories_by_counts(categories, counts):
     
     return categories, counts
 
-def create_comparison_plot(title, categories, counts):
+def create_comparison_plot(title, categories, counts, top_bracket):
     """Make a horizontal bar graph displaying the categories (string) in the y-axis and the counts (integers) in the x-axis. The data is sorted by the count of each category. The input is obtained through relevant helper functions that can be found above and passed to this function by the plot_png() functions.
+    With a numeric top_bracket as x, return the top x cases with the most counts.
+    With top_bracket as 'All', return the full graph.
     """        
-
     categories, counts = sort_categories_by_counts(categories, counts)
-
+    
     fig, ax = plt.subplots()
-    bars = ax.barh(categories, counts)
+    if top_bracket == 'All': # Display the whole graph
+        fig.set_size_inches(15, len(counts), forward=True) # Enough space to see everything easily
+        bars = ax.barh(categories, counts, height=0.7) 
+        ax.bar_label(bars, label_type='edge') # Labels to the side, since some bars are so short they clips into the y-axis
+    else:
+        ax.bar_label(bars, label_type='center')
+        if len(categories < top_bracket): bars = ax.barh(categories, counts)
+        else: bars = ax.barh(categories[-top_bracket:], counts[-top_bracket:]) # Only get the top x cases in number
+    
+    plt.yticks(wrap=True)
     ax.set_xlabel('Number of cases')
     ax.set_title("Cases by " + title)
-    ax.bar_label(bars, label_type='center')
+    
+    
     for bar in bars: bar.set_color("orange") # Bars' color
     
     return fig
@@ -190,12 +201,17 @@ def display_filtered_and_sorted_data():
     plotting_data = reformat_to_plot_data(filtered_data['case details'])
     return render_template("information_display.html", title = "Site subset", total_count = filtered_data['total count'], valid_input = filtered_data['valid input'], invalid_input = filtered_data['invalid input'], subset = filtered_data['case details'])
 
-@app.route('/plot/<category>.png')
-def plot_png(category):
-    """The route that runs create_comparison_plot() and return a .png of the plot. Uses input that is automatically run when the data-displaying webpage is called (For ID3 this is the hard_display.html site)."""
+@app.route('/plot/<category>/<top_bracket>.png')
+def plot_png(category, top_bracket):
+    """The route that runs create_comparison_plot() and return a .png of the plot. Uses input that is automatically run when the data-displaying webpage is called.
+    """
+    
     if category=="Leading%20Site": category == "Leading Site" # The only category with a whitespace
+    try: top_bracket = int(top_bracket) # Convert the top_bracket to int
+    except ValueError: pass # Except if top_bracket is 'All'
+    
     this_plot_data = plotting_data[f"{category}"]
-    fig = create_comparison_plot(f"{category}", this_plot_data["categories"], this_plot_data["counts"])
+    fig = create_comparison_plot(f"{category}", this_plot_data["categories"], this_plot_data["counts"], top_bracket)
     output = io.BytesIO()
     FigureCanvas(fig).print_png(output)
     return Response(output.getvalue(), mimetype='image/png')
@@ -210,8 +226,6 @@ def contact_us():
     """The Contact Us page, giving an introduction to the website creators and links to communicate."""
     return render_template("contact_us.html", title = "Contact Us")
 
-
-
 @app.errorhandler(404)
 def page_not_found(e):
     """For when 404 error is encountered, such that a potentially possible but non-existant URL is used such as /year/4444."""
@@ -221,7 +235,6 @@ def page_not_found(e):
 def python_bug(e):
     """For when a runtime error is encountered in the code itself."""
     return render_template("error_message.html", title = "Error!", message = "It seems that a bug has occurred in the codes.")
-
 
 if __name__ == '__main__':
     load_data()
