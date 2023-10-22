@@ -20,16 +20,30 @@
         <form action = "data" method = "post">
             <fieldset>
                 <legend>Filter Customization</legend>
-                <p>Combination Method</p>
-                <input type="radio" id="and" name="combination" value="and" checked>
-                <label for="html">and</label><br>
-                <input type="radio" id="or" name="combination" value="or">
-                <label for="css">or</label><br>
 
                 <p><label for="filter targets">Filter dataset for:</label></p>
                 <textarea id= "filter targets" name="filter targets" rows="4" cols="50" placeholder="Enter data to filter the dataset by here..." required>Male</textarea>
                 <br>
                 <input type="submit" value="Submit">
+
+                <p>Advanced Options:</p>
+
+                <label for="top bracket">Preview the top </label>  
+                <select name="top bracket" id="top bracket">
+                    <option value="3" selected>3</option>
+                    {%for i in ([4, 5, 6, 7])%}
+                    <option value="{{i}}">{{i}}</option>
+                    {%endfor%}
+                </select>
+                <label for="top bracket"> cases.</label>
+                
+
+                <p>Combination Method:</p>
+                <input type="radio" id="and" name="combination" value="and" checked>
+                <label for="html">and</label><br>
+                <input type="radio" id="or" name="combination" value="or">
+                <label for="or">or</label><br>
+
             </fieldset>
         </form>
         <p>In our full version, our data can be filtered by adding any pieces of information that you are interested in from the following lists:</p>

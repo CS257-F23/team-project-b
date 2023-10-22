@@ -187,25 +187,32 @@ def get_filtered_data(combination_method, target_datas):
 
 @app.route('/data', strict_slashes=False, methods = ['GET', 'POST'])
 def display_filtered_and_sorted_data():
-    """Run the imported production method to fetch the hard-coded details and present it. Does get the form data initially but overwrite it with the hard-coded data, it's here to prepare for full implementation.
+    """Run the imported production method to fetch the hard-coded details and present it.
+    Input includes:
+    - target_data: entries like 'Liver' and '2018' to filter the dataset by
+    - combination_method: combine target_data by either 'and' or 'or' combination when filtering
+    - top_bracket: in the information display page, preview only the top 3/4/5/6/7 most common cases
     Only doable thanks to this article: https://towardsdatascience.com/how-to-easily-show-your-matplotlib-plots-and-pandas-dataframes-dynamically-on-your-website-a9613eff7ae3 
     """
-    # Get user data. Unused for ID3 but will play a role in the group component
+    # Get user data. 
     if request.method == "POST":
-        combination_method=request.form["combination"]
         target_data=request.form["filter targets"]
+        combination_method=request.form["combination"]
+        top_bracket=request.form["top bracket"]
     elif request.method == "GET":
-        combination_method=request.args["combination"]
         target_data=request.args["filter targets"]
+        combination_method=request.args["combination"]
+        top_bracket=request.args["top bracket"]
     target_data = parse_URL_string_to_list(target_data) # The target data needs to be translated into list form for get_total_and_details()
     filtered_data = dataset.get_total_and_details(combination_method, target_data) # Using the target data and combination method, obtain the list of cases matching user input. 
     global plotting_data # Made global so that the /plot/*.png routes can work.
     plotting_data = reformat_to_plot_data(filtered_data['case details'])
-    return render_template("information_display.html", title = "Site subset", total_count = filtered_data['total count'], valid_input = filtered_data['valid input'], invalid_input = filtered_data['invalid input'], subset = filtered_data['case details'])
+    return render_template("information_display.html", title = "Site subset", total_count = filtered_data['total count'], valid_input = filtered_data['valid input'], invalid_input = filtered_data['invalid input'], subset = filtered_data['case details'], top_bracket_number = top_bracket)
 
 @app.route('/plot/<category>/<top_bracket>.png')
 def plot_png(category, top_bracket):
-    """The route that runs create_comparison_plot() and return a .png of the plot. Uses input that is automatically run when the data-displaying webpage is called.
+    """The route that runs create_comparison_plot() and return a .png of the plot. 
+    Uses input that is automatically run when the data-displaying webpage is called (category) and user input (top_bracket).
     """
     
     if category=="Leading%20Site": category == "Leading Site" # The only category with a whitespace
