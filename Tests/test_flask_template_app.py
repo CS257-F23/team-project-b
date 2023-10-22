@@ -11,8 +11,9 @@ class LoadData(unittest.TestCase):
         response = self.app.get(route, follow_redirects=True)
         return response.data
 
+load_data()
+
 class TestHomePage(LoadData):
-    load_data()
     def test_home_page_route(self):
         """Test that the home page appears as expected and has the correct content."""
         url = '/'
@@ -28,7 +29,6 @@ class TestHomePage(LoadData):
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)
     
 class TestYearDisplayPage(LoadData):
-    load_data()
     def test_get_year_data_route(self):
         """Test that the year subset display page appears as expected in the normal case and has the correct content."""
         url = '/year/2007/'
@@ -88,7 +88,6 @@ class TestSiteDisplayPage(LoadData):
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)
 
 class TestGreatFilterDisplayPage(LoadData):
-    load_data()
     def test_get_data_route(self):
         """Test that the info display page appears as expected in the normal case and has the correct content."""
         url = '/and/Liver/'
