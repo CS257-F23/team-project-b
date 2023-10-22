@@ -137,9 +137,9 @@ def create_comparison_plot(title, categories, counts, top_bracket):
         bars = ax.barh(categories, counts, height=0.7) 
         ax.bar_label(bars, label_type='edge') # Labels to the side, since some bars are so short they clips into the y-axis
     else:
-        ax.bar_label(bars, label_type='center')
-        if len(categories < top_bracket): bars = ax.barh(categories, counts)
+        if len(categories) < top_bracket: bars = ax.barh(categories, counts)
         else: bars = ax.barh(categories[-top_bracket:], counts[-top_bracket:]) # Only get the top x cases in number
+        ax.bar_label(bars, label_type='center')
     
     plt.yticks(wrap=True)
     ax.set_xlabel('Number of cases')
