@@ -1,9 +1,11 @@
-import argparse
-import sys, os
-sys.path.append("ProductionCode")
 from watch import *
+import argparse
+import sys
+import os
+sys.path.append("ProductionCode")
 
-def parse_commandline_args(args,dataset):
+
+def parse_commandline_args(args, dataset):
     """checks to see what arguments the user has given, and displays it. takes args, a Namespace containing args for year and site, and a CancerData object"""
     if args.site != None:
         # added total for revision of CLI
@@ -13,13 +15,14 @@ def parse_commandline_args(args,dataset):
     else:  # if the user enters no arguments, they'll get a helpful statement telling them how to proceed!
         print("\n------Welcome to the WATCH app------ \n \nTo use via command line, try sending --year or --site, followed by the information of interest. \n \nFor more information, please consult the readme. You can also run --help to see valid arguments for each command")
         return ""  # returns empty string to avoid printing of 'None'
-    
+
+
 def main():
     global dataset
     dataset = CancerDataset("Data/clean_incidence.csv")
-    #print(dataset.get_total_for_year_and_site(
+    # print(dataset.get_total_for_year_and_site(
     #    2000, "Liver"))  # Example code for testing
-    print(parse_commandline_args(args,dataset))
+    print(parse_commandline_args(args, dataset))
 
 
 if __name__ == "__main__":

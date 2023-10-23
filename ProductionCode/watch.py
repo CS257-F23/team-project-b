@@ -235,10 +235,10 @@ class CancerDataset:
             'case details': data_for_site
         }
 
+
 def main():
     global dataset
     dataset = CancerDataset("Data/clean_incidence.csv")
-    
 
 
 if __name__ == "__main__":
