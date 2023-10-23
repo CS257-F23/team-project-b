@@ -3,7 +3,7 @@ A collection of tests for the watch.py program. To run, navigate to /team-projec
 import unittest
 from Data import *
 from ProductionCode.watch import *
-from ProductionCode.cl import *
+from cl import *
 import subprocess
 
 def setUp():
