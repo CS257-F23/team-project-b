@@ -1,19 +1,8 @@
+{% extends 'base.html' %}
 <html>
-    <head>
-        <title>{{ title }}</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='datastyle.css') }}">
-    </head>
-    <body>
-        <h1>W. A. T. C. H. <br> =Web Analysis Tool (of) Cancer History=</h1>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/about">About Us</a></li>
-                <li><a href="/contact">Contact Us</a></li>
-            </ul>
-        </nav>
+    {% block content %}
         <p>Apologies!</p>
         <p>{{message}}</p>
         <p>Please undo all changes done to the URL and follow our instructions for an enjoyable demo experience!</p>
-    </body>
+    {% endblock %}
 </html>
