@@ -45,7 +45,7 @@ nav li a {
 
 nav li a:hover {
     color: white;
-    background-color: #EB881A;
+    background-color: #EBA51A;
     text-decoration: underline;
     font-style: italic;
 }
@@ -78,5 +78,68 @@ li {
 
 .column {
     flex: 33%;
+}
+
+
+/* referenced digitalOcean tutorial for form element styling */
+form{
+    text-align: center;
+    margin-left: 25%;
+    margin-right:25%;
+    border-radius: 2em;
+}
+
+ button,
+fieldset, 
+input,
+legend,
+select,
+textarea {
+  appearance: none;
+  -webkit-appearance: none;
+  -moz-appearance: none;
+  background-color:#EBA51A ;
+  border: 3px solid;
+  border-color: black;
+  border-radius: 1em;
+  padding: .5em;
+  margin: .5em;
+  box-sizing: border-box;
+  font-family: Verdana, Geneva, sans-serif;
+  
+}
+
+textarea{
+    text-align: center;
+    font-size: Large;
+    font-family: Verdana, Geneva, sans-serif;
+    background-color: white;
+}
+
+input[type="radio"],
+input[type="checkbox"] {
+  height: 1.5em;
+  width: 1.5em;
+  vertical-align: middle;
+}
+
+input[type="radio"]:checked {
+    background-color: black;
+}
+
+input[type=button], input[type=submit] {
+    background-color: white;
+    font-size: Large;
+}
+
+input[type=button], input[type=submit]:hover{
+    background-color: greenyellow;
+    text-decoration: underline;
+    cursor:pointer;
+}
+/* } referenced w3 school tutorial */
+
+select{
+    background-color: white;
 }
 
