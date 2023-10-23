@@ -1,5 +1,6 @@
 from ProductionCode.case_obj import *
 
+
 class CancerDataset:
     """A class that contains each case (line) from the full data set. """
 
@@ -60,12 +61,28 @@ class CancerDataset:
         return total_cases
 
     def get_total_for_year_and_site(self, year, leading_site):
-        """Calculates and returns the toral number of cancer incidences for the leading cancer site and year specified by the user"""
+        """Calculates and returns the total number of cancer incidences for the leading cancer site and year specified by the user"""
         total_cases = 0
         for case in self.list_of_cases:
             if (int(case.get_year()) == int(year)) and (case.get_leading_site() == leading_site):
                 total_cases += int(case.get_count())
         return total_cases
+
+    def get_top_ten_from_year_and_leading_site(self, year, leading_site):
+        """Creates and returns a top ten list of cancer incidences for both Male and Female's based on the user's parameters of year and state"""
+        top_ten_unsorted_male = []
+        top_ten_unsorted_female = []
+        for case in self.list_of_cases:
+            if (int(case.get_year()) == int(year)) and (case.get_leading_site() == leading_site):
+                if case.get_sex() == "Male":
+                    top_ten_unsorted_male.append((
+                        int(case.get_count()), case.get_state()))
+                else:
+                    top_ten_unsorted_female.append((
+                        int(case.get_count()), case.get_state()))
+        top_ten_sorted_male = sorted(top_ten_unsorted_male, reverse=True)
+        top_ten_sorted_female = sorted(top_ten_unsorted_female, reverse=True)
+        return ("Male top ten list:", top_ten_sorted_male[:10],  "Female top ten list",  top_ten_sorted_female[:10])
 
     def get_total_and_details(self, combination_method, target_datas):
         """List all cases which has one of its data pieces (states/year/etc.) matching the provided information. This is based on the fact that there is no overlapping names between the fields, such as there is no State named Liver.
