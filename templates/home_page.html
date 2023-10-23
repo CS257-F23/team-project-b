@@ -2,16 +2,14 @@
 <html>
     {% block content %}
         <p>Welcome to our group's data analysis website for the U.S.'s cancer incidences.</p>
+        <p>To use, simply input the data points you'd like to filter by (seperated by commas), select your search method, and press submit!</p>
         <p>For a more in-depth introduction, please access the <a href="/about">About Us</a> page.</p>
-        <p>In the following text box, the demo information has been entered for you. Please click Submit to see the expected result.</p>
-        <p>Should you want to try changing the filter inputs, feel free to do so. This Demo will still use the original inputs regardless.</p>
-        <p>Disclaimer: This piece of information has been fabricated for the sole purpose of running the demo. It has nothing to do with any information in the real world, no matter how close the figure is to reality.</p>
         <form action = "data" method = "post">
             <fieldset>
                 <legend>Filter Customization</legend>
 
                 <p><label for="filter targets">Filter dataset for:</label></p>
-                <textarea id= "filter targets" name="filter targets" rows="4" cols="50" placeholder="Enter data to filter the dataset by here..." required>Male</textarea>
+                <textarea id= "filter targets" name="filter targets" rows="4" cols="50" placeholder="Enter data to filter the dataset by here..." required>Male,Liver,2003</textarea>
                 <br>
                 <input type="submit" value="Submit">
 
@@ -35,7 +33,7 @@
 
             </fieldset>
         </form>
-        <p>In our full version, our data can be filtered by adding any pieces of information that you are interested in from the following lists:</p>
+        <p>To use, input any of the desired information below, seperated by commas:</p>
         <div class="row">
             <div class="column">
                 <h2 class="category">-States-</h2>

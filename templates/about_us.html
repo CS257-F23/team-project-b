@@ -2,7 +2,7 @@
 <html>
     {% block content %}
         <p>This is our Cancer Incidences dataset navigation software: the W. A. T. C. H. - Web Analysis Tool (of) Cancer History.</p>
-        <p>The purpose of this system is to guide you in the journey of further discovering the intricacies of out group's dataset. Specifically, this  is about the number of occurences of cancer within the U.S.</p>
+        <p>The purpose of this system is to guide you in the journey of further discovering the intricacies of the cdc 2000-2020 cancer incidence dataset.</p>
         <p>The data is categorized by:
             <ul>
                 <li>The [State] it happened in</li>
@@ -12,7 +12,6 @@
                 <li>Plus, a [Count] of occurences of each unique combination of the above factors.</li>
             </ul>
         </p>
-        <p>Currently, our team has created a demo to show you how a search for the number of [Liver] cancer cases occuring in [Texas], [2023] suffered by now [Dead] people using the 'and' combination. Only cases that match all provided valid data will be counted. The full version will also have an 'or' combination option, where cases that has any matching data at all will be counted even if only 1 category of theirs matches.</p>
-        <p>This combination will search through our dataset for any cancer cases that matches with all of the data located in the square brackets. Invalid inputs, such as [Dead], will be ignored by the system and reported to you.</p>
+        <p>Currently, the site allows users to input desired queries, and the website will return matching information. It also has a built in visualization tool, which includes data plotting.</p>
     {% endblock %}
 </html>

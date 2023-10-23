@@ -114,6 +114,7 @@ textarea{
     font-size: Large;
     font-family: Verdana, Geneva, sans-serif;
     background-color: white;
+    resize:none;
 }
 
 input[type="radio"],
@@ -135,6 +136,7 @@ input[type=button], input[type=submit] {
 input[type=button], input[type=submit]:hover{
     background-color: greenyellow;
     text-decoration: underline;
+    font-style: italic;
     cursor:pointer;
 }
 /* } referenced w3 school tutorial */
