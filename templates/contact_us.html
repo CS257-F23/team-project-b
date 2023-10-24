@@ -1,9 +1,20 @@
-{% extends 'base.html' %}
 <html>
-    {% block content %}
+    <head>
+        <title>{{ title }}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='datastyle.css') }}">
+    </head>
+    <body>
+        <h1>W. A. T. C. H. <br> =Web Analysis Tool (of) Cancer History=</h1>
+        <nav>
+            <ul>
+                <li><a href="/">Home</a></li>
+                <li><a href="/about">About Us</a></li>
+                <li><a href="/contact">Contact Us</a></li>
+            </ul>
+        </nav>
         <h2>Cuong Chi Tran</h2>
         <p>Role: Creator of the Demo</p>
         <p>E-mail: <a href="mailto:chicuong@carleton.edu">chicuong@carleton.edu</a></p>
         <p>Phone: <a href="tel:+12345678910">(+1) 234-567-8910</a></p>
-    {% endblock %}
+    </body>
 </html>
