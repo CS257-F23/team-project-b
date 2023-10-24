@@ -1,17 +1,6 @@
+{% extends 'base.html' %}
 <html>
-    <head>
-        <title>{{ title }}</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='datastyle.css') }}">
-    </head>
-    <body>
-        <h1>W. A. T. C. H. <br> =Web Analysis Tool (of) Cancer History=</h1>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/about">About Us</a></li>
-                <li><a href="/contact">Contact Us</a></li>
-            </ul>
-        </nav>
+    {% block content %}
         <p>Welcome to our group's data analysis website for the U.S.'s cancer incidences.</p>
         <p>For a more in-depth introduction, please access the <a href="/about">About Us</a> page.</p>
         <p>In the following text box, the demo information has been entered for you. Please click Submit to see the expected result.</p>
@@ -81,4 +70,5 @@
             </div>
         </div>
     </body>
+    {% endblock %}
 </html>

@@ -1,17 +1,6 @@
+{% extends 'base.html' %}
 <html>
-    <head>
-        <title>{{ title }}</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='datastyle.css') }}">
-    </head>
-    <body>
-        <h1>W. A. T. C. H. <br> =Web Analysis Tool (of) Cancer History=</h1>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/about">About Us</a></li>
-                <li><a href="/contact">Contact Us</a></li>
-            </ul>
-        </nav>
+    {% block content %}
         <p>This is our Cancer Incidences dataset navigation software: the W. A. T. C. H. - Web Analysis Tool (of) Cancer History.</p>
         <p>The purpose of this system is to guide you in the journey of further discovering the intricacies of out group's dataset. Specifically, this  is about the number of occurences of cancer within the U.S.</p>
         <p>The data is categorized by:
@@ -25,5 +14,5 @@
         </p>
         <p>Currently, our team has created a demo to show you how a search for the number of [Liver] cancer cases occuring in [Texas], [2023] suffered by now [Dead] people using the 'and' combination. Only cases that match all provided valid data will be counted. The full version will also have an 'or' combination option, where cases that has any matching data at all will be counted even if only 1 category of theirs matches.</p>
         <p>This combination will search through our dataset for any cancer cases that matches with all of the data located in the square brackets. Invalid inputs, such as [Dead], will be ignored by the system and reported to you.</p>
-    </body>
+    {% endblock %}
 </html>

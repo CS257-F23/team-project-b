@@ -1,17 +1,6 @@
-<html>
-    <head>
-        <title>{{ title }}</title>
-        <link rel="stylesheet" href="{{ url_for('static', filename='datastyle.css') }}">
-    </head>
-    <body>
-        <h1>W. A. T. C. H. <br> =Web Analysis Tool (of) Cancer History=</h1>
-        <nav>
-            <ul>
-                <li><a href="/">Home</a></li>
-                <li><a href="/about">About Us</a></li>
-                <li><a href="/contact">Contact Us</a></li>
-            </ul>
-        </nav>
+{% extends 'base.html' %}
+<html>    
+    {% block content %}
         <p>This is our information display page for the Cancer Incidences dataset navigation software: the W. A. T. C. H. - Web Analysis Tool (of) Cancer History.</p>
         <p>Summary:
             <ul>
@@ -20,11 +9,11 @@
                 <li>These pieces of data has not found corresponding cases: {{invalid_input}}</li>
             </ul>
         </p>
-        <p>Here are some plots previewing the top {{top_bracket_number}} cases in each category that still fit what you searched for. Click on them to open the full graphs:</p>
-        <a href="/plot/State/All.png" target="_blank"><img src="/plot/State/{{top_bracket_number}}.png"></a>
-        <a href="/plot/Year/All.png" target="_blank"><img src="/plot/Year/{{top_bracket_number}}.png"></a>
-        <a href="/plot/Leading%20Site/All.png" target="_blank"><img src="/plot/Leading%20Site/{{top_bracket_number}}.png"></a>
-        <a href="/plot/Sex/All.png" target="_blank"><img src="/plot/Sex/{{top_bracket_number}}.png"></a>
+        <p>Here are some plots previewing the top 5 cases in each category that still fit what you searched for. Click on them to open the full graphs:</p>
+        <a href="/plot/State/All.png" target="_blank"><img src="/plot/State/5.png"></a>
+        <a href="/plot/Year/All.png" target="_blank"><img src="/plot/Year/5.png"></a>
+        <a href="/plot/Leading%20Site/All.png" target="_blank"><img src="/plot/Leading%20Site/5.png"></a>
+        <a href="/plot/Sex/All.png" target="_blank"><img src="/plot/Sex/5.png"></a>
         <p>Finally, you can see the portion of our dataset matching your desired data:</p>
         <p>
             <ul>
@@ -35,4 +24,5 @@
         </p>
         <p>I hope you enjoyed it! The full version is expected to come out at the start of 2024! I fully believe that you will enjoy it.</p>
     </body>
+    {% endblock %}
 </html>
