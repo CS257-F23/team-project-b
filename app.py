@@ -267,6 +267,24 @@ def plot_png(category, top_bracket):
     FigureCanvas(fig).print_png(output)
     return Response(output.getvalue(), mimetype='image/png')
 
+@app.route('/yearandsite')
+def state_and_site_form():
+    return render_template("year_and_site.html",title="year and Site form")
+
+@app.route('/rankedLists', methods = ["GET","POST"])
+def display_ranked_List():
+    if request.method == "POST":
+        target_year = request.form["year_for_ranked"]
+        target_site = request.form["site_for_ranked"]
+    elif request.method == "GET":
+        target_year = request.args["year_for_ranked"]
+        target_site = request.args["site_for_ranked"]
+    
+    top_10_lists = dataset.get_top_ten_from_year_and_leading_site(target_year,target_site)
+    female_list = top_10_lists["Female top ten list"]
+    male_list = top_10_lists["Male top ten list"]
+    return render_template("top_10_page.html",title = "State and Site display",year_choice = target_year, site_choice = target_site, flist = female_list, mlist = male_list)
+
 
 @app.route('/about')
 def about_us():

@@ -1,0 +1,65 @@
+{% extends 'base.html' %}
+<html>
+    {% block content %}
+        <p>Welcome to our group's data analysis website for the U.S.'s cancer incidences.</p>
+        <p>To use, simply input the data points you'd like to filter by (seperated by commas), select your combination method, and press submit!</p>
+        <p>For a more in-depth introduction, please access the <a href="/about">About Us</a> page.</p>
+        <form action = "rankedLists" method = "post">
+            <fieldset>
+                <legend>Year and Site form</legend>
+
+                <p><label for="year">Enter a year:</label></p>
+                <textarea id= "year_for_ranked" name="year_for_ranked" rows="1" cols="25" placeholder="Enter a year here..." required>2005</textarea>
+                <br>
+
+                <label for="select site">Select site of Interest </label>  
+                <select name="site_for_ranked" id="site_for_ranked">
+                    <option value="Liver" selected>Liver</option>
+                    {%for site in (['Brain and Other Nervous System', 'Breast', 'Cervix Uteri', 'Colon and Rectum', 'Corpus Uteri', 'Esophagus', 'Gallbladder', 'Kidney and Renal Pelvis', 'Larynx', 'Leukemias', 'Liver', 'Lung and Bronchus', 'Melanoma of the Skin', 'Myeloma', 'Non-Hodgkin Lymphoma', 'Oral Cavity and Pharynx', 'Ovary', 'Pancreas', 'Prostate', 'Stomach', 'Thyroid', 'Urinary Bladder invasive and in situ'])%}
+                    <option value="{{site}}">{{site}}</option>
+                    {%endfor%}
+                </select>
+                <label for="top bracket"> </label>
+                <br>
+                <input type="submit" value="Submit">
+                
+
+            </fieldset>
+        </form>
+        <p>To use, input any of the desired information below, seperated by commas:</p>
+        <div class="row">
+            <div class="column">
+                <h2 class="category">-States-</h2>
+                <ul>
+                    {% for site in (['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming']) :%}
+                    <li class="filter_data">{{site}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="column">
+                <h2 class="category">-Years-</h2>
+                <ul>
+                    {% for year in (range(2000,2021)):%}
+                    <li class="filter_data">{{year}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="column">
+                <h2 class="category">-Sites-</h2>
+                <ul>
+                    {% for site in (['Brain and Other Nervous System', 'Breast', 'Cervix Uteri', 'Colon and Rectum', 'Corpus Uteri', 'Esophagus', 'Gallbladder', 'Kidney and Renal Pelvis', 'Larynx', 'Leukemias', 'Liver', 'Lung and Bronchus', 'Melanoma of the Skin', 'Myeloma', 'Non-Hodgkin Lymphoma', 'Oral Cavity and Pharynx', 'Ovary', 'Pancreas', 'Prostate', 'Stomach', 'Thyroid', 'Urinary Bladder invasive and in situ']) :%}
+                    <li class="filter_data">{{site}}</li>
+                    {% endfor %}
+                </ul>
+            </div>
+            <div class="column">
+                <h2 class="category">-Sexes-</h2>
+                <ul>
+                    <li class="filter_data">Male</li>
+                    <li class="filter_data">Female</li>
+                </ul>
+            </div>
+        </div>
+    </body>
+    {% endblock %}
+</html>
