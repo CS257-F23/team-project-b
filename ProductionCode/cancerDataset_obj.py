@@ -1,6 +1,4 @@
-#from ProductionCode.case_obj import *
-from case_obj import *
-
+from ProductionCode.case_obj import *
 
 class CancerDataset:
     """A class that contains each case (line) from the full data set. """
