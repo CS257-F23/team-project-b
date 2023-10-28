@@ -1,5 +1,5 @@
 import psycopg2
-import ProductionCode.psqlConfig as config
+import psqlConfig as config
 
 class DataSource:
 
@@ -41,7 +41,8 @@ def construct_multiargument_query(target_datas:list):
     for argument in target_datas:
        arg_type = identify_argument(argument)
        if arg_type != None:
-            sql_command = sql_command + arg_type + " = " + str(argument) + " "
+            sql_command = sql_command + arg_type + "= '" + str(argument) + "' AND "
+    sql_command = sql_command[:-4]
     return sql_command
 
     
@@ -68,3 +69,6 @@ def identify_argument(argument:str):
         return 'sex'
     else:
         return None
+
+testSource = DataSource()
+print(testSource.get_total_and_details(["Maine","Liver", "Female", "2004"]))
