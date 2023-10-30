@@ -19,7 +19,7 @@ class DataSource:
         return connection
     
     def get_total_and_details(self,target_datas:list):
-        command_for_sql = construct_multiargument_query(target_datas)
+        command_for_sql = construct_multiargument_query_target_all(target_datas)
         cursor = self.connection.cursor()
         cursor.execute(command_for_sql)
         result = cursor.fetchall()
@@ -45,14 +45,25 @@ class DataSource:
         return result
     
     
-def construct_multiargument_query(target_datas:list):
-    """Returns an sql command which will fetch all data that matches the arguments of interest (target_datas)"""
+def construct_multiargument_query_target_all(query_parameters:list):
+    """Returns an sql command which will fetch all data that matches the arguments of interest (query_parameters)"""
     sql_command = "SELECT * FROM cancerData WHERE "
-    for argument in target_datas:
+    for argument in query_parameters:
        arg_type = identify_argument(argument)
        if arg_type != None:
             sql_command = sql_command + arg_type + "= '" + str(argument) + "' AND "
     sql_command = sql_command[:-4] #removes the last " AND" from the command
+    return sql_command
+
+def construct_multiargument_query_specified_targets(targets_to_return:list,query_parameters:list):
+    """Creates an SQL command which has specified targets (rather than just *) given a list of targets, and a list of query parameters. 
+    Both args should be lists of strings"""
+    sql_command = construct_multiargument_query_target_all(query_parameters)
+    targets_as_string = ""
+    for target in targets_to_return:
+        targets_as_string = targets_as_string + str(target) + ", "
+    targets_as_string = targets_as_string[:-2]
+    sql_command = sql_command.replace("*",targets_as_string)
     return sql_command
 
     
@@ -82,4 +93,5 @@ def identify_argument(argument:str):
 
 testSource = DataSource()
 #print(testSource.get_total_and_details(["Maine","Liver", "Female", "2004"]))
-print(testSource.get_ranked_list_by_year_and_site("2002","Breast"))
+#print(testSource.get_ranked_list_by_year_and_site("2002","Breast"))
+print(construct_multiargument_query_specified_targets(["case_year","sex"],["2002","Liver"]))
