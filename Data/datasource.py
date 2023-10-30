@@ -35,6 +35,14 @@ class DataSource:
         cursor.execute(command_for_sql)
         result = cursor.fetchall()
         return result
+    
+    def get_total_for_site(self, leading_site):
+        """Docstring"""
+        command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE leading_site = '"+ str(leading_site) + "'"
+        cursor = self.connection.cursor()
+        cursor.execute(command_for_sql)
+        result = cursor.fetchall()
+        return result
 
     
     def get_total_and_details(self,target_datas:list):
@@ -43,6 +51,9 @@ class DataSource:
         cursor.execute(command_for_sql)
         result = cursor.fetchall()
         return result
+    
+   
+
     
     def get_ranked_list_by_year_and_site(self,year,site):
         """returns a dictionary containing ranked top 10 lists (for each sex) of cancer cases in the given year and site"""

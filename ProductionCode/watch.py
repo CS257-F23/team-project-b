@@ -7,6 +7,7 @@ from ProductionCode.cancerDataset_obj import *
 def main():
     global dataset
     dataset = CancerDataset("Data/clean_incidence.csv")
+    print(dataset.get_total_for_site("Liver"))
 
 if __name__ == "__main__":
     main()
