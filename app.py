@@ -244,7 +244,7 @@ def display_filtered_and_sorted_data():
     # Made global so that the /plot/*.png routes can work.
     global plotting_data
     plotting_data = reformat_to_plot_data(filtered_data['case details'])
-    return render_template("information_display.html", title="Site subset", total_count=filtered_data['total count'], valid_input=filtered_data['valid input'], invalid_input=filtered_data['invalid input'], subset=filtered_data['case details'], top_bracket_number=top_bracket)
+    return render_template("information_display.html", title="Site subset", total_count=filtered_data['total count'], valid_input=filtered_data['valid input'], invalid_input=filtered_data['invalid input'], subset=filtered_data['case details'], top_bracket=top_bracket)
 
 
 @app.route('/plot/<category>/<top_bracket>.png')
