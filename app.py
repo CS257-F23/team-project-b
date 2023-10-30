@@ -4,6 +4,7 @@ from ProductionCode.watch import *
 
 # Flask imports
 from flask import Flask, render_template, request, Response
+from Data.datasource import *
 
 #Matplotlib and numpy
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
@@ -20,6 +21,8 @@ def load_data():
     file = 'Data/clean_incidence.csv'
     # now has a .list_of_cases = the whole file converted to list of Case instances
     dataset = CancerDataset(file)
+    global database
+    database = DataSource() #from sql
 
 
 def parse_URL_string_to_list(URL_string_input):
@@ -280,7 +283,8 @@ def display_ranked_List():
         target_year = request.args["year_for_ranked"]
         target_site = request.args["site_for_ranked"]
     
-    top_10_lists = dataset.get_top_ten_from_year_and_leading_site(target_year,target_site)
+    #top_10_lists = dataset.get_top_ten_from_year_and_leading_site(target_year,target_site)
+    top_10_lists = database.get_ranked_list_by_year_and_site(target_year,target_site)
     female_list = top_10_lists["Female top ten list"]
     male_list = top_10_lists["Male top ten list"]
     return render_template("top_10_page.html",title = "State and Site display",year_choice = target_year, site_choice = target_site, flist = female_list, mlist = male_list)
