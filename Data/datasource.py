@@ -1,5 +1,5 @@
 import psycopg2
-import psqlConfig as config
+import Data.psqlConfig as config
 
 class DataSource:
 
@@ -109,8 +109,3 @@ def identify_argument(argument:str):
         return 'sex'
     else:
         return None
-
-testSource = DataSource()
-#print(testSource.get_total_and_details(["Maine","Liver", "Female", "2004"]))
-#print(testSource.get_ranked_list_by_year_and_site("2002","Breast"))
-print(construct_multiargument_query_specified_targets(["case_year","sex"],["2002","Liver"]))
