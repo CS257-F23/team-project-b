@@ -26,8 +26,9 @@ class DataSource:
         return result
     
     def get_ranked_list_by_year_and_site(self,year,site):
-        command_for_flist = "SELECT TOP 10 'state_name' AND 'case_count' FROM cancerData WHERE sex = 'Female' AND case_year = '" + str(year) + "' AND leading_site = '" + str(site) + "'"
-        command_for_mlist = "SELECT TOP 10 'state_name' AND 'case_count' FROM cancerData WHERE sex = 'Male' AND case_year = '" + str(year) + "' AND leading_site = '" + str(site) + "'"
+        """returns a dictionary containing ranked top 10 lists (for each sex) of cancer cases in the given year and site"""
+        command_for_flist = "SELECT state_name, case_count FROM cancerData WHERE sex = 'Female' AND case_year = '" + str(year) + "' AND leading_site = '" + str(site) + "'ORDER BY case_count DESC LIMIT 10"
+        command_for_mlist = "SELECT state_name, case_count FROM cancerData WHERE sex = 'Male' AND case_year = '" + str(year) + "' AND leading_site = '" + str(site) + "'ORDER BY case_count DESC LIMIT 10"
         cursor = self.connection.cursor()
         cursor.execute(command_for_flist)
         flist = cursor.fetchall()
@@ -51,7 +52,7 @@ def construct_multiargument_query(target_datas:list):
        arg_type = identify_argument(argument)
        if arg_type != None:
             sql_command = sql_command + arg_type + "= '" + str(argument) + "' AND "
-    sql_command = sql_command[:-4]
+    sql_command = sql_command[:-4] #removes the last " AND" from the command
     return sql_command
 
     
@@ -80,4 +81,5 @@ def identify_argument(argument:str):
         return None
 
 testSource = DataSource()
-print(testSource.get_total_and_details(["Maine","Liver", "Female", "2004"]))
+#print(testSource.get_total_and_details(["Maine","Liver", "Female", "2004"]))
+print(testSource.get_ranked_list_by_year_and_site("2002","Breast"))
