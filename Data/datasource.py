@@ -17,6 +17,7 @@ class DataSource:
             print("Connection error: ", e)
             exit()
         return connection
+    
     def get_data_from_year(self, year):
         """Docstring"""
         command_for_sql = "SELECT * FROM cancerData WHERE case_year = '" + \
