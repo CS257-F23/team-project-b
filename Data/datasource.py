@@ -17,6 +17,24 @@ class DataSource:
             print("Connection error: ", e)
             exit()
         return connection
+    def get_data_from_year(self, year):
+        """Docstring"""
+        command_for_sql = "SELECT * FROM cancerData WHERE case_year = '" + \
+            str(year) + "'"
+        cursor = self.connection.cursor()
+        cursor.execute(command_for_sql)
+        result = cursor.fetchall()
+        return result
+
+    def get_data_by_site(self, site):
+        """Docstring"""
+        command_for_sql = "SELECT * FROM cancerData WHERE leading_site = '" + \
+            str(site) + "'"
+        cursor = self.connection.cursor()
+        cursor.execute(command_for_sql)
+        result = cursor.fetchall()
+        return result
+
     
     def get_total_and_details(self,target_datas:list):
         command_for_sql = construct_multiargument_query_target_all(target_datas)
