@@ -24,6 +24,17 @@ class DataSource:
         cursor.execute(command_for_sql)
         result = cursor.fetchall()
         return result
+    
+    def get_ranked_list_by_year_and_site(self,year,site):
+        command_for_flist = "SELECT TOP 10 'state_name' AND 'case_count' FROM cancerData WHERE sex = 'Female' AND case_year = '" + str(year) + "' AND leading_site = '" + str(site) + "'"
+        command_for_mlist = "SELECT TOP 10 'state_name' AND 'case_count' FROM cancerData WHERE sex = 'Male' AND case_year = '" + str(year) + "' AND leading_site = '" + str(site) + "'"
+        cursor = self.connection.cursor()
+        cursor.execute(command_for_flist)
+        flist = cursor.fetchall()
+        cursor.execute(command_for_mlist)
+        mlist = cursor.fetchall()
+        output = {"Male top ten list": mlist, "Female top ten list" : flist}
+        return output
 
     def return_sorted_state(self,state):
         """returns a list of the contents of each row with the specified date. For convenience, this list is sorted by the year of occurrence."""
@@ -32,8 +43,6 @@ class DataSource:
         result = cursor.fetchall()
         return result
     
-    
-
     
 def construct_multiargument_query(target_datas:list):
     """Returns an sql command which will fetch all data that matches the arguments of interest (target_datas)"""
