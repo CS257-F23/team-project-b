@@ -43,7 +43,22 @@ class DataSource:
         cursor.execute(command_for_sql)
         result = cursor.fetchall()
         return result
-
+    
+    def get_total_for_year(self, year):
+        """Docstring"""
+        command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE case_year = '"+ str(year)+"'"
+        cursor = self.connection.cursor()
+        cursor.execute(command_for_sql)
+        result = cursor.fetchall()
+        return result
+    
+    def get_total_for_year_and_site(self, year, leading_site):
+        """Docstring"""
+        command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE case_year = '"+ str(year)+"' AND leading_site = '"+ str(leading_site) + "'"
+        cursor = self.connection.cursor()
+        cursor.execute(command_for_sql)
+        result = cursor.fetchall()
+        return result
     
     def get_total_and_details(self,target_datas:list):
         command_for_sql = construct_multiargument_query_target_all(target_datas)
