@@ -50,6 +50,19 @@ def case_details_as_3d_list(case_details):
         deeply_split_list.append(case_as_dictionary)
     return deeply_split_list
 
+def sql_output_to_3d_list(sql_output:list):
+    """Converts the direct output from sql to a 3d list, allowing for simple integration into existing code"""
+    list_3d_output = []
+    for entry in sql_output:
+        entry_as_list = []
+        entry_as_list.append(["State",str(entry[0])])
+        entry_as_list.append(["Year",str(entry[1])])
+        entry_as_list.append(["Leading Site",str(entry[2])])
+        entry_as_list.append(["Sex",str(entry[3])])
+        entry_as_list.append(["Count",str(entry[4])])
+        list_3d_output.append(entry_as_list)
+    return list_3d_output
+
 
 def make_dictionary_of_comparison_data(case_details):
     """Helper function to reformat_to_plot_data(). 
