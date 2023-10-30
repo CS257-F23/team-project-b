@@ -67,8 +67,8 @@ def sql_output_to_3d_list(sql_output:list):
 def make_dictionary_of_comparison_data(case_details):
     """Helper function to reformat_to_plot_data(). 
     Parse through list of entries like [["State", "Texas"], ["Year", "2023"], ["Leading Site", "Liver"], ["Sex", "Male"], ["Count", "31518"]] to gather data to make a dictionary of plotting data, with each dictionary entry being its own dictionary of counts between items of the same category, such as the entry "State" being a dictionary itself with value {"Texas": 42024}."""
-    case_details_in_3d = case_details_as_3d_list(case_details)
-
+    #case_details_in_3d = case_details_as_3d_list(case_details)
+    case_details_in_3d = sql_output_to_3d_list(case_details)
     comparison_data = {
         "State": {},
         "Year": {},
@@ -255,12 +255,12 @@ def display_filtered_and_sorted_data():
     # The target data needs to be translated into list form for get_total_and_details()
     target_data = parse_URL_string_to_list(target_data)
     # Using the target data and combination method, obtain the list of cases matching user input.
-    filtered_data = dataset.get_total_and_details(
-        combination_method, target_data)
+    #filtered_data = dataset.get_total_and_details(combination_method, target_data)
     # Made global so that the /plot/*.png routes can work.
     global plotting_data
-    plotting_data = reformat_to_plot_data(filtered_data['case details'])
-    return render_template("information_display.html", title="Site subset", total_count=filtered_data['total count'], valid_input=filtered_data['valid input'], invalid_input=filtered_data['invalid input'], subset=filtered_data['case details'], top_bracket=top_bracket)
+    sql_filtered_data = database.get_total_and_details(target_data)
+    plotting_data = reformat_to_plot_data(sql_filtered_data)
+    return render_template("information_display.html", title="Site subset", total_count=999, valid_input="not implemented yet", invalid_input="not implemented yet", subset="not implemented yet", top_bracket=top_bracket)
 
 
 @app.route('/plot/<category>/<top_bracket>.png')
@@ -295,8 +295,7 @@ def display_ranked_List():
     elif request.method == "GET":
         target_year = request.args["year_for_ranked"]
         target_site = request.args["site_for_ranked"]
-    
-    #top_10_lists = dataset.get_top_ten_from_year_and_leading_site(target_year,target_site)
+
     top_10_lists = database.get_ranked_list_by_year_and_site(target_year,target_site)
     female_list = top_10_lists["Female top ten list"]
     male_list = top_10_lists["Male top ten list"]
