@@ -13,12 +13,8 @@ https://anyaevostinar.github.io/classes/257-f23/project-command-line
 from ProductionCode.watch import *
 import argparse
 from Data.datasource import *
-#import sys
-#import os
-#sys.path.append("ProductionCode")
 
-
-def parse_commandline_args(args, dataset):
+def parse_commandline_args(args):
     """checks to see what arguments the user has given, and displays it. takes args, a Namespace containing args for year and site, and a CancerData object"""
     if args.site != None:
         # added total for revision of CLI
@@ -31,14 +27,9 @@ def parse_commandline_args(args, dataset):
 
 
 def main():
-    #global dataset
-    #dataset = CancerDataset("Data/clean_incidence.csv")
     global database
     database = DataSource()
-    # print(dataset.get_total_for_year_and_site(
-    #    2000, "Liver"))  # Example code for testing
-    print(parse_commandline_args(args, dataset))
-
+    print(parse_commandline_args(args))
 
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(

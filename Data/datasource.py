@@ -41,7 +41,7 @@ class DataSource:
         command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE leading_site = '"+ str(leading_site) + "'"
         cursor = self.connection.cursor()
         cursor.execute(command_for_sql)
-        result = cursor.fetchall()
+        result = cursor.fetchall() #a list of tuples (both list and tuple only have 1 item)
         return result[0][0]
     
     def get_total_for_year(self, year):
@@ -50,7 +50,7 @@ class DataSource:
         cursor = self.connection.cursor()
         cursor.execute(command_for_sql)
         result = cursor.fetchall()
-        return result
+        return result[0][0]
     
     def get_total_for_year_and_site(self, year, leading_site):
         """Docstring"""
