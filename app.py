@@ -50,20 +50,23 @@ def case_details_as_3d_list(case_details):
         deeply_split_list.append(case_as_dictionary)
     return deeply_split_list
 
-def sql_output_to_3d_list(sql_output:list):
+def sql_output_cases_as_3d_list(sql_output:list):
     """
     Helper function to make_dictionary_of_comparison_data()
     Converts the direct output from sql to a 3d list, allowing for simple integration into existing code.
     The input is a list of tuples, each entry being similar to: ('Alabama', 2003, 'Liver', 'Male', 128)
     Output is a list of 2D list, each entry being similar to: [["State", "Alabama"], ["Year", "2003"], ["Leading Site", "Liver"], ["Sex", "Male"], ["Count", "128"]]
     """
+    
     list_3d_output = []
-    state_entry = ["State",str(entry[0])]
-    year_entry = ["Year",str(entry[1])]
-    leading_site_entry = ["Leading Site",str(entry[2])]
-    sex_entry = ["Sex",str(entry[3])]
-    count_entry = ["Count",str(entry[4])]
-    for entry in sql_output:
+    
+    for case in sql_output:
+        state_entry = ["State",str(case[0])]
+        year_entry = ["Year",str(case[1])]
+        leading_site_entry = ["Leading Site",str(case[2])]
+        sex_entry = ["Sex",str(case[3])]
+        count_entry = ["Count",str(case[4])]
+        
         entry_as_list = []
         entry_as_list.append(state_entry)
         entry_as_list.append(year_entry)
@@ -76,9 +79,18 @@ def sql_output_to_3d_list(sql_output:list):
 
 def make_dictionary_of_comparison_data(case_details):
     """Helper function to reformat_to_plot_data(). 
-    Parse through list of entries like [["State", "Texas"], ["Year", "2023"], ["Leading Site", "Liver"], ["Sex", "Male"], ["Count", "31518"]] to gather data to make a dictionary of plotting data, with each dictionary entry being its own dictionary of counts between items of the same category, such as the entry "State" being a dictionary itself with value {"Texas": 42024}."""
+    Input is list of entries like ('Alabama', 2003, 'Liver', 'Male', 128)
+    Run sql_output_cases_as_3d_list() to make list of 2D lists like: [["State", "Texas"], ["Year", "2023"], ["Leading Site", "Liver"], ["Sex", "Male"], ["Count", "31518"]]
+    Parse through list of 2D entries to gather data to make a dictionary of plotting data, with each dictionary entry being its own dictionary of counts between items of the same category.
+    Example output:
+    comparison_data = { 
+        "State": {"Texas": 42024},
+        "Year": {"2023": 42024},
+        "Leading Site": {"Liver": 42024},
+        "Sex": {"Male": 31518, "Female": 10506}
+    """
     #case_details_in_3d = case_details_as_3d_list(case_details)
-    case_details_in_3d = sql_output_to_3d_list(case_details)
+    case_details_in_3d = sql_output_cases_as_3d_list(case_details)
     comparison_data = {
         "State": {},
         "Year": {},
@@ -88,7 +100,6 @@ def make_dictionary_of_comparison_data(case_details):
 
     # Example: [["State", "Texas"], ["Year", "2023"], ["Leading Site", "Liver"], ["Sex", "Male"], ["Count", "31518"]]
     for case in case_details_in_3d:
-
         data_categories = ["State", "Year", "Leading Site", "Sex"]
         current_count = int(case[4][1])  # 31518
 
@@ -114,9 +125,9 @@ def make_dictionary_of_comparison_data(case_details):
 
 def reformat_to_plot_data(case_details):
     """Helper function to display_filtered_and_sorted_data(). 
+    Input is list of entries like ('Alabama', 2003, 'Liver', 'Male', 128)
     Parse through the dictionary from make_dictionary_of_comparison_data() and sort them in a way that Matplotlib can use to make bar graphs.
-
-    After running through make_dictionary_of_comparison_data(), the input should be like:
+    After running through make_dictionary_of_comparison_data(), the input will become:
     comparison_data = { 
         "State": {"Texas": 42024},
         "Year": {"2023": 42024},
@@ -247,7 +258,7 @@ def get_filtered_data(combination_method, target_datas):
 
 @app.route('/data', strict_slashes=False, methods=['GET', 'POST'])
 def display_filtered_and_sorted_data():
-    """Run the imported production method to fetch the hard-coded details and present it.
+    """Filter the dataset and return the result to be displayed.
     Input includes:
     - target_data: entries like 'Liver' and '2018' to filter the dataset by
     - combination_method: combine target_data by either 'and' or 'or' combination when filtering
@@ -269,9 +280,13 @@ def display_filtered_and_sorted_data():
     #filtered_data = dataset.get_total_and_details(combination_method, target_data)
     # Made global so that the /plot/*.png routes can work.
     global plotting_data
-    sql_filtered_data = database.get_total_and_details(target_data)
-    plotting_data = reformat_to_plot_data(sql_filtered_data)
-    return render_template("information_display.html", title="Site subset", total_count=999, valid_input="not implemented yet", invalid_input="not implemented yet", subset="not implemented yet", top_bracket=top_bracket)
+    filter_result = database.return_variable_arguments_query_result(target_data)
+    total_count = filter_result['total count']
+    valid_input=filter_result['valid input']
+    invalid_input=filter_result['invalid input']
+    subset=filter_result['subset']
+    plotting_data = reformat_to_plot_data(subset)
+    return render_template("information_display.html", title="Site subset", total_count=total_count, valid_input=valid_input, invalid_input=invalid_input, subset=subset, top_bracket=top_bracket)
 
 
 @app.route('/plot/<category>/<top_bracket>.png')
