@@ -92,14 +92,15 @@ class DataSource:
         result = cursor.fetchall()
         return result
     
-    def return_variable_arguments_query_result(self,target_datas:list):
+    def return_variable_arguments_query_result(self, combination_method:str, target_datas:list):
         """Sort target_datas into invalid targets and valid targets (which will be accompanied with their column of appearance)
         Extract valid targets into its own list for display in the website with the invalid targets
+        Create relevant SQL commands, run them and get the resultant subset of the table
         Craft the dictionary used in app.py for rendering"""
         invalid_query_parameters, valid_column_and_query_parameters = sort_out_invalid_and_valid_query_parameters_with_column(target_datas)
         valid_query_parameters = []
         valid_query_parameters = [parameter for _,parameter in valid_column_and_query_parameters if parameter not in valid_query_parameters]
-        command_for_get_all_cases = construct_multiargument_query_target_all(valid_column_and_query_parameters)
+        command_for_get_all_cases = construct_multiargument_query_target_all(combination_method, valid_column_and_query_parameters)
         command_for_get_total_case_counts = command_for_get_all_cases.replace("*", "SUM(case_count)")
         all_cases = self.run_sql_command_and_return_result(command_for_get_all_cases)
         total_count = self.run_sql_command_and_return_result(command_for_get_total_case_counts) # Take the form of a list of 1 tuple like: [(15328977,)]
@@ -132,23 +133,30 @@ def sort_out_invalid_and_valid_query_parameters_with_column(query_parameters:lis
             valid_column_and_query_parameters.append(column_and_argument)
     return invalid_query_parameters, valid_column_and_query_parameters
     
-def construct_multiargument_query_target_all(valid_columns_and_arguments:list):
+def construct_multiargument_query_target_all(combination_method:str, valid_columns_and_arguments:list):
     """Returns an sql command which will fetch all data that matches the arguments of interest
+    combination_method can only be 'and' or 'or', and will be changed to 'AND' and 'OR'
     Example of valid_columns_and_arguments: [["state_name","Texas"], ["sex","Male"], ["leading_site","Liver"]]
     Example of output: SELECT * FROM cancerData WHERE state_name = 'Texas' AND sex = 'Male' AND leading_site = 'Liver'
     """
+    combination_method = combination_method.upper()
     sql_command = "SELECT * FROM cancerData WHERE"
     for column_and_argument in valid_columns_and_arguments:
        target_column = column_and_argument[0]
        target_data = column_and_argument[1]
-       sql_command = f"{sql_command} {target_column} = '{target_data}' AND"
-    sql_command = sql_command[:-4] + ";" #removes the last " AND" from the command and add the closing semicolon
+       sql_command = f"{sql_command} {target_column} = '{target_data}' {combination_method}"
+    last_char_in_command = sql_command[-1] # Whittle down the command until the closing AND/OR iss removed
+    while last_char_in_command != " ":
+        sql_command = sql_command[:-1] 
+        last_char_in_command = sql_command[-1]
+    sql_command += ";" # Add the closing semicolon
     return sql_command
 
-def construct_multiargument_query_specified_targets(targets_to_return:list,valid_columns_and_arguments:list):
+def construct_multiargument_query_specified_targets(combination_method:str, targets_to_return:list,valid_columns_and_arguments:list):
     """Creates an SQL command which has specified targets (rather than just *) given a list of targets, and a list of query parameters. 
-    Both args should be lists of strings"""
-    sql_command = construct_multiargument_query_target_all(valid_columns_and_arguments)
+    Both args should be lists of strings.
+    Works by running construct_multiargument_query_target_all with valid_columns_and_arguments and replace '*' with the targets_to_return"""
+    sql_command = construct_multiargument_query_target_all(combination_method, valid_columns_and_arguments)
     targets_as_string = ""
     for target in targets_to_return:
         targets_as_string = targets_as_string + str(target) + ", "

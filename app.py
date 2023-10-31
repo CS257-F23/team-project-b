@@ -280,7 +280,7 @@ def display_filtered_and_sorted_data():
     #filtered_data = dataset.get_total_and_details(combination_method, target_data)
     # Made global so that the /plot/*.png routes can work.
     global plotting_data
-    filter_result = database.return_variable_arguments_query_result(target_data)
+    filter_result = database.return_variable_arguments_query_result(combination_method, target_data)
     total_count = filter_result['total count']
     valid_input=filter_result['valid input']
     invalid_input=filter_result['invalid input']
