@@ -42,7 +42,7 @@ class DataSource:
         cursor = self.connection.cursor()
         cursor.execute(command_for_sql)
         result = cursor.fetchall()
-        return result
+        return result[0][0]
     
     def get_total_for_year(self, year):
         """Docstring"""
