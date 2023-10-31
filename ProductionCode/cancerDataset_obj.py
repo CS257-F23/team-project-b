@@ -87,6 +87,7 @@ class CancerDataset:
         """List all cases which has one of its data pieces (states/year/etc.) matching the provided information. This is based on the fact that there is no overlapping names between the fields, such as there is no State named Liver.
         The input are:
         - A string ('or'/'and') from combination_method
+        - target_datas which is a list of individual data pieces for filtering, like ["Texas","Male","Liver"]
         The output will include:
         - The total [count] of all matched Cases
         - Which target_data has found matched Cases

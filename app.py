@@ -51,15 +51,25 @@ def case_details_as_3d_list(case_details):
     return deeply_split_list
 
 def sql_output_to_3d_list(sql_output:list):
-    """Converts the direct output from sql to a 3d list, allowing for simple integration into existing code"""
+    """
+    Helper function to make_dictionary_of_comparison_data()
+    Converts the direct output from sql to a 3d list, allowing for simple integration into existing code.
+    The input is a list of tuples, each entry being similar to: ('Alabama', 2003, 'Liver', 'Male', 128)
+    Output is a list of 2D list, each entry being similar to: [["State", "Alabama"], ["Year", "2003"], ["Leading Site", "Liver"], ["Sex", "Male"], ["Count", "128"]]
+    """
     list_3d_output = []
+    state_entry = ["State",str(entry[0])]
+    year_entry = ["Year",str(entry[1])]
+    leading_site_entry = ["Leading Site",str(entry[2])]
+    sex_entry = ["Sex",str(entry[3])]
+    count_entry = ["Count",str(entry[4])]
     for entry in sql_output:
         entry_as_list = []
-        entry_as_list.append(["State",str(entry[0])])
-        entry_as_list.append(["Year",str(entry[1])])
-        entry_as_list.append(["Leading Site",str(entry[2])])
-        entry_as_list.append(["Sex",str(entry[3])])
-        entry_as_list.append(["Count",str(entry[4])])
+        entry_as_list.append(state_entry)
+        entry_as_list.append(year_entry)
+        entry_as_list.append(leading_site_entry)
+        entry_as_list.append(sex_entry)
+        entry_as_list.append(count_entry)
         list_3d_output.append(entry_as_list)
     return list_3d_output
 
@@ -88,7 +98,7 @@ def make_dictionary_of_comparison_data(case_details):
             category = data_categories[category_index]
             # For category_index=0, this is "Texas", for category_index=1, this is "2023", etc.
             category_data = case[category_index][1]
-            # For example, in the case that category_index=0:
+            # For example, when category_index=0:
             if category_data not in comparison_data[f"{category}"].keys():
                 comparison_data[f"{category}"].setdefault(
                     f"{category_data}", current_count)
@@ -103,16 +113,17 @@ def make_dictionary_of_comparison_data(case_details):
 
 
 def reformat_to_plot_data(case_details):
-    """Helper function to display_filtered_and_sorted_data(). Parse through the dictionary from make_dictionary_of_comparison_data() and sort them in a way that Matplotlib can use to make bar graphs.
+    """Helper function to display_filtered_and_sorted_data(). 
+    Parse through the dictionary from make_dictionary_of_comparison_data() and sort them in a way that Matplotlib can use to make bar graphs.
 
-    For ID3, this input should be:
+    After running through make_dictionary_of_comparison_data(), the input should be like:
     comparison_data = { 
         "State": {"Texas": 42024},
         "Year": {"2023": 42024},
         "Leading Site": {"Liver": 42024},
         "Sex": {"Male": 31518, "Female": 10506}
 
-    And output as 
+    And after processiong, output as 
     plotting_data = {
         "State": {"categories": ["Texas"], "counts":[42024]},
         "Year": {"categories": ["2023"], "counts":[42024]},
