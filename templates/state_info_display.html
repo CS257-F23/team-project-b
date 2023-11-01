@@ -2,7 +2,7 @@
 <html>    
     {% block content %}
         <p>This is our information display page for the Cancer Incidences dataset navigation software: the W. A. T. C. H. - Web Analysis Tool (of) Cancer History.</p>
-        <h2>Between 2000-2020, there were {{total_count}} cases of cancer in {{state_choice}}</h2>
+        <h2>Between 2000-2020, there were {{total_count}} cases of cancer in {{state_choice}}. That equates to {{total_count/20}} cases per year.</h2>
         <h3>In {{state_choice}}, the following cancer sites had the highest number of cases between the years 2000 and 2020:</h2>
         <div class="row">
             <div class="column">
@@ -17,7 +17,7 @@
         <p>
         
         </p>
-        <p>The full version is expected to come out at the start of 2024! I fully believe that you will enjoy it.</p>
+        <p>The full version is expected to come out at the start of 2024!</p>
     </body>
     {% endblock %}
 </html>
