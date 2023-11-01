@@ -6,7 +6,7 @@ from ProductionCode.watch import *
 from flask import Flask, render_template, request, Response
 from Data.datasource import *
 
-#Matplotlib and numpy
+#Matplotlib and  numpy
 from matplotlib.backends.backend_agg import FigureCanvasAgg as FigureCanvas
 import matplotlib
 matplotlib.use('Agg')
