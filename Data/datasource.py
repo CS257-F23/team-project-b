@@ -74,9 +74,8 @@ class DataSource:
 
     def return_sorted_state(self,state):
         """returns a list of the contents of each row with the specified date. For convenience, this list is sorted by the year of occurrence."""
-        cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM cancerData WHERE state_name=%s ORDER BY case_year", (state,))
-        result = cursor.fetchall()
+        command_for_sql = "SELECT * FROM cancerData WHERE state_name=%s ORDER BY case_year", (state,)
+        result = run_sql_command_and_return_result(command_for_sql)
         return result
     
     def return_variable_arguments_query_result(self, combination_method:str, target_datas:list):
