@@ -8,8 +8,13 @@
             <fieldset>
                 <legend>Year and Site form</legend>
 
-                <p><label for="year">Enter a year:</label></p>
-                <textarea id= "year_for_ranked" name="year_for_ranked" rows="1" cols="25" placeholder="Enter a year here..." required>2005</textarea>
+                <p><label for="year">Select a year:</label></p>
+                <select name="year_for_ranked" id="year_for_ranked">
+                    <option value="2000" selected>2000</option>
+                    {%for site in ([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008,2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020])%}
+                    <option value="{{site}}">{{site}}</option>
+                    {%endfor%}
+                </select>
                 <br>
 
                 <label for="select site">Select site of Interest </label>  
