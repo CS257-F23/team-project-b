@@ -216,8 +216,13 @@ app = Flask(__name__)
 
 @app.route('/')
 def homepage():
-    """The homepage, giving an introduction to the Flask webpages and how to navigate it with the URL."""
-    return render_template("home_page.html", title="Home Page")
+    """A simple homepage which lets the user get data by state"""
+    return render_template("home_page.html",title = "home page")
+
+@app.route('/advsearch')
+def advancedSearchPage():
+    """Lets the user utilize a complicated advanced search method that ouputs graphs."""
+    return render_template("adv_search.html", title="advanced search")
 
 
 @app.route('/year/<year_argument>', strict_slashes=False)

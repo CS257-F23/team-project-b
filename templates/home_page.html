@@ -1,72 +1,10 @@
 {% extends 'base.html' %}
 <html>
     {% block content %}
-        <p>Welcome to our group's data analysis website for the U.S.'s cancer incidences.</p>
-        <p>To use, simply input the data points you'd like to filter by (seperated by commas), select your combination method, and press submit!</p>
-        <p>For a more in-depth introduction, please access the <a href="/about">About Us</a> page.</p>
-        <form action = "data" method = "post">
-            <fieldset>
-                <legend>Filter Customization</legend>
-
-                <p><label for="filter targets">Filter dataset for:</label></p>
-                <textarea id= "filter targets" name="filter targets" rows="4" cols="50" placeholder="Enter data to filter the dataset by here..." required>Male,Liver,2003</textarea>
-                <br>
-                <input type="submit" value="Submit">
-
-                <p>Advanced Options:</p>
-
-                <label for="top bracket">Preview the top </label>  
-                <select name="top bracket" id="top bracket">
-                    <option value="3" selected>3</option>
-                    {%for i in ([4, 5, 6, 7])%}
-                    <option value="{{i}}">{{i}}</option>
-                    {%endfor%}
-                </select>
-                <label for="top bracket"> cases.</label>
-                
-
-                <p>Combination Method:</p>
-                <input type="radio" id="and" name="combination" value="and" checked>
-                <label for="html">and</label><br>
-                <input type="radio" id="or" name="combination" value="or">
-                <label for="or">or</label><br>
-
-            </fieldset>
-        </form>
-        <p>To use, input any of the desired information below, seperated by commas:</p>
-        <div class="row">
-            <div class="column">
-                <h2 class="category">-States-</h2>
-                <ul>
-                    {% for site in (['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming']) :%}
-                    <li class="filter_data">{{site}}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="column">
-                <h2 class="category">-Years-</h2>
-                <ul>
-                    {% for year in (range(2000,2021)):%}
-                    <li class="filter_data">{{year}}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="column">
-                <h2 class="category">-Sites-</h2>
-                <ul>
-                    {% for site in (['Brain and Other Nervous System', 'Breast', 'Cervix Uteri', 'Colon and Rectum', 'Corpus Uteri', 'Esophagus', 'Gallbladder', 'Kidney and Renal Pelvis', 'Larynx', 'Leukemias', 'Liver', 'Lung and Bronchus', 'Melanoma of the Skin', 'Myeloma', 'Non-Hodgkin Lymphoma', 'Oral Cavity and Pharynx', 'Ovary', 'Pancreas', 'Prostate', 'Stomach', 'Thyroid', 'Urinary Bladder invasive and in situ']) :%}
-                    <li class="filter_data">{{site}}</li>
-                    {% endfor %}
-                </ul>
-            </div>
-            <div class="column">
-                <h2 class="category">-Sexes-</h2>
-                <ul>
-                    <li class="filter_data">Male</li>
-                    <li class="filter_data">Female</li>
-                </ul>
-            </div>
-        </div>
-    </body>
+        <h1>Welcome to the home page!!</h1>
+        <p>This is our Cancer Incidences dataset navigation software: the W. A. T. C. H. - Web Analysis Tool (of) Cancer History.</p>
+        <p>The purpose of this system is to guide you in the journey of further discovering the intricacies of the cdc 2000-2020 cancer incidence dataset.</p>
+        </p>
+        <p>Currently, the site allows users to input desired queries, and the website will return matching information. It also has a built in visualization tool, which includes data plotting.</p>
     {% endblock %}
 </html>
