@@ -38,6 +38,18 @@ class DataSource:
         result = self.run_sql_command_and_return_result(command_for_sql)
         return result[0][0]
     
+    def get_total_for_state(self,state):
+        """returns the total number of cases (between 2000-2020) of any type of cancer in a given state"""
+        command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE leading_site = '"+ str(state) + "'"
+        result = self.run_sql_command_and_return_result(command_for_sql)
+        return result[0][0]
+    
+    def get_ranked_list_for_state(self,state):
+        """gets the top 10 most prevalent cancer types from the last 20 years (for men and women) for a given state"""
+        command_for_sql = "SELECT leading_site, SUM(case_count) FROM cancerData WHERE state_name = '" + str(state) + "' GROUP BY leading_site ORDER BY SUM(case_count) DESC LIMIT 10;"
+        result = self.run_sql_command_and_return_result(command_for_sql)
+        return result
+    
     def get_total_for_year(self, year):
         """Docstring"""
         command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE case_year = '"+ str(year)+"'"
@@ -75,7 +87,7 @@ class DataSource:
     def return_sorted_state(self,state):
         """returns a list of the contents of each row with the specified date. For convenience, this list is sorted by the year of occurrence."""
         command_for_sql = "SELECT * FROM cancerData WHERE state_name=%s ORDER BY case_year", (state,)
-        result = run_sql_command_and_return_result(command_for_sql)
+        result = self.run_sql_command_and_return_result(command_for_sql)
         return result
     
     def return_variable_arguments_query_result(self, combination_method:str, target_datas:list):
