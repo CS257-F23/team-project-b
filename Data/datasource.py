@@ -67,11 +67,8 @@ class DataSource:
         """returns a dictionary containing ranked top 10 lists (for each sex) of cancer cases in the given year and site"""
         command_for_flist = "SELECT state_name, case_count FROM cancerData WHERE sex = 'Female' AND case_year = '" + str(year) + "' AND leading_site = '" + str(site) + "'ORDER BY case_count DESC LIMIT 10"
         command_for_mlist = "SELECT state_name, case_count FROM cancerData WHERE sex = 'Male' AND case_year = '" + str(year) + "' AND leading_site = '" + str(site) + "'ORDER BY case_count DESC LIMIT 10"
-        cursor = self.connection.cursor()
-        cursor.execute(command_for_flist)
-        flist = cursor.fetchall()
-        cursor.execute(command_for_mlist)
-        mlist = cursor.fetchall()
+        flist = self.run_sql_command_and_return_result(command_for_flist)
+        mlist = self.run_sql_command_and_return_result(command_for_mlist)
         output = {"Male top ten list": mlist, "Female top ten list" : flist}
         return output
 
