@@ -1,10 +1,29 @@
 {% extends 'base.html' %}
 <html>
     {% block content %}
-        <h1>Welcome to the home page!!</h1>
-        <p>This is our Cancer Incidences dataset navigation software: the W. A. T. C. H. - Web Analysis Tool (of) Cancer History.</p>
-        <p>The purpose of this system is to guide you in the journey of further discovering the intricacies of the cdc 2000-2020 cancer incidence dataset.</p>
-        </p>
-        <p>Currently, the site allows users to input desired queries, and the website will return matching information. It also has a built in visualization tool, which includes data plotting.</p>
+        <p>Welcome to our group's data analysis website for the U.S.'s cancer incidences.</p>
+        <p>To use, simply input the data points you'd like to filter by (seperated by commas), select your combination method, and press submit!</p>
+        <p>For a more in-depth introduction, please access the <a href="/about">About Us</a> page.</p>
+        <form action = "rankedLists" method = "post">
+            <fieldset>
+                <legend>Year and Site form</legend>
+
+                <p><label for="state">Select a state:</label>
+                <select name="state_for_info_page" id="state_for_info_page">
+                    <option value="Alabama" selected>Alabama</option>
+                    {%for site in (['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'])%}
+                    <option value="{{site}}">{{site}}</option>
+                    {%endfor%}
+                </select>
+                <br>
+                <label for="top bracket"> </label>
+                <br>
+                <input type="submit" value="Submit">
+                
+
+            </fieldset>
+        </form>
+       
+    </body>
     {% endblock %}
 </html>

@@ -27,6 +27,17 @@ def homepage():
     """A simple homepage which lets the user get data by state"""
     return render_template("home_page.html",title = "home page")
 
+@app.route('/stateinfo')
+def state_info_display():
+    """a display page for information by state"""
+    if request.method == "POST":
+        target_state = request.form["state_for_info_page"]
+    elif request.method == "GET":
+        target_state = request.args["state_for_info_page"]
+    total_incidences = database.get_total_for_state(target_state)
+    most_common_cancers_list = database.get_ranked_list_for_state(target_state)
+    return render_template("state_info_display.html", title = "state info",total_count = total_incidences, state_choice = target_state, list_of_cancers = most_common_cancers_list)
+
 @app.route('/advsearch')
 def advancedSearchPage():
     """Lets the user utilize a complicated advanced search method that ouputs graphs."""
