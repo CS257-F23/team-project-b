@@ -27,7 +27,7 @@ def homepage():
     """A simple homepage which lets the user get data by state"""
     return render_template("home_page.html",title = "home page")
 
-@app.route('/stateinfo')
+@app.route('/stateinfo', methods=['GET', 'POST'])
 def state_info_display():
     """a display page for information by state"""
     if request.method == "POST":
