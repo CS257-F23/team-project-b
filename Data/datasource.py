@@ -40,7 +40,7 @@ class DataSource:
     
     def get_total_for_state(self,state):
         """returns the total number of cases (between 2000-2020) of any type of cancer in a given state"""
-        command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE leading_site = '"+ str(state) + "'"
+        command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE state_name = '"+ str(state) + "';"
         result = self.run_sql_command_and_return_result(command_for_sql)
         return result[0][0]
     
