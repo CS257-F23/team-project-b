@@ -22,42 +22,32 @@ class DataSource:
         """Docstring"""
         command_for_sql = "SELECT * FROM cancerData WHERE case_year = '" + \
             str(year) + "'"
-        cursor = self.connection.cursor()
-        cursor.execute(command_for_sql)
-        result = cursor.fetchall()
+        result = self.run_sql_command_and_return_result(command_for_sql)
         return result
 
     def get_data_by_site(self, site):
         """Docstring"""
         command_for_sql = "SELECT * FROM cancerData WHERE leading_site = '" + \
             str(site) + "'"
-        cursor = self.connection.cursor()
-        cursor.execute(command_for_sql)
-        result = cursor.fetchall()
+        result = self.run_sql_command_and_return_result(command_for_sql)
         return result
     
     def get_total_for_site(self, leading_site):
         """Docstring"""
         command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE leading_site = '"+ str(leading_site) + "'"
-        cursor = self.connection.cursor()
-        cursor.execute(command_for_sql)
-        result = cursor.fetchall() #a list of tuples (both list and tuple only have 1 item)
+        result = self.run_sql_command_and_return_result(command_for_sql)
         return result[0][0]
     
     def get_total_for_year(self, year):
         """Docstring"""
         command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE case_year = '"+ str(year)+"'"
-        cursor = self.connection.cursor()
-        cursor.execute(command_for_sql)
-        result = cursor.fetchall()
+        result = self.run_sql_command_and_return_result(command_for_sql)
         return result[0][0]
     
     def get_total_for_year_and_site(self, year, leading_site):
         """Docstring"""
         command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE case_year = '"+ str(year)+"' AND leading_site = '"+ str(leading_site) + "'"
-        cursor = self.connection.cursor()
-        cursor.execute(command_for_sql)
-        result = cursor.fetchall()
+        result = self.run_sql_command_and_return_result(command_for_sql)
         return result
     
     def run_sql_command_and_return_result(self,command_for_sql:str):
