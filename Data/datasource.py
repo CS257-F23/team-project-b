@@ -19,45 +19,47 @@ class DataSource:
         return connection
     
     def get_data_from_year(self, year):
-        """Docstring"""
+        """returns all the data from a given year"""
         command_for_sql = "SELECT * FROM cancerData WHERE case_year = '" + \
             str(year) + "'"
-        cursor = self.connection.cursor()
-        cursor.execute(command_for_sql)
-        result = cursor.fetchall()
+        result = self.run_sql_command_and_return_result(command_for_sql)
         return result
 
     def get_data_by_site(self, site):
-        """Docstring"""
+        """returns all the data for a given site"""
         command_for_sql = "SELECT * FROM cancerData WHERE leading_site = '" + \
             str(site) + "'"
-        cursor = self.connection.cursor()
-        cursor.execute(command_for_sql)
-        result = cursor.fetchall()
+        result = self.run_sql_command_and_return_result(command_for_sql)
         return result
     
     def get_total_for_site(self, leading_site):
-        """Docstring"""
+        """returns the total cancer cases for a given cancer site between the years 2000-2020"""
         command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE leading_site = '"+ str(leading_site) + "'"
-        cursor = self.connection.cursor()
-        cursor.execute(command_for_sql)
-        result = cursor.fetchall() #a list of tuples (both list and tuple only have 1 item)
+        result = self.run_sql_command_and_return_result(command_for_sql)
         return result[0][0]
     
+    def get_total_for_state(self,state):
+        """returns the total number of cases (between 2000-2020) of any type of cancer in a given state"""
+        command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE state_name = '"+ str(state) + "';"
+        result = self.run_sql_command_and_return_result(command_for_sql)
+        return result[0][0]
+    
+    def get_ranked_list_for_state(self,state):
+        """gets the top 10 most prevalent cancer types from the last 20 years (for men and women) for a given state"""
+        command_for_sql = "SELECT leading_site, SUM(case_count) FROM cancerData WHERE state_name = '" + str(state) + "' GROUP BY leading_site ORDER BY SUM(case_count) DESC LIMIT 10;"
+        result = self.run_sql_command_and_return_result(command_for_sql)
+        return result
+    
     def get_total_for_year(self, year):
-        """Docstring"""
+        """returns the total number of cancer cases in a given year"""
         command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE case_year = '"+ str(year)+"'"
-        cursor = self.connection.cursor()
-        cursor.execute(command_for_sql)
-        result = cursor.fetchall()
+        result = self.run_sql_command_and_return_result(command_for_sql)
         return result[0][0]
     
     def get_total_for_year_and_site(self, year, leading_site):
-        """Docstring"""
+        """Given a year and site value, returns the total number of cancer cases"""
         command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE case_year = '"+ str(year)+"' AND leading_site = '"+ str(leading_site) + "'"
-        cursor = self.connection.cursor()
-        cursor.execute(command_for_sql)
-        result = cursor.fetchall()
+        result = self.run_sql_command_and_return_result(command_for_sql)
         return result
     
     def run_sql_command_and_return_result(self,command_for_sql:str):
@@ -66,30 +68,19 @@ class DataSource:
         result = cursor.fetchall()
         return result
     
-    # def get_filtered_table(self,target_datas:list):
-    #     command_for_sql = sort_out_invalid_and_valid_query_parameters_with_column(target_datas)
-    #     cursor = self.connection.cursor()
-    #     cursor.execute(command_for_sql)
-    #     result = cursor.fetchall()
-    #     return result
-    
     def get_ranked_list_by_year_and_site(self,year,site):
         """returns a dictionary containing ranked top 10 lists (for each sex) of cancer cases in the given year and site"""
         command_for_flist = "SELECT state_name, case_count FROM cancerData WHERE sex = 'Female' AND case_year = '" + str(year) + "' AND leading_site = '" + str(site) + "'ORDER BY case_count DESC LIMIT 10"
         command_for_mlist = "SELECT state_name, case_count FROM cancerData WHERE sex = 'Male' AND case_year = '" + str(year) + "' AND leading_site = '" + str(site) + "'ORDER BY case_count DESC LIMIT 10"
-        cursor = self.connection.cursor()
-        cursor.execute(command_for_flist)
-        flist = cursor.fetchall()
-        cursor.execute(command_for_mlist)
-        mlist = cursor.fetchall()
+        flist = self.run_sql_command_and_return_result(command_for_flist)
+        mlist = self.run_sql_command_and_return_result(command_for_mlist)
         output = {"Male top ten list": mlist, "Female top ten list" : flist}
         return output
 
     def return_sorted_state(self,state):
         """returns a list of the contents of each row with the specified date. For convenience, this list is sorted by the year of occurrence."""
-        cursor = self.connection.cursor()
-        cursor.execute("SELECT * FROM cancerData WHERE state_name=%s ORDER BY case_year", (state,))
-        result = cursor.fetchall()
+        command_for_sql = "SELECT * FROM cancerData WHERE state_name=%s ORDER BY case_year", (state,)
+        result = self.run_sql_command_and_return_result(command_for_sql)
         return result
     
     def return_variable_arguments_query_result(self, combination_method:str, target_datas:list):
@@ -163,32 +154,6 @@ def construct_multiargument_query_specified_targets(combination_method:str, targ
     targets_as_string = targets_as_string[:-2] # Remove trailing comma and whitespace
     sql_command = sql_command.replace("*",targets_as_string)
     return sql_command
-
-# def construct_multiargument_query_target_all(query_parameters:list):
-#     """Returns an sql command which will fetch all data that matches the arguments of interest (query_parameters)
-#     Example of query_parameters: ["Texas","Male","Liver"]
-#     Example of output: SELECT * FROM cancerData WHERE state_name = 'Texas' AND sex = 'Male' AND leading_site = 'Liver'
-#     """
-#     sql_command = "SELECT * FROM cancerData WHERE"
-#     for argument in query_parameters:
-#        target_column = find_column_containing(argument)
-#        if target_column != 'invalid':
-#             # sql_command = " " + sql_command + target_column + "= '" + str(argument) + "' AND"
-#             sql_command = f"{sql_command} {target_column} = '{str(argument)}' AND"
-#     sql_command = sql_command[:-4] + ";" #removes the last " AND" from the command and add the closing semicolon
-#     return sql_command
-
-# def construct_multiargument_query_specified_targets(targets_to_return:list,query_parameters:list):
-#     """Creates an SQL command which has specified targets (rather than just *) given a list of targets, and a list of query parameters. 
-#     Both args should be lists of strings"""
-#     sql_command = construct_multiargument_query_target_all(query_parameters)
-#     targets_as_string = ""
-#     for target in targets_to_return:
-#         targets_as_string = targets_as_string + str(target) + ", "
-#     targets_as_string = targets_as_string[:-2] # Remove trailing comma and whitespace
-#     sql_command = sql_command.replace("*",targets_as_string)
-#     return sql_command
-
     
 def find_column_containing(argument:str):
     """given an argument (ie: '2003', 'Liver', or 'Female') and returns the appropriate column that corresponds to the field."""

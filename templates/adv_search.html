@@ -4,30 +4,32 @@
         <p>Welcome to our group's data analysis website for the U.S.'s cancer incidences.</p>
         <p>To use, simply input the data points you'd like to filter by (seperated by commas), select your combination method, and press submit!</p>
         <p>For a more in-depth introduction, please access the <a href="/about">About Us</a> page.</p>
-        <form action = "rankedLists" method = "post">
+        <form action = "data" method = "post">
             <fieldset>
-                <legend>Year and Site form</legend>
+                <legend>Filter Customization</legend>
 
-                <p><label for="year">Select a year:</label>
-                <select name="year_for_ranked" id="year_for_ranked">
-                    <option value="2000" selected>2000</option>
-                    {%for site in ([2000, 2001, 2002, 2003, 2004, 2005, 2006, 2007, 2008,2009, 2010, 2011, 2012, 2013, 2014, 2015, 2016, 2017, 2018, 2019, 2020])%}
-                    <option value="{{site}}">{{site}}</option>
-                    {%endfor%}
-                </select>
-                <br>
-
-                <label for="select site">Select site of Interest </label>  
-                <select name="site_for_ranked" id="site_for_ranked">
-                    <option value="Liver" selected>Liver</option>
-                    {%for site in (['Brain and Other Nervous System', 'Breast', 'Cervix Uteri', 'Colon and Rectum', 'Corpus Uteri', 'Esophagus', 'Gallbladder', 'Kidney and Renal Pelvis', 'Larynx', 'Leukemias', 'Liver', 'Lung and Bronchus', 'Melanoma of the Skin', 'Myeloma', 'Non-Hodgkin Lymphoma', 'Oral Cavity and Pharynx', 'Ovary', 'Pancreas', 'Prostate', 'Stomach', 'Thyroid', 'Urinary Bladder invasive and in situ'])%}
-                    <option value="{{site}}">{{site}}</option>
-                    {%endfor%}
-                </select>
-                <label for="top bracket"> </label>
+                <p><label for="filter targets">Filter dataset for:</label></p>
+                <textarea id= "filter targets" name="filter targets" rows="4" cols="50" placeholder="Enter data to filter the dataset by here..." required>Male,Liver,2003</textarea>
                 <br>
                 <input type="submit" value="Submit">
+
+                <p>Advanced Options:</p>
+
+                <label for="top bracket">Preview the top </label>  
+                <select name="top bracket" id="top bracket">
+                    <option value="3" selected>3</option>
+                    {%for i in ([4, 5, 6, 7])%}
+                    <option value="{{i}}">{{i}}</option>
+                    {%endfor%}
+                </select>
+                <label for="top bracket"> cases.</label>
                 
+
+                <p>Combination Method:</p>
+                <input type="radio" id="and" name="combination" value="and" checked>
+                <label for="html">and</label><br>
+                <input type="radio" id="or" name="combination" value="or">
+                <label for="or">or</label><br>
 
             </fieldset>
         </form>
