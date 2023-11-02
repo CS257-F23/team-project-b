@@ -2,7 +2,7 @@ body {
     margin-left: 5%;
     margin-right: 5%;
     background-color: whitesmoke;
-    font-family: Verdana, Geneva, sans-serif; 
+    font-family: Verdana, Geneva, sans-serif;
 }
 
 h1 {
@@ -21,11 +21,12 @@ h1 {
 }
 
 nav ul {
+    background-color: antiquewhite;
     border: 2px dashed #EB641A;
     border-radius: 8px;
     list-style-type: none;
     overflow: hidden;
-    width: 95%;
+    width: 96%;
 }
 
 nav li {
@@ -145,3 +146,25 @@ select{
     background-color: white;
 }
 
+
+/* ADDAPTED FROM W3 Schools EXAMPLE*/
+/* Page content */
+.content {
+  padding: 50px;
+}
+
+/* The sticky class is added to the navbar with JS when it reaches its scroll position */
+.sticky {
+  position: fixed;
+  top: 0;
+  width: 89.2%;
+}
+
+/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
+.sticky + .content {
+  padding-top: 10px;
+}
+
+#navbar-placeholder {
+  height: 0; /* Adjust the height to match your actual navbar height */
+}
