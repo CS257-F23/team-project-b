@@ -10,7 +10,6 @@ https://docs.python.org/3/library/csv.html
 https://anyaevostinar.github.io/classes/257-f23/project-command-line
 """
 
-from ProductionCode.watch import *
 import argparse
 from Data.datasource import *
 
