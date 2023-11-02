@@ -9,7 +9,7 @@ var sticky = navbar.offsetTop;
 
 // Function to add the sticky class to the navbar and adjust the placeholder
 function addSticky() {
-    navbarPlaceholder.style.height = navbar.offsetHeight - 5;
+    navbarPlaceholder.style.height = navbar.offsetHeight - 1;
     navbar.classList.add("sticky");
 }
 
@@ -21,7 +21,7 @@ function removeSticky() {
 
 // When the user scrolls the page, execute myFunction
 window.onscroll = function() {
-  if (window.pageYOffset >= sticky - 15) {
+  if (window.scrollY >= sticky - 15) {
     addSticky();
   } else {
     removeSticky();

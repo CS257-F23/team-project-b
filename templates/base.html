@@ -2,7 +2,6 @@
     <head>
         <title>{{ title }}</title>
         <link rel="stylesheet" href="{{ url_for('static', filename='datastyle.css') }}">
-        <script src="{{url_for('static', filename='script.js')}}"></script>
     </head>
     <body>
         <h1>W. A. T. C. H. <br> =Web Analysis Tool (of) Cancer History=</h1>
@@ -22,3 +21,4 @@
         {% block content %}{% endblock %}
     <body>
 </html>
+<script src="{{ url_for('static', filename='script.js') }}"></script>
