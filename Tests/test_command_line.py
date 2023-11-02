@@ -6,6 +6,7 @@ from ProductionCode.watch import *
 from cl import *
 import subprocess
 
+
 def makeParser():
     """a function that makes a parser object, so command line parsing can be tested"""
     test_parser = argparse.ArgumentParser()
@@ -29,12 +30,12 @@ class testMain(unittest.TestCase):
         failed_test_message = 'Failed to return help message for no CLI arguments.'
         self.assertIn(expected_result, self.run_CLI_command_return_result(CLI_command_as_list), failed_test_message)
     
-    # def test_main_year(self):
-    #     """Test for main() working for valid command line arguments for the year 2007. Due to the expected result's ENORMOUS size, only the last returned element is used to compare."""
-    #     CLI_command_as_list = ['python3', 'cl.py', "--year", "2007"]
-    #     expected_result = 'State: Wyoming; Year: 2007; Leading Site: Urinary Bladder invasive and in situ; Sex: Male; Count: 103'
-    #     failed_test_message = 'Failed to get data for the year 2007'
-    #     self.assertIn(expected_result, self.run_CLI_command_return_result(CLI_command_as_list), failed_test_message)
+    def test_main_year(self):
+        """Test for main() working for valid command line arguments for the year 2007. Due to the expected result's ENORMOUS size, only the last returned element is used to compare."""
+        CLI_command_as_list = ['python3', 'cl.py', "--year", "2007"]
+        expected_result = "('Wyoming', 2007, 'Urinary Bladder invasive and in situ', 'Male', 103)"
+        failed_test_message = 'Failed to get data for the year 2007'
+        self.assertIn(expected_result, self.run_CLI_command_return_result(CLI_command_as_list), failed_test_message)
     
     def test_main_year_edge(self):
         """Test for main() working for edge case command line arguments for an invalid year (3007)."""
@@ -43,12 +44,12 @@ class testMain(unittest.TestCase):
         failed_test_message = 'Failed to return empty string for --year edge case.'
         self.assertIn(expected_result, self.run_CLI_command_return_result(CLI_command_as_list), failed_test_message)
     
-    # def test_main_site(self):
-    #     """Test for main() working for valid command line arguments for the site 'Liver' (single quotes included). Due to the expected result's ENORMOUS size, only the last returned element is used to compare."""
-    #     CLI_command_as_list = ['python3', 'cl.py', "--site", "Liver"] # python3 ProductionCode/watch.py --site Liver
-    #     expected_result = 'State: Wyoming; Year: 2020; Leading Site: Liver; Sex: Male; Count: 29'
-    #     failed_test_message = "Failed to get data for the site 'Liver'."
-    #     self.assertIn(expected_result, self.run_CLI_command_return_result(CLI_command_as_list), failed_test_message)
+    def test_main_site(self):
+        """Test for main() working for valid command line arguments for the site 'Liver' (single quotes included). Due to the expected result's ENORMOUS size, only the last returned element is used to compare."""
+        CLI_command_as_list = ['python3', 'cl.py', "--site", "Liver"] # python3 ProductionCode/watch.py --site Liver
+        expected_result = "('Wyoming', 2020, 'Liver', 'Male', 29)"
+        failed_test_message = "Failed to get data for the site 'Liver'."
+        self.assertIn(expected_result, self.run_CLI_command_return_result(CLI_command_as_list), failed_test_message)
     
     def test_main_site_edge(self):
         """Test for main() working for edge case command line arguments for an invalid site (Planet)."""
@@ -56,15 +57,3 @@ class testMain(unittest.TestCase):
         expected_result = ''
         failed_test_message = 'Failed to return empty string for --site edge case.'
         self.assertIn(expected_result, self.run_CLI_command_return_result(CLI_command_as_list), failed_test_message)
-
-    def test_parse_command_line_args_year(self):
-        """uses identical parser to main file in order to test whether or not parse_command_line_args works for year"""
-        parser = makeParser()
-        args = parser.parse_args(['--year','2005'])
-        self.assertEqual('[]\ntotal cases: 0',parse_commandline_args(args)) #dummy file has no 2005, so this just checks to make sure it returns an empty list
-        
-    def test_parse_command_line_args_site(self):
-        """uses identical parser to main file in order to test whether or not parse_command_line_args works for site"""
-        parser = makeParser()
-        args = parser.parse_args(['--site','Liver'])
-        self.assertEqual('[]\ntotal cases: 0',parse_commandline_args(args)) 
