@@ -1,5 +1,4 @@
 import io
-from ProductionCode.watch import *
 
 # Flask imports
 from flask import Flask, render_template, request, Response
@@ -11,11 +10,6 @@ from ProductionCode.graphing import *
 
 def load_data():
     """Create the global 'dataset' variable to used in later functions."""
-    global dataset
-    # for now, just put a copy of dummy file in production code. Needs to be fixed!
-    file = 'Data/clean_incidence.csv'
-    # now has a .list_of_cases = the whole file converted to list of Case instances
-    dataset = CancerDataset(file)
     global database
     database = DataSource() #from sql
 
