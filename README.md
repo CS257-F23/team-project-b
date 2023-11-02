@@ -45,7 +45,7 @@ Get year works almost identically to get site: simply add /year/ to the url foll
 A simple function that allows a user to access all of the data in a given year. It also lists the total case count for the given year. To use from the main directory, just send >python3 ProductionCode/watch.py --year (year of interest)
 <br>
 <br>
-For example, to see all the data from 2005, I would send "python3 ProductionCode/watch.py --year 2005"
+For example, to see all the data from 2005, I would send "python3 cl.py --year 2005"
 
 <br>
 <br>
@@ -55,7 +55,7 @@ For example, to see all the data from 2005, I would send "python3 ProductionCode
 A simple function that allows the user to access all the data from a given site. Like Get Year, it also provides the user with the total case count for the given site. Get Year can be accessed using the --site argument followed by '(cancer type)'. 
 <br>
 <br>
-To see all searchable sites, simply send "python3 ProductionCode/watch.py -help"
+To see all searchable sites, simply send "python3 cl.py -help"
 <br>
 <br>
 For example, to see all cancer data relating to Melanoma of the skin, I would send "python3 ProductionCode/watch.py --site 'Melanoma of the Skin'
