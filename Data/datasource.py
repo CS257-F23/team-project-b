@@ -60,7 +60,7 @@ class DataSource:
         """Given a year and site value, returns the total number of cancer cases"""
         command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE case_year = '"+ str(year)+"' AND leading_site = '"+ str(leading_site) + "'"
         result = self.run_sql_command_and_return_result(command_for_sql)
-        return result
+        return result[0][0]
     
     def run_sql_command_and_return_result(self,command_for_sql:str):
         cursor = self.connection.cursor()
