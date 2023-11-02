@@ -2,13 +2,13 @@
 A collection of tests for the watch.py program. To run, navigate to /team-project-b/ and send 'python3 -m unittest discover Tests/' """
 import unittest
 from Data import *
-from ProductionCode.watch import *
+from Data.datasource import *
 from cl import *
 import subprocess
 
 def setUp():
-    global data_file
-    data_file = CancerDataset("Data/dummy_file.csv")
+    global database
+    database = DataSource()
 
 class testBasicFunctions(unittest.TestCase):
     setUp()
