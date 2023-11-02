@@ -45,7 +45,8 @@ class DataSource:
         return result[0][0]
     
     def get_ranked_list_for_state(self,state):
-        """gets the top 10 most prevalent cancer types from the last 20 years (for men and women) for a given state"""
+        """gets the top 10 most prevalent cancer types from the last 20 years (for men and women) for a given state
+        referenced: https://www.w3resource.com/sql/aggregate-functions/sum-function.php for SUM() and GROUP BY functionality"""
         command_for_sql = "SELECT leading_site, SUM(case_count) FROM cancerData WHERE state_name = '" + str(state) + "' GROUP BY leading_site ORDER BY SUM(case_count) DESC LIMIT 10;"
         result = self.run_sql_command_and_return_result(command_for_sql)
         return result
