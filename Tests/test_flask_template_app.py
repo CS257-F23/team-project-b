@@ -24,7 +24,7 @@ class TestHomePage(LoadData):
     def test_home_page_route_edge_fail(self):
         """Test that the error page appears as expected when entering an unavailable URL and has the correct content."""
         url = '/nope'
-        expected_portion = b"undo all changes"
+        expected_portion = b"by mistake"
         failure_response = "Failed to fetch the error page correctly."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)
     
@@ -53,8 +53,8 @@ class TestYearDisplayPage(LoadData):
     def test_get_year_data_route_edge_fail(self):
         """Test that the error page appears as expected when entering an unavailable year URL and has the correct content."""
         url = '/year/1248/'
-        expected_portion = b"undo all changes"
-        failure_response = "Failed to fetch the error page correctly."
+        expected_portion = b"The year that you have entered is invalid."
+        failure_response = "The year that you have entered is invalid."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response) 
 
 class TestSiteDisplayPage(LoadData):
@@ -83,7 +83,7 @@ class TestSiteDisplayPage(LoadData):
     def test_get_site_data_route_edge_fail(self):
         """Test that the error page appears as expected when entering an unavailable site URL and has the correct content."""
         url = '/site/corpse/'
-        expected_portion = b"undo all changes"
+        expected_portion = b"here by mistake"
         failure_response = "Failed to fetch the error page correctly."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)
 
@@ -119,14 +119,14 @@ class TestGreatFilterDisplayPage(LoadData):
     def test_get_data_route_edge_fail(self):
         """Test that the error page appears as expected when entering an unavailable site URL and has the correct content."""
         url = '/and/L1ver'
-        expected_portion = b"undo all changes"
+        expected_portion = b"by mistake"
         failure_response = "Failed to fetch the error page correctly."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)
     
     def test_get_data_route_edge_nothing(self):
         """Test that the error page appears as expected when not entering anything after the combination method."""
         url = '/and/nothing'
-        expected_portion = b"undo all changes"
+        expected_portion = b"by mistake"
         failure_response = "Failed to fetch the error page correctly."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)
     
