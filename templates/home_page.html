@@ -1,29 +1,52 @@
 {% extends 'base.html' %}
 <html>
     {% block content %}
-        <p>Welcome to our group's data analysis website for the U.S.'s cancer incidences.</p>
-        <p>To use, simply input a state to view some basic information about cancer in the area.</p>
-        <p>For a more in-depth introduction, please access the <a href="/about">About Us</a> page.</p>
-        <form action = "stateinfo" method = "post">
-            <fieldset>
-                <legend>Cancer Data by State</legend>
-
-                <p><label for="state">Select a state:</label>
-                <select name="state_for_info_page" id="state_for_info_page">
-                    <option value="Alabama" selected>Alabama</option>
-                    {%for site in (['Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming'])%}
-                    <option value="{{site}}">{{site}}</option>
-                    {%endfor%}
-                </select>
-                <br>
-                <label for="top bracket"> </label>
-                <br>
-                <input type="submit" value="Submit">
-                
-
-            </fieldset>
-        </form>
-       
-    </body>
+        <h1>Welcome to the home page!!</h1>
+        <p>This is our Cancer Incidences dataset navigation software: the W. A. T. C. H. - Web Analysis Tool (of) Cancer History.</p>
+        <p>The purpose of this system is to guide you in the journey of further discovering the intricacies of the cdc 2000-2020 cancer incidence dataset.</p>
+        </p>
+        <p>Currently, the site allows users to input desired queries, and the website will return matching information. It also has a built in visualization tool, which includes data plotting.</p>
     {% endblock %}
+    <form action = "basic filter" method = "post">
+        <fieldset>
+            <legend>Filter Customization</legend>
+
+            <label for="state">Filter dataset for the state: </label>
+            <select name="state" id="state">
+                <option value="any" selected>Any</option>
+                {% for state in (['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming']) :%}
+                <option value="{{state}}">{{state}}</option>
+                {% endfor %}
+            </select>
+            <br>
+            
+            <label for="year">Filter dataset for the year: </label>
+            <select name="year" id="year">
+                <option value="any" selected>Any</option>
+                {% for year in (range(2000,2021)):%}
+                <option value="{{year}}">{{year}}</option>
+                {% endfor %}
+            </select>
+            <br>
+
+            <label for="site">Filter dataset for the leading site: </label>
+            <select name="site" id="site">
+                <option value="any" selected>Any</option>
+                {% for site in (['Brain and Other Nervous System', 'Breast', 'Cervix Uteri', 'Colon and Rectum', 'Corpus Uteri', 'Esophagus', 'Gallbladder', 'Kidney and Renal Pelvis', 'Larynx', 'Leukemias', 'Liver', 'Lung and Bronchus', 'Melanoma of the Skin', 'Myeloma', 'Non-Hodgkin Lymphoma', 'Oral Cavity and Pharynx', 'Ovary', 'Pancreas', 'Prostate', 'Stomach', 'Thyroid', 'Urinary Bladder invasive and in situ']):%}
+                <option value="{{site}}">{{site}}</option>
+                {% endfor %}
+            </select>
+            <br>
+
+            <label for="sex">Filter dataset for the sex: </label>
+            <select name="sex" id="sex">
+                <option value="any" selected>Any</option>
+                <option value="Male">Male</option>
+                <option value="Female">Female</option>
+            </select>
+            <br>
+
+            <input type="submit" value="Submit">
+        </fieldset>
+    </form>
 </html>
