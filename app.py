@@ -17,9 +17,9 @@ app = Flask(__name__)
 
 
 @app.route('/')
-def homepage():
+def homepage(number_of_matches=0):
     """A simple homepage which lets the user get data by state"""
-    return render_template("home_page.html",title = "home page")
+    return render_template("home_page.html",title = "home page", number_of_matches=number_of_matches)
 
 @app.route('/stateinfo', methods=['GET', 'POST'])
 def state_info_display():
@@ -106,6 +106,34 @@ def display_filtered_and_sorted_data():
     plotting_data = reformat_to_plot_data(subset)
     return render_template("information_display.html", title="Site subset", total_count=total_count, valid_input=valid_input, invalid_input=invalid_input, subset=subset, top_bracket=top_bracket)
 
+@app.route('/simple_search', strict_slashes=False, methods=['GET', 'POST'])
+def display_number_of_matches():
+    """Filter the dataset by 4 input and return the result to be displayed.
+    Input includes a State, Year, Site, and Sex, all can either be specified for left as 'Any'
+    """
+    # Get user data.
+    if request.method == "POST":
+        input_list = request.form["state"]
+        target_year = request.form["year"]
+        target_site = request.form["site"]
+        target_sex = request.form["sex"]
+    elif request.method == "GET":
+        input_list = request.args["state"]
+        target_year = request.args["year"]
+        target_site = request.args["site"]
+        target_sex = request.args["sex"]
+    all_input_as_one_URL_string = input_list + "," + target_year + "," + target_site + "," + target_sex
+    print(all_input_as_one_URL_string)
+    input_list = parse_URL_string_to_list(all_input_as_one_URL_string)
+    invalid_query_parameters, valid_column_and_query_parameters = sort_out_invalid_and_valid_query_parameters_with_column(input_list)
+    print(invalid_query_parameters)
+    print(valid_column_and_query_parameters)
+    sql_for_number_of_matches = construct_multiargument_query_specified_targets("and",["SUM(case_count)"],valid_column_and_query_parameters)
+    print(sql_for_number_of_matches)
+    number_of_matches = database.run_sql_command_and_return_result(sql_for_number_of_matches)
+    print(number_of_matches)
+    number_of_matches = number_of_matches[0][0] # Extract from [(3,)] to 3
+    return render_template("home_page.html",title = "home page", number_of_matches=number_of_matches)
 
 @app.route('/plot/<category>/<top_bracket>.png')
 def plot_png(category, top_bracket):

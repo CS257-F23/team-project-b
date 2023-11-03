@@ -137,7 +137,7 @@ def construct_multiargument_query_target_all(combination_method:str, valid_colum
        target_column = column_and_argument[0]
        target_data = column_and_argument[1]
        sql_command = f"{sql_command} {target_column} = '{target_data}' {combination_method}"
-    last_char_in_command = sql_command[-1] # Whittle down the command until the closing AND/OR iss removed
+    last_char_in_command = sql_command[-1] # Whittle down the command until the closing excess command word is removed
     while last_char_in_command != " ":
         sql_command = sql_command[:-1] 
         last_char_in_command = sql_command[-1]
