@@ -6,13 +6,14 @@ body {
 }
 
 h1 {
-    padding-top: 1em;
-    padding-bottom: 1em;
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
     background-color: #EBA51A;
     color: white;
     text-align: center;
     font-family: 'Times New Roman', Times, serif;
     border-radius: 8px;
+    width: 100%;
 }
 
 .category {
@@ -20,18 +21,26 @@ h1 {
     font-style: italic;
 }
 
+nav {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
 nav ul {
     background-color: antiquewhite;
-    border: 2px dashed #EB641A;
+    border: 2.5px dashed #EB881A;
     border-radius: 8px;
     list-style-type: none;
     overflow: hidden;
-    width: 96%;
+    padding-left: 0px;
 }
 
 nav li {
     float: left;
-    padding: 10px;
+    padding-top: 10px; /* padding around the elements in the navbar*/
+    padding-bottom: 10px; /* padding around the elements in the navbar*/
+    padding-left: 10px; /* padding around the elements in the navbar*/
+    padding-right: 10px; /* padding around the elements in the navbar*/
     font-size: 1.1em;
     font-weight: bold;
 }
@@ -42,13 +51,14 @@ nav li a {
     text-decoration: none;
     text-align: center;
     padding: 14px 16px;
+    border-radius: 8px;
+
+    transition: padding-top 0.2s, padding-bottom 0.2s;
 }
 
 nav li a:hover {
     color: white;
     background-color: #EBA51A;
-    text-decoration: underline;
-    font-style: italic;
 }
 
 nav li {
@@ -56,6 +66,7 @@ nav li {
     font-size: 1.1em;
     font-weight: bold;
 }
+
 
 p {
     font-family: Verdana, Geneva, sans-serif;
@@ -99,7 +110,7 @@ textarea {
   appearance: none;
   -webkit-appearance: none;
   -moz-appearance: none;
-  background-color:#EBA51A ;
+  background-color: antiquewhite ;
   border: 3px solid;
   border-color: black;
   border-radius: 1em;
@@ -107,7 +118,16 @@ textarea {
   margin: .5em;
   box-sizing: border-box;
   font-family: Verdana, Geneva, sans-serif;
-  
+}
+
+
+select:hover {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    transition-duration: 0.2s;
+}
+
+legend  {
+    background-color:#EBA51A ;
 }
 
 textarea{
@@ -135,9 +155,10 @@ input[type=button], input[type=submit] {
 }
 
 input[type=button], input[type=submit]:hover{
-    background-color: greenyellow;
-    text-decoration: underline;
-    font-style: italic;
+    background-color: #EBA51A;
+    color: white;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    transition-duration: 0.2s;
     cursor:pointer;
 }
 /* } referenced w3 school tutorial */
@@ -150,23 +171,35 @@ select{
 /* ADDAPTED FROM W3 Schools EXAMPLE*/
 /* Page content */
 .content {
-  padding: 50px;
+    padding: 50px;
 }
 
 /* The sticky class is added to the navbar with JS when it reaches its scroll position */
 .sticky {
-  position: fixed;
-  top: 0;
-  width: 89.2%;
-  height: 0;
+    position: fixed;
+    top: 0;
+    width: 89.2%;
+    height: 0;
 }
+
+.sticky li {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.sticky li a {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
 
 /* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
 .sticky + .content {
   padding-top: 10px;
 }
 
-.gear{
+
+/* .gear{
     height: 50px;
     width: 50px;
     bottom: 10px;
@@ -180,4 +213,4 @@ select{
     fill: rgba(256, 256, 256, 0.5);
     transform: rotate(45deg);
     transition-duration: 0.5s;
-}
+} */
