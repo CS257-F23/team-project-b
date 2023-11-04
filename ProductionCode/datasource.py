@@ -57,6 +57,12 @@ class DataSource:
         result = self.run_sql_command_and_return_result(command_for_sql)
         return result
     
+    def run_sql_command_and_return_result(self,command_for_sql:str):
+        cursor = self.connection.cursor()
+        cursor.execute(command_for_sql)
+        result = cursor.fetchall()
+        return result
+    
     #potentially move parse_URL_string_to_list to a new watch.py file; don't know where else it would fit. Also, refactor the sort out function below
     
     def get_total_for_year_and_site(self, year, leading_site):
@@ -64,12 +70,7 @@ class DataSource:
         command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE case_year = '"+ str(year)+"' AND leading_site = '"+ str(leading_site) + "'"
         result = self.run_sql_command_and_return_result(command_for_sql)
         return result[0][0]
-    
-    def run_sql_command_and_return_result(self,command_for_sql:str):
-        cursor = self.connection.cursor()
-        cursor.execute(command_for_sql)
-        result = cursor.fetchall()
-        return result
+
     
     def get_ranked_list_by_year_and_site(self,year,site):
         """returns a dictionary containing ranked top 10 lists (for each sex) of cancer cases in the given year and site"""
@@ -126,7 +127,8 @@ def sort_out_invalid_and_valid_query_parameters_with_column(query_parameters:lis
             column_and_argument = [target_column, argument]
             valid_column_and_query_parameters.append(column_and_argument)
     return invalid_query_parameters, valid_column_and_query_parameters
-    
+
+#TODO refactor this:
 def construct_multiargument_query_target_all(combination_method:str, valid_columns_and_arguments:list):
     """Returns an sql command which will fetch all data that matches the arguments of interest
     combination_method can only be 'and' or 'or', and will be changed to 'AND' and 'OR'
