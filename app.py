@@ -51,7 +51,8 @@ def display_number_of_matches(number_of_matches=0):
     
     print(all_input_as_one_URL_string)
     target_list = parse_URL_string_to_list(all_input_as_one_URL_string)
-    valid_columns_and_targets = [[find_column_containing(target),target] for target in target_list]
+    while "" in target_list:
+        target_list.remove("")
     #TODO remove sort out, since we're just using a dropdown menu! [["state_name","Texas"], ["sex","Male"], ["leading_site","Liver"]]
     # invalid_query_parameters, valid_column_and_query_parameters = sort_out_invalid_and_valid_query_parameters_with_column(target_list)
     # print(invalid_query_parameters)
@@ -67,12 +68,7 @@ def display_number_of_matches(number_of_matches=0):
     # if target_sex != "":
     #     sql_for_number_of_matches += f"sex = '{target_sex}' AND "
     
-    sql_for_number_of_matches = construct_multiargument_query_specified_targets(["SUM(case_count)"],valid_columns_and_targets)
-    last_char_in_command = sql_for_number_of_matches[-1] # Whittle down the command until the closing excess command word is removed
-    while last_char_in_command != " ":
-        sql_for_number_of_matches = sql_for_number_of_matches[:-1] 
-        last_char_in_command = sql_for_number_of_matches[-1]
-    sql_for_number_of_matches += ";" # Add the closing semicolon
+    sql_for_number_of_matches = construct_multiargument_query_specified_targets(["SUM(case_count)"], target_list)
     #TODO make a method in datasource that does the above; weird to call run_sql_command here
     number_of_matches = database.run_sql_command_and_return_result(sql_for_number_of_matches)
     number_of_matches = number_of_matches[0][0] # Extract from [(3,)] to 3

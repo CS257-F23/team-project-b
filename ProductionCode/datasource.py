@@ -86,35 +86,63 @@ def sort_out_invalid_and_valid_query_parameters_with_column(query_parameters:lis
     return invalid_query_parameters, valid_column_and_query_parameters
 
 #TODO refactor this:
-def construct_multiargument_query_target_all(valid_columns_and_arguments:list):
+def construct_multiargument_query_target_all(valid_arguments:list):
     """Returns an sql command which will fetch all data that matches the arguments of interest
     combination_method can only be 'and' or 'or', and will be changed to 'AND' and 'OR'
-    Example of valid_columns_and_arguments: [["state_name","Texas"], ["sex","Male"], ["leading_site","Liver"]]
+    Example of valid_columns_and_arguments: ["Texas","2003","Liver"]
     Example of output: SELECT * FROM cancerData WHERE state_name = 'Texas' AND sex = 'Male' AND leading_site = 'Liver'
     """
     sql_command = "SELECT * FROM cancerData WHERE"
-    for column_and_argument in valid_columns_and_arguments:
-       target_column = column_and_argument[0]
-       target_data = column_and_argument[1]
-       sql_command = f"{sql_command} {target_column} = '{target_data}' AND"
-    last_char_in_command = sql_command[-1] # Whittle down the command until the closing excess command word is removed
-    while last_char_in_command != " ":
+    for argument in valid_arguments:
+       sql_command = f"{sql_command} {find_column_containing(argument)} = '{argument}' AND"
+    last_char_in_command = sql_command[-1] # Whittle down the command until the closing excess command word ('AND' or 'WHERE') is removed
+    while (last_char_in_command) != " ":
         sql_command = sql_command[:-1] 
         last_char_in_command = sql_command[-1]
     sql_command += ";" # Add the closing semicolon
     return sql_command
 
-def construct_multiargument_query_specified_targets(targets_to_return:list,valid_columns_and_arguments:list):
+def construct_multiargument_query_specified_targets(targets_to_return:list,valid_arguments:list):
     """Creates an SQL command which has specified targets (rather than just *) given a list of targets, and a list of query parameters. 
     Both args should be lists of strings.
     Works by running construct_multiargument_query_target_all with valid_columns_and_arguments and replace '*' with the targets_to_return"""
-    sql_command = construct_multiargument_query_target_all(valid_columns_and_arguments)
+    sql_command = construct_multiargument_query_target_all(valid_arguments)
     targets_as_string = ""
     for target in targets_to_return:
         targets_as_string = targets_as_string + str(target) + ", "
     targets_as_string = targets_as_string[:-2] # Remove trailing comma and whitespace
     sql_command = sql_command.replace("*",targets_as_string)
     return sql_command
+
+# def construct_multiargument_query_target_all(valid_columns_and_arguments:list):
+#     """Returns an sql command which will fetch all data that matches the arguments of interest
+#     combination_method can only be 'and' or 'or', and will be changed to 'AND' and 'OR'
+#     Example of valid_columns_and_arguments: [["state_name","Texas"], ["sex","Male"], ["leading_site","Liver"]]
+#     Example of output: SELECT * FROM cancerData WHERE state_name = 'Texas' AND sex = 'Male' AND leading_site = 'Liver'
+#     """
+#     sql_command = "SELECT * FROM cancerData WHERE"
+#     for column_and_argument in valid_columns_and_arguments:
+#        target_column = column_and_argument[0]
+#        target_data = column_and_argument[1]
+#        sql_command = f"{sql_command} {target_column} = '{target_data}' AND"
+#     last_char_in_command = sql_command[-1] # Whittle down the command until the closing excess command word is removed
+#     while last_char_in_command != " ":
+#         sql_command = sql_command[:-1] 
+#         last_char_in_command = sql_command[-1]
+#     sql_command += ";" # Add the closing semicolon
+#     return sql_command
+
+# def construct_multiargument_query_specified_targets(targets_to_return:list,valid_columns_and_arguments:list):
+#     """Creates an SQL command which has specified targets (rather than just *) given a list of targets, and a list of query parameters. 
+#     Both args should be lists of strings.
+#     Works by running construct_multiargument_query_target_all with valid_columns_and_arguments and replace '*' with the targets_to_return"""
+#     sql_command = construct_multiargument_query_target_all(valid_columns_and_arguments)
+#     targets_as_string = ""
+#     for target in targets_to_return:
+#         targets_as_string = targets_as_string + str(target) + ", "
+#     targets_as_string = targets_as_string[:-2] # Remove trailing comma and whitespace
+#     sql_command = sql_command.replace("*",targets_as_string)
+#     return sql_command
     
 def find_column_containing(argument:str):
     """given an argument (ie: '2003', 'Liver', or 'Female') and returns the appropriate column that corresponds to the field."""
