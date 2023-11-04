@@ -12,15 +12,22 @@ def load_data():
     global database
     database = DataSource() #from sql
 
+def get_args_from_form(list_of_args):
+    output_list = []
+    for arg in list_of_args:
+        if request.method == "POST":
+            output_list.append(request.form[arg])
+        elif request.method == "GET":
+            output_list.append(request.args[arg])
+    print(output_list)
+    return output_list
+
 app = Flask(__name__)
 
 @app.route('/stateinfo', methods=['GET', 'POST'])
 def state_info_display():
     """a display page for information by state"""
-    if request.method == "POST":
-        target_state = request.form["state_for_info_page"]
-    elif request.method == "GET":
-        target_state = request.args["state_for_info_page"]
+    target_state = get_args_from_form(["state_for_info_page"])[0]
     total_incidences = database.get_total_for_state(target_state)
     most_common_cancers_list = database.get_ranked_list_for_state(target_state)
     return render_template("state_info_display.html", title = "state info",total_count = total_incidences, state_choice = target_state, list_of_cancers = most_common_cancers_list)
@@ -31,21 +38,9 @@ def display_number_of_matches(number_of_matches=0):
     Input includes a State, Year, Site, and Sex, all can either be specified for left as 'Any'
     """
     try: # When accessed using in-page Submit
-        # Get user data.
-        if request.method == "POST":
-            target_state = request.form["state"]
-            target_year = request.form["year"]
-            target_site = request.form["site"]
-            target_sex = request.form["sex"]
-        elif request.method == "GET":
-            target_state = request.args["state"]
-            target_year = request.args["year"]
-            target_site = request.args["site"]
-            target_sex = request.args["sex"]
+        target_list = get_args_from_form(["state","year","site","sex"])
     except: # When accessed with nav bar
-        target_state = target_year = target_site = target_sex = ""
-    all_input_as_one_URL_string = target_state + "," + target_year + "," + target_site + "," + target_sex
-    target_list = parse_URL_string_to_list(all_input_as_one_URL_string)
+        target_list = ["","","",""]
     while "" in target_list:
         target_list.remove("")
     number_of_matches = database.get_simple_search_data(target_list)
@@ -97,7 +92,6 @@ def python_bug(e):
     """For when a runtime error is encountered in the code itself."""
     return render_template("error_message.html", title="Error!", message="It seems that a bug has occurred in the codes.")
 
-
 if __name__ == '__main__':
     load_data()
-    app.run(port=5117) #just using Marshall's port for now
+    app.run(port=5217) #just using Marshall's port for now
