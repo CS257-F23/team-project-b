@@ -91,4 +91,9 @@ class testGetSiteData(unittest.TestCase):
         error_message = "Failed to display the corresponding data for specified site"
         self.assertEqual(expected_output, result_from_function_being_tested, error_message)
 
-    
+class testGetStateData(unittest.TestCase):
+    def test_get_total_for_state(self):
+        """Docstring"""
+        state_tested = "Texas"
+        result_from_function_being_tested = test.get_total_for_state(state_tested)
+        expected_output = 
