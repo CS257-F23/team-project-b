@@ -86,18 +86,17 @@ def sort_out_invalid_and_valid_query_parameters_with_column(query_parameters:lis
     return invalid_query_parameters, valid_column_and_query_parameters
 
 #TODO refactor this:
-def construct_multiargument_query_target_all(combination_method:str, valid_columns_and_arguments:list):
+def construct_multiargument_query_target_all(valid_columns_and_arguments:list):
     """Returns an sql command which will fetch all data that matches the arguments of interest
     combination_method can only be 'and' or 'or', and will be changed to 'AND' and 'OR'
     Example of valid_columns_and_arguments: [["state_name","Texas"], ["sex","Male"], ["leading_site","Liver"]]
     Example of output: SELECT * FROM cancerData WHERE state_name = 'Texas' AND sex = 'Male' AND leading_site = 'Liver'
     """
-    combination_method = combination_method.upper()
     sql_command = "SELECT * FROM cancerData WHERE"
     for column_and_argument in valid_columns_and_arguments:
        target_column = column_and_argument[0]
        target_data = column_and_argument[1]
-       sql_command = f"{sql_command} {target_column} = '{target_data}' {combination_method}"
+       sql_command = f"{sql_command} {target_column} = '{target_data}' AND"
     last_char_in_command = sql_command[-1] # Whittle down the command until the closing excess command word is removed
     while last_char_in_command != " ":
         sql_command = sql_command[:-1] 
