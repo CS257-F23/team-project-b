@@ -73,24 +73,24 @@ class DataSource:
     
     #potentially move parse_URL_string_to_list to a new watch.py file; don't know where else it would fit. Also, refactor the sort out function below
         
-def sort_out_invalid_and_valid_query_parameters_with_column(query_parameters:list):
-    """
-    Find which query parameter is a valid one for filtering, and if so add the column name. If not valid, add it to a separate list.
-    Example:
-    From query_parameters such as ["Texas","Male","Liver","Dead"], split it into:
-    valid_query_parameters = [["state_name","Texas"], ["sex","Male"], ["leading_site","Liver"]]
-    invalid_query_parameters = ["Dead"]
-    """
-    invalid_query_parameters = []
-    valid_column_and_query_parameters = []
-    for argument in query_parameters:
-        target_column = find_column_containing(argument)
-        if target_column == 'invalid' and argument not in invalid_query_parameters:
-            invalid_query_parameters.append(argument)
-        else:
-            column_and_argument = [target_column, argument]
-            valid_column_and_query_parameters.append(column_and_argument)
-    return invalid_query_parameters, valid_column_and_query_parameters
+# def sort_out_invalid_and_valid_query_parameters_with_column(query_parameters:list):
+#     """
+#     Find which query parameter is a valid one for filtering, and if so add the column name. If not valid, add it to a separate list.
+#     Example:
+#     From query_parameters such as ["Texas","Male","Liver","Dead"], split it into:
+#     valid_query_parameters = [["state_name","Texas"], ["sex","Male"], ["leading_site","Liver"]]
+#     invalid_query_parameters = ["Dead"]
+#     """
+#     invalid_query_parameters = []
+#     valid_column_and_query_parameters = []
+#     for argument in query_parameters:
+#         target_column = find_column_containing(argument)
+#         if target_column == 'invalid' and argument not in invalid_query_parameters:
+#             invalid_query_parameters.append(argument)
+#         else:
+#             column_and_argument = [target_column, argument]
+#             valid_column_and_query_parameters.append(column_and_argument)
+#     return invalid_query_parameters, valid_column_and_query_parameters
 
 #TODO refactor this:
 def construct_multiargument_query_target_all(valid_arguments:list):

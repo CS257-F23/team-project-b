@@ -43,13 +43,8 @@ def display_number_of_matches(number_of_matches=0):
             target_site = request.args["site"]
             target_sex = request.args["sex"]
     except: # When accessed with nav bar
-        target_state = ""
-        target_year = ""
-        target_site = ""
-        target_sex = ""
+        target_state = target_year = target_site = target_sex = ""
     all_input_as_one_URL_string = target_state + "," + target_year + "," + target_site + "," + target_sex
-    
-    print(all_input_as_one_URL_string)
     target_list = parse_URL_string_to_list(all_input_as_one_URL_string)
     while "" in target_list:
         target_list.remove("")
