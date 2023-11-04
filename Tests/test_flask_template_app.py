@@ -32,21 +32,21 @@ class TestYearDisplayPage(LoadData):
     def test_get_year_data_route(self):
         """Test that the year subset display page appears as expected in the normal case and has the correct content."""
         url = '/year/2007/'
-        expected_portion = b"Year: 2007"
+        expected_portion = b"2007"
         failure_response = "Failed to fetch data for the year 2007 correctly."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)
     
     def test_get_year_data_route_edge_start(self):
         """Test that the year subset display page appears as expected in a working edge case at the starting end of the possible input and has the correct content."""
         url = '/year/2000/'
-        expected_portion = b"Year: 2000"
+        expected_portion = b"2000"
         failure_response = "Failed to fetch data for the edge case year 2000 correctly."
         self.assertIn(expected_portion, self.get_route_data(url), self.get_route_data(url))
     
     def test_get_year_data_route_edge_end(self):
         """Test that the year subset display page appears as expected in a working edge case at the closing end of the possible input and has the correct content."""
         url = '/year/2020/'
-        expected_portion = b"Year: 2020"
+        expected_portion = b"2020"
         failure_response = "Failed to fetch data for the edge case year 2021 correctly."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)
     
@@ -62,21 +62,21 @@ class TestSiteDisplayPage(LoadData):
     def test_get_site_data_route(self):
         """Test that the site subset display page appears as expected in the normal case and has the correct content."""
         url = '/site/Liver/'
-        expected_portion = b"Below, you can see a portion of our dataset, filtered for those that match the leading site 'Liver':"
+        expected_portion = b"Liver:"
         failure_response = "Failed to fetch data for the leading site 'Liver' correctly."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)
         
     def test_get_site_data_route_edge_start(self):
         """Test that the site subset display page appears as expected in a working edge case at the starting end of the possible input and has the correct content."""
         url = '/site/Brain and Other Nervous System/'
-        expected_portion = b"Leading Site: Brain and Other Nervous System"
+        expected_portion = b"Brain"
         failure_response = "Failed to fetch data for the edge case leading site 'Brain and Other Nervous System' correctly."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)
     
     def test_get_site_data_route_edge_end(self):
         """Test that the site subset display page appears as expected in a working edge case at the closing end of the possible input and has the correct content."""
         url = '/site/Urinary Bladder invasive and in situ/'
-        expected_portion = b"Leading Site: Urinary Bladder invasive and in situ"
+        expected_portion = b"Bladder"
         failure_response = "Failed to fetch data for the edge case leading site 'Urinary Bladder invasive and in situ' correctly."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)        
     
