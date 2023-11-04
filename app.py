@@ -43,18 +43,32 @@ def display_number_of_matches(number_of_matches=0):
             target_site = request.args["site"]
             target_sex = request.args["sex"]
     except: # When accessed with nav bar
-        target_state = "any_state"
-        target_year = "any_year"
-        target_site = "any_site"
-        target_sex = "any_sex"
-    all_input_as_one_URL_string = target_state + "," + target_year + "," + target_site + "," + target_sex
-    print(all_input_as_one_URL_string)
-    target_state = parse_URL_string_to_list(all_input_as_one_URL_string)
+        target_state = ""
+        target_year = ""
+        target_site = ""
+        target_sex = ""
+    # all_input_as_one_URL_string = target_state + "," + target_year + "," + target_site + "," + target_sex
+    # print(all_input_as_one_URL_string)
+    # target_list = parse_URL_string_to_list(all_input_as_one_URL_string)
     #TODO remove sort out, since we're just using a dropdown menu! [["state_name","Texas"], ["sex","Male"], ["leading_site","Liver"]]
-    invalid_query_parameters, valid_column_and_query_parameters = sort_out_invalid_and_valid_query_parameters_with_column(target_state)
-    print(invalid_query_parameters)
-    print(valid_column_and_query_parameters)
-    sql_for_number_of_matches = construct_multiargument_query_specified_targets("and",["SUM(case_count)"],valid_column_and_query_parameters)
+    # invalid_query_parameters, valid_column_and_query_parameters = sort_out_invalid_and_valid_query_parameters_with_column(target_list)
+    # print(invalid_query_parameters)
+    # print(valid_column_and_query_parameters)
+    # sql_for_number_of_matches = construct_multiargument_query_specified_targets("and",["SUM(case_count)"],valid_column_and_query_parameters)
+    sql_for_number_of_matches = "SELECT SUM(case_count) FROM cancerData WHERE "
+    if target_state != "":
+        sql_for_number_of_matches += f"state_name = '{target_state}' AND "
+    if target_year != "":
+        sql_for_number_of_matches += f"case_year = '{target_year}' AND "
+    if target_site != "":
+        sql_for_number_of_matches += f"leading_site = '{target_site}' AND "
+    if target_sex != "":
+        sql_for_number_of_matches += f"sex = '{target_sex}' AND "
+    last_char_in_command = sql_command[-1] # Whittle down the command until the closing excess command word is removed
+    while last_char_in_command != " ":
+        sql_command = sql_command[:-1] 
+        last_char_in_command = sql_command[-1]
+    sql_command += ";" # Add the closing semicolon
     #TODO make a method in datasource that does the above; weird to call run_sql_command here
     number_of_matches = database.run_sql_command_and_return_result(sql_for_number_of_matches)
     number_of_matches = number_of_matches[0][0] # Extract from [(3,)] to 3
