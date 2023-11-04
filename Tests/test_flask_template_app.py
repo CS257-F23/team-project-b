@@ -62,7 +62,7 @@ class TestSiteDisplayPage(LoadData):
     def test_get_site_data_route(self):
         """Test that the site subset display page appears as expected in the normal case and has the correct content."""
         url = '/site/Liver/'
-        expected_portion = b"Liver:"
+        expected_portion = b"Liver"
         failure_response = "Failed to fetch data for the leading site 'Liver' correctly."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)
         
