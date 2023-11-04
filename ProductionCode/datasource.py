@@ -18,26 +18,6 @@ class DataSource:
             exit()
         return connection
     
-    def get_data_from_year(self, year):
-        """returns all the data from a given year"""
-        command_for_sql = "SELECT * FROM cancerData WHERE case_year = '" + \
-            str(year) + "'"
-        result = self.run_sql_command_and_return_result(command_for_sql)
-        return result
-
-    def get_data_by_site(self, site):
-        """returns all the data for a given site"""
-        command_for_sql = "SELECT * FROM cancerData WHERE leading_site = '" + \
-            str(site) + "'"
-        result = self.run_sql_command_and_return_result(command_for_sql)
-        return result
-    
-    def get_total_for_site(self, leading_site):
-        """returns the total cancer cases for a given cancer site between the years 2000-2020"""
-        command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE leading_site = '"+ str(leading_site) + "'"
-        result = self.run_sql_command_and_return_result(command_for_sql)
-        return result[0][0]
-    
     def get_total_for_state(self,state):
         """returns the total number of cases (between 2000-2020) of any type of cancer in a given state"""
         command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE state_name = '"+ str(state) + "';"
@@ -51,11 +31,33 @@ class DataSource:
         result = self.run_sql_command_and_return_result(command_for_sql)
         return result
     
+    def get_total_for_site(self, leading_site):
+        """returns the total cancer cases for a given cancer site between the years 2000-2020"""
+        command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE leading_site = '"+ str(leading_site) + "'"
+        result = self.run_sql_command_and_return_result(command_for_sql)
+        return result[0][0]
+    
     def get_total_for_year(self, year):
         """returns the total number of cancer cases in a given year"""
         command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE case_year = '"+ str(year)+"'"
         result = self.run_sql_command_and_return_result(command_for_sql)
         return result[0][0]
+    
+    def get_data_by_site(self, site):
+        """returns all the data for a given site"""
+        command_for_sql = "SELECT * FROM cancerData WHERE leading_site = '" + \
+            str(site) + "'"
+        result = self.run_sql_command_and_return_result(command_for_sql)
+        return result
+    
+    def get_data_from_year(self, year):
+        """returns all the data from a given year"""
+        command_for_sql = "SELECT * FROM cancerData WHERE case_year = '" + \
+            str(year) + "'"
+        result = self.run_sql_command_and_return_result(command_for_sql)
+        return result
+    
+    #potentially move parse_URL_string_to_list to a new watch.py file; don't know where else it would fit. Also, refactor the sort out function below
     
     def get_total_for_year_and_site(self, year, leading_site):
         """Given a year and site value, returns the total number of cancer cases"""

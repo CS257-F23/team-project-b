@@ -15,12 +15,6 @@ def load_data():
 
 app = Flask(__name__)
 
-
-@app.route('/')
-def homepage():
-    """A simple homepage which lets the user get data by state"""
-    return render_template("home_page.html",title = "home page")
-
 @app.route('/stateinfo', methods=['GET', 'POST'])
 def state_info_display():
     """a display page for information by state"""
@@ -62,12 +56,6 @@ def display_number_of_matches(number_of_matches=0):
     number_of_matches = number_of_matches[0][0] # Extract from [(3,)] to 3
     return render_template("simple_search.html",title = "Simple Search", number_of_matches=number_of_matches)
 
-@app.route('/advsearch')
-def advancedSearchPage():
-    """Lets the user utilize a complicated advanced search method that ouputs graphs."""
-    return render_template("adv_search.html", title="advanced search")
-
-
 @app.route('/year/<year_argument>', strict_slashes=False)
 def get_year_data(year_argument):
     """From the URL input, run the imported production method to fetch the details in the form of a list, then make it presentable. For unavailable URL, return the error message."""
@@ -76,7 +64,6 @@ def get_year_data(year_argument):
         return render_template("error_message.html", title="Error!", message="The year that you have entered is invalid.")
     else:
         return render_template("subset_display.html", title="Year subset", field="year", data=year_argument, subset=filtered_data, total_count=database.get_total_for_year(year_argument))
-
 
 @app.route('/site/<site_argument>', strict_slashes=False)
 def get_site_data(site_argument):
@@ -87,6 +74,35 @@ def get_site_data(site_argument):
     else:
         return render_template("subset_display.html", title="Site subset", field="leading site", data=site_argument, subset=filtered_data, total_count=database.get_total_for_site(site_argument))
 
+@app.route('/')
+def homepage():
+    """A simple homepage which lets the user get data by state"""
+    return render_template("home_page.html",title = "home page")
+
+@app.route('/about')
+def about_us():
+    """The About Us page, giving an introduction to the Flask webpages and how to navigate it."""
+    return render_template("about_us.html", title="About Us")
+
+
+@app.route('/contact')
+def contact_us():
+    """The Contact Us page, giving an introduction to the website creators and links to communicate."""
+    return render_template("contact_us.html", title="Contact Us")
+
+
+@app.errorhandler(404)
+def page_not_found(e):
+    """For when 404 error is encountered, such that a potentially possible but non-existant URL is used such as /year/4444."""
+    return render_template("error_message.html", title="Error!", message="The URL that you have entered is invalid.")
+
+
+@app.errorhandler(500)
+def python_bug(e):
+    """For when a runtime error is encountered in the code itself."""
+    return render_template("error_message.html", title="Error!", message="It seems that a bug has occurred in the codes.")
+
+#TODO: clean/remove code below: non essential (besides main of course)
 
 @app.route('/<combination_method>/<target_datas>', strict_slashes=False)
 def get_filtered_data(combination_method, target_datas):
@@ -174,30 +190,10 @@ def display_ranked_List():
     male_list = top_10_lists["Male top ten list"]
     return render_template("top_10_page.html",title = "State and Site display",year_choice = target_year, site_choice = target_site, flist = female_list, mlist = male_list)
 
-
-@app.route('/about')
-def about_us():
-    """The About Us page, giving an introduction to the Flask webpages and how to navigate it."""
-    return render_template("about_us.html", title="About Us")
-
-
-@app.route('/contact')
-def contact_us():
-    """The Contact Us page, giving an introduction to the website creators and links to communicate."""
-    return render_template("contact_us.html", title="Contact Us")
-
-
-@app.errorhandler(404)
-def page_not_found(e):
-    """For when 404 error is encountered, such that a potentially possible but non-existant URL is used such as /year/4444."""
-    return render_template("error_message.html", title="Error!", message="The URL that you have entered is invalid.")
-
-
-@app.errorhandler(500)
-def python_bug(e):
-    """For when a runtime error is encountered in the code itself."""
-    return render_template("error_message.html", title="Error!", message="It seems that a bug has occurred in the codes.")
-
+@app.route('/advsearch')
+def advancedSearchPage():
+    """Lets the user utilize a complicated advanced search method that ouputs graphs."""
+    return render_template("adv_search.html", title="advanced search")
 
 if __name__ == '__main__':
     load_data()
