@@ -1,5 +1,6 @@
 import psycopg2
 import Data.psqlConfig as config
+from ProductionCode.helpers import *
 
 class DataSource:
 
@@ -64,50 +65,6 @@ class DataSource:
         return result
     
     #potentially move parse_URL_string_to_list to a new watch.py file; don't know where else it would fit. Also, refactor the sort out function below
-    
-    def get_total_for_year_and_site(self, year, leading_site):
-        """Given a year and site value, returns the total number of cancer cases"""
-        command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE case_year = '"+ str(year)+"' AND leading_site = '"+ str(leading_site) + "'"
-        result = self.run_sql_command_and_return_result(command_for_sql)
-        return result[0][0]
-
-    
-    def get_ranked_list_by_year_and_site(self,year,site):
-        """returns a dictionary containing ranked top 10 lists (for each sex) of cancer cases in the given year and site"""
-        command_for_flist = "SELECT state_name, case_count FROM cancerData WHERE sex = 'Female' AND case_year = '" + str(year) + "' AND leading_site = '" + str(site) + "'ORDER BY case_count DESC LIMIT 10"
-        command_for_mlist = "SELECT state_name, case_count FROM cancerData WHERE sex = 'Male' AND case_year = '" + str(year) + "' AND leading_site = '" + str(site) + "'ORDER BY case_count DESC LIMIT 10"
-        flist = self.run_sql_command_and_return_result(command_for_flist)
-        mlist = self.run_sql_command_and_return_result(command_for_mlist)
-        output = {"Male top ten list": mlist, "Female top ten list" : flist}
-        return output
-
-    def return_sorted_state(self,state):
-        """returns a list of the contents of each row with the specified date. For convenience, this list is sorted by the year of occurrence."""
-        command_for_sql = "SELECT * FROM cancerData WHERE state_name=%s ORDER BY case_year", (state,)
-        result = self.run_sql_command_and_return_result(command_for_sql)
-        return result
-    
-    def return_variable_arguments_query_result(self, combination_method:str, target_datas:list):
-        """Sort target_datas into invalid targets and valid targets (which will be accompanied with their column of appearance)
-        Extract valid targets into its own list for display in the website with the invalid targets
-        Create relevant SQL commands, run them and get the resultant subset of the table
-        Craft the dictionary used in app.py for rendering"""
-        invalid_query_parameters, valid_column_and_query_parameters = sort_out_invalid_and_valid_query_parameters_with_column(target_datas)
-        valid_query_parameters = []
-        valid_query_parameters = [parameter for _,parameter in valid_column_and_query_parameters if parameter not in valid_query_parameters]
-        command_for_get_all_cases = construct_multiargument_query_target_all(combination_method, valid_column_and_query_parameters)
-        command_for_get_total_case_counts = command_for_get_all_cases.replace("*", "SUM(case_count)")
-        all_cases = self.run_sql_command_and_return_result(command_for_get_all_cases)
-        total_count = self.run_sql_command_and_return_result(command_for_get_total_case_counts) # Take the form of a list of 1 tuple like: [(15328977,)]
-        total_count = total_count[0][0]
-        
-        # Craft the output to be rendered into the Template
-        return {
-            'total count': total_count,
-            'valid input': valid_query_parameters,
-            'invalid input': invalid_query_parameters,
-            'subset': all_cases
-        }
         
 def sort_out_invalid_and_valid_query_parameters_with_column(query_parameters:list):
     """

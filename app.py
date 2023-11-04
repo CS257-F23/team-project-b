@@ -3,7 +3,6 @@ import io
 # Flask imports
 from flask import Flask, render_template, request, Response
 from ProductionCode.datasource import *
-from ProductionCode.graphing import *
 
 # other requirements
 
@@ -50,7 +49,7 @@ def display_number_of_matches(number_of_matches=0):
         target_sex = "any_sex"
     all_input_as_one_URL_string = target_state + "," + target_year + "," + target_site + "," + target_sex
     target_state = parse_URL_string_to_list(all_input_as_one_URL_string)
-    #TODO remove sort out, since we're just using a dropdown menu!
+    #TODO remove sort out, since we're just using a dropdown menu! [["state_name","Texas"], ["sex","Male"], ["leading_site","Liver"]]
     invalid_query_parameters, valid_column_and_query_parameters = sort_out_invalid_and_valid_query_parameters_with_column(target_state)
     sql_for_number_of_matches = construct_multiargument_query_specified_targets("and",["SUM(case_count)"],valid_column_and_query_parameters)
     #TODO make a method in datasource that does the above; weird to call run_sql_command here
