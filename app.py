@@ -53,25 +53,7 @@ def display_number_of_matches(number_of_matches=0):
     target_list = parse_URL_string_to_list(all_input_as_one_URL_string)
     while "" in target_list:
         target_list.remove("")
-    #TODO remove sort out, since we're just using a dropdown menu! [["state_name","Texas"], ["sex","Male"], ["leading_site","Liver"]]
-    # invalid_query_parameters, valid_column_and_query_parameters = sort_out_invalid_and_valid_query_parameters_with_column(target_list)
-    # print(invalid_query_parameters)
-    # print(valid_column_and_query_parameters)
-    # sql_for_number_of_matches = construct_multiargument_query_specified_targets("and",["SUM(case_count)"],valid_column_and_query_parameters)
-    # sql_for_number_of_matches = "SELECT SUM(case_count) FROM cancerData WHERE "
-    # if target_state != "":
-    #     sql_for_number_of_matches += f"state_name = '{target_state}' AND "
-    # if target_year != "":
-    #     sql_for_number_of_matches += f"case_year = '{target_year}' AND "
-    # if target_site != "":
-    #     sql_for_number_of_matches += f"leading_site = '{target_site}' AND "
-    # if target_sex != "":
-    #     sql_for_number_of_matches += f"sex = '{target_sex}' AND "
-    
-    sql_for_number_of_matches = construct_multiargument_query_specified_targets(["SUM(case_count)"], target_list)
-    #TODO make a method in datasource that does the above; weird to call run_sql_command here
-    number_of_matches = database.run_sql_command_and_return_result(sql_for_number_of_matches)
-    number_of_matches = number_of_matches[0][0] # Extract from [(3,)] to 3
+    number_of_matches = database.get_simple_search_data(target_list)
     return render_template("simple_search.html",title = "Simple Search", number_of_matches=number_of_matches)
 
 @app.route('/year/<year_argument>', strict_slashes=False)

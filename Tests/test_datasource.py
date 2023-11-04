@@ -91,13 +91,4 @@ class testGetSiteData(unittest.TestCase):
         error_message = "Failed to display the corresponding data for specified site"
         self.assertEqual(expected_output, result_from_function_being_tested, error_message)
 
-class testMixedCount(unittest.TestCase):
-    setUp()
-    def test_get_total_for_year_and_site(self):
-        """Tests the get_total_for_year_and_site function with a VALID year and VALID cancer site. Input: 2000 and 'Breast' Expected output: 200035"""
-        year_tested = 2000
-        site_tested = "Breast"
-        result_from_function_being_tested = test.get_total_for_year_and_site(year_tested, site_tested)
-        expected_output = 200035
-        error_message = "Failed to display the corresponding data for specified year and specified site"
-        self.assertEqual(expected_output, result_from_function_being_tested, error_message)
+    

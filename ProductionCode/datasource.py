@@ -58,6 +58,13 @@ class DataSource:
         result = self.run_sql_command_and_return_result(command_for_sql)
         return result
     
+    def get_simple_search_data(self, input_targets:list):
+        sql_command = construct_multiargument_query_specified_targets(["SUM(case_count)"], input_targets)
+        #TODO make a method in datasource that does the above; weird to call run_sql_command here
+        number_of_matches = self.run_sql_command_and_return_result(sql_command)
+        number_of_matches = number_of_matches[0][0] # Extract from [(3,)] to 3
+        return number_of_matches
+    
     def run_sql_command_and_return_result(self,command_for_sql:str):
         cursor = self.connection.cursor()
         cursor.execute(command_for_sql)
