@@ -53,7 +53,7 @@ def display_number_of_matches(number_of_matches=0):
     while "" in target_list:
         target_list.remove("")
     number_of_matches = database.get_simple_search_data(target_list)
-    return render_template("simple_search.html",title = "Simple Search", number_of_matches=number_of_matches)
+    return render_template("simple_search.html",title = "Simple Search", number_of_matches=number_of_matches, target_list=target_list)
 
 @app.route('/year/<year_argument>', strict_slashes=False)
 def get_year_data(year_argument):
