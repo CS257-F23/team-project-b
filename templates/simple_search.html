@@ -5,42 +5,59 @@
         <p>Just select your desired targets to filter our data by, and press Submit. The number of matching cases will be shown right above the Filter Customization box.</p>
         <p>If you want to see more details, check out the Advanced Search Tab!.</p>
         <form action = "simpsearch" method = "post">
-            <p>Number of matching cases: {{number_of_matches}}</p>
+            <h2>Number of matching cases: {{number_of_matches}}</h2>
             <fieldset>
                 <legend>Filter Customization</legend>
     
                 <label for="state">Filter dataset for the state: </label>
                 <select name="state" id="state">
-                    <option value="" selected>Any State</option>
+                    <option value="">Any State</option>
                     {% for state in (['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming']) :%}
+                    {%if state in target_list:%}
+                    <option value="{{state}}" selected>{{state}}</option>
+                    {%else:%}
                     <option value="{{state}}">{{state}}</option>
+                    {%endif%}
                     {% endfor %}
                 </select>
                 <br>
                 
                 <label for="year">Filter dataset for the year: </label>
                 <select name="year" id="year">
-                    <option value="" selected>Any Year</option>
-                    {% for year in (range(2000,2021)):%}
+                    <option value="">Any Year</option>
+                    {% for year in (['2000', '2001', '2002', '2003', '2004', '2005', '2006', '2007', '2008', '2009', '2010', '2011', '2012', '2013', '2014', '2015', '2016', '2017', '2018', '2019', '2020']):%}
+                    {%if year in target_list:%}
+                    <option value="{{year}}" selected>{{year}}</option>
+                    {%else:%}
                     <option value="{{year}}">{{year}}</option>
+                    {%endif%}
                     {% endfor %}
                 </select>
                 <br>
     
                 <label for="site">Filter dataset for the leading site: </label>
                 <select name="site" id="site">
-                    <option value="" selected>Any Site</option>
+                    <option value="">Any Site</option>
                     {% for site in (['Brain and Other Nervous System', 'Breast', 'Cervix Uteri', 'Colon and Rectum', 'Corpus Uteri', 'Esophagus', 'Gallbladder', 'Kidney and Renal Pelvis', 'Larynx', 'Leukemias', 'Liver', 'Lung and Bronchus', 'Melanoma of the Skin', 'Myeloma', 'Non-Hodgkin Lymphoma', 'Oral Cavity and Pharynx', 'Ovary', 'Pancreas', 'Prostate', 'Stomach', 'Thyroid', 'Urinary Bladder invasive and in situ']):%}
+                    {%if site in target_list:%}
+                    <option value="{{site}}" selected>{{site}}</option>
+                    {%else:%}
                     <option value="{{site}}">{{site}}</option>
+                    {%endif%}
                     {% endfor %}
                 </select>
                 <br>
     
                 <label for="sex">Filter dataset for the sex: </label>
                 <select name="sex" id="sex">
-                    <option value="" selected>Any Sex</option>
-                    <option value="Male">Male</option>
-                    <option value="Female">Female</option>
+                    <option value="">Any Sex</option>
+                    {% for sex in (["Male", "Female"]):%}
+                    {%if sex in target_list:%}
+                    <option value="{{sex}}" selected>{{sex}}</option>
+                    {%else:%}
+                    <option value="{{sex}}">{{sex}}</option>
+                    {%endif%}
+                    {% endfor %}
                 </select>
                 <br>
     
