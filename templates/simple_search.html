@@ -11,7 +11,7 @@
     
                 <label for="state">Filter dataset for the state: </label>
                 <select name="state" id="state">
-                    <option value="any_state" selected>Any State</option>
+                    <option value="" selected>Any State</option>
                     {% for state in (['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri', 'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming']) :%}
                     <option value="{{state}}">{{state}}</option>
                     {% endfor %}
@@ -20,7 +20,7 @@
                 
                 <label for="year">Filter dataset for the year: </label>
                 <select name="year" id="year">
-                    <option value="any_year" selected>Any Year</option>
+                    <option value="" selected>Any Year</option>
                     {% for year in (range(2000,2021)):%}
                     <option value="{{year}}">{{year}}</option>
                     {% endfor %}
@@ -29,7 +29,7 @@
     
                 <label for="site">Filter dataset for the leading site: </label>
                 <select name="site" id="site">
-                    <option value="any_site" selected>Any Site</option>
+                    <option value="" selected>Any Site</option>
                     {% for site in (['Brain and Other Nervous System', 'Breast', 'Cervix Uteri', 'Colon and Rectum', 'Corpus Uteri', 'Esophagus', 'Gallbladder', 'Kidney and Renal Pelvis', 'Larynx', 'Leukemias', 'Liver', 'Lung and Bronchus', 'Melanoma of the Skin', 'Myeloma', 'Non-Hodgkin Lymphoma', 'Oral Cavity and Pharynx', 'Ovary', 'Pancreas', 'Prostate', 'Stomach', 'Thyroid', 'Urinary Bladder invasive and in situ']):%}
                     <option value="{{site}}">{{site}}</option>
                     {% endfor %}
@@ -38,7 +38,7 @@
     
                 <label for="sex">Filter dataset for the sex: </label>
                 <select name="sex" id="sex">
-                    <option value="any_sex" selected>Any Sex</option>
+                    <option value="" selected>Any Sex</option>
                     <option value="Male">Male</option>
                     <option value="Female">Female</option>
                 </select>
