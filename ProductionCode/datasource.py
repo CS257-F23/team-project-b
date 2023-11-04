@@ -104,11 +104,11 @@ def construct_multiargument_query_target_all(valid_columns_and_arguments:list):
     sql_command += ";" # Add the closing semicolon
     return sql_command
 
-def construct_multiargument_query_specified_targets(combination_method:str, targets_to_return:list,valid_columns_and_arguments:list):
+def construct_multiargument_query_specified_targets(targets_to_return:list,valid_columns_and_arguments:list):
     """Creates an SQL command which has specified targets (rather than just *) given a list of targets, and a list of query parameters. 
     Both args should be lists of strings.
     Works by running construct_multiargument_query_target_all with valid_columns_and_arguments and replace '*' with the targets_to_return"""
-    sql_command = construct_multiargument_query_target_all(combination_method, valid_columns_and_arguments)
+    sql_command = construct_multiargument_query_target_all(valid_columns_and_arguments)
     targets_as_string = ""
     for target in targets_to_return:
         targets_as_string = targets_as_string + str(target) + ", "
