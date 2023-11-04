@@ -1,6 +1,5 @@
 import psycopg2
 import Data.psqlConfig as config
-from ProductionCode.helpers import *
 
 class DataSource:
 
