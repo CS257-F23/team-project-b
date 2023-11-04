@@ -20,84 +20,78 @@ class DataSource:
         return connection
     
     def get_total_for_state(self,state):
-        """returns the total number of cases (between 2000-2020) of any type of cancer in a given state"""
+        """returns the total number of cases (between 2000-2020) of any type of cancer in a given state
+        Params: state - a string corresponding to name of state
+        Returns: an int corresponding to the number of total cancer cases between 2000-2020 """
         command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE state_name = '"+ str(state) + "';"
         result = self.run_sql_command_and_return_result(command_for_sql)
         return result[0][0]
     
     def get_ranked_list_for_state(self,state):
         """gets the top 10 most prevalent cancer types from the last 20 years (for men and women) for a given state
-        referenced: https://www.w3resource.com/sql/aggregate-functions/sum-function.php for SUM() and GROUP BY functionality"""
+        referenced: https://www.w3resource.com/sql/aggregate-functions/sum-function.php for SUM() and GROUP BY functionality
+        Params: state - a string corresponding to the name of state
+        Returns: a list containing tuples. Each tuple contains the site name followed by the number of cases associated with that site"""
         command_for_sql = "SELECT leading_site, SUM(case_count) FROM cancerData WHERE state_name = '" + str(state) + "' GROUP BY leading_site ORDER BY SUM(case_count) DESC LIMIT 10;"
         result = self.run_sql_command_and_return_result(command_for_sql)
         return result
     
     def get_total_for_site(self, leading_site):
-        """returns the total cancer cases for a given cancer site between the years 2000-2020"""
+        """returns the total cancer cases for a given cancer site between the years 2000-2020
+        Params: leading_site - a string corresponding to the name of the cancer site
+        Returns: an int corresponding to the nummber of  cases associated with the leading site"""
         command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE leading_site = '"+ str(leading_site) + "'"
         result = self.run_sql_command_and_return_result(command_for_sql)
         return result[0][0]
     
     def get_total_for_year(self, year):
-        """returns the total number of cancer cases in a given year"""
+        """returns the total number of cancer cases in a given year
+        Params: year - an int corresponding to a year between 2000-2020
+        Returns: an int correspoding to the total number of cancer cases in a given year"""
         command_for_sql = "SELECT SUM(case_count) FROM cancerData WHERE case_year = '"+ str(year)+"'"
         result = self.run_sql_command_and_return_result(command_for_sql)
         return result[0][0]
     
     def get_data_by_site(self, site):
-        """returns all the data for a given site"""
+        """returns all the data for a given site
+        Params: site - a string corresponding to the cancer site of interest
+        Returns: a list of tuples, where each tuple contains the state, year, site, sex, and count"""
         command_for_sql = "SELECT * FROM cancerData WHERE leading_site = '" + \
             str(site) + "'"
         result = self.run_sql_command_and_return_result(command_for_sql)
         return result
     
     def get_data_from_year(self, year):
-        """returns all the data from a given year"""
+        """returns all the data from a given year
+        Params: year - an int corresponding to the site of interest
+        Returns: a list of tuples, where each tuple contains the state, year, site, sex, and count"""
         command_for_sql = "SELECT * FROM cancerData WHERE case_year = '" + \
             str(year) + "'"
         result = self.run_sql_command_and_return_result(command_for_sql)
         return result
     
     def get_simple_search_data(self, input_targets:list):
+        """Called by simple search page; returns the total number of cases associated with a user's search
+        Params: input_targets - a list of valid parameters that the user has input (ie: ["Texas",2005,"Liver"])
+        Returns: an int corresponding to the number of cancer cases that match the user input"""
         sql_command = construct_multiargument_query_specified_targets(["SUM(case_count)"], input_targets)
-        #TODO make a method in datasource that does the above; weird to call run_sql_command here
         number_of_matches = self.run_sql_command_and_return_result(sql_command)
         number_of_matches = number_of_matches[0][0] # Extract from [(3,)] to 3
         return number_of_matches
     
     def run_sql_command_and_return_result(self,command_for_sql:str):
+        """Runs an sql command and returns the result
+        Params: command_for_sql - a string which will be sent to the SQL database
+        Retruns: the output directly from sql (depending on method, outputs either list, int, or string)"""
         cursor = self.connection.cursor()
         cursor.execute(command_for_sql)
         result = cursor.fetchall()
         return result
-    
-    #potentially move parse_URL_string_to_list to a new watch.py file; don't know where else it would fit. Also, refactor the sort out function below
-        
-# def sort_out_invalid_and_valid_query_parameters_with_column(query_parameters:list):
-#     """
-#     Find which query parameter is a valid one for filtering, and if so add the column name. If not valid, add it to a separate list.
-#     Example:
-#     From query_parameters such as ["Texas","Male","Liver","Dead"], split it into:
-#     valid_query_parameters = [["state_name","Texas"], ["sex","Male"], ["leading_site","Liver"]]
-#     invalid_query_parameters = ["Dead"]
-#     """
-#     invalid_query_parameters = []
-#     valid_column_and_query_parameters = []
-#     for argument in query_parameters:
-#         target_column = find_column_containing(argument)
-#         if target_column == 'invalid' and argument not in invalid_query_parameters:
-#             invalid_query_parameters.append(argument)
-#         else:
-#             column_and_argument = [target_column, argument]
-#             valid_column_and_query_parameters.append(column_and_argument)
-#     return invalid_query_parameters, valid_column_and_query_parameters
 
-#TODO refactor this:
 def construct_multiargument_query_target_all(valid_arguments:list):
-    """Returns an sql command which will fetch all data that matches the arguments of interest
-    combination_method can only be 'and' or 'or', and will be changed to 'AND' and 'OR'
-    Example of valid_columns_and_arguments: ["Texas","2003","Liver"]
-    Example of output: SELECT * FROM cancerData WHERE state_name = 'Texas' AND sex = 'Male' AND leading_site = 'Liver'
+    """Returns an sql command which will fetch all data (*) that matches the arguments of interest
+    Params: valid_arguments - a list of strings, where each string is a parameter that the user inputs
+    Returns: a string which can be directly input into sql
     """
     sql_command = "SELECT * FROM cancerData WHERE"
     for argument in valid_arguments:
@@ -112,6 +106,8 @@ def construct_multiargument_query_target_all(valid_arguments:list):
 def construct_multiargument_query_specified_targets(targets_to_return:list,valid_arguments:list):
     """Creates an SQL command which has specified targets (rather than just *) given a list of targets, and a list of query parameters. 
     Both args should be lists of strings.
+    Params: targets_to_return - a list of strings containing the data that sql should return
+            valid_arguments - a list of strings containing the arguments which sql should sort by (aka the values that come after WHERE)
     Works by running construct_multiargument_query_target_all with valid_columns_and_arguments and replace '*' with the targets_to_return"""
     sql_command = construct_multiargument_query_target_all(valid_arguments)
     targets_as_string = ""
@@ -121,38 +117,10 @@ def construct_multiargument_query_specified_targets(targets_to_return:list,valid
     sql_command = sql_command.replace("*",targets_as_string)
     return sql_command
 
-# def construct_multiargument_query_target_all(valid_columns_and_arguments:list):
-#     """Returns an sql command which will fetch all data that matches the arguments of interest
-#     combination_method can only be 'and' or 'or', and will be changed to 'AND' and 'OR'
-#     Example of valid_columns_and_arguments: [["state_name","Texas"], ["sex","Male"], ["leading_site","Liver"]]
-#     Example of output: SELECT * FROM cancerData WHERE state_name = 'Texas' AND sex = 'Male' AND leading_site = 'Liver'
-#     """
-#     sql_command = "SELECT * FROM cancerData WHERE"
-#     for column_and_argument in valid_columns_and_arguments:
-#        target_column = column_and_argument[0]
-#        target_data = column_and_argument[1]
-#        sql_command = f"{sql_command} {target_column} = '{target_data}' AND"
-#     last_char_in_command = sql_command[-1] # Whittle down the command until the closing excess command word is removed
-#     while last_char_in_command != " ":
-#         sql_command = sql_command[:-1] 
-#         last_char_in_command = sql_command[-1]
-#     sql_command += ";" # Add the closing semicolon
-#     return sql_command
-
-# def construct_multiargument_query_specified_targets(targets_to_return:list,valid_columns_and_arguments:list):
-#     """Creates an SQL command which has specified targets (rather than just *) given a list of targets, and a list of query parameters. 
-#     Both args should be lists of strings.
-#     Works by running construct_multiargument_query_target_all with valid_columns_and_arguments and replace '*' with the targets_to_return"""
-#     sql_command = construct_multiargument_query_target_all(valid_columns_and_arguments)
-#     targets_as_string = ""
-#     for target in targets_to_return:
-#         targets_as_string = targets_as_string + str(target) + ", "
-#     targets_as_string = targets_as_string[:-2] # Remove trailing comma and whitespace
-#     sql_command = sql_command.replace("*",targets_as_string)
-#     return sql_command
-    
 def find_column_containing(argument:str):
-    """given an argument (ie: '2003', 'Liver', or 'Female') and returns the appropriate column that corresponds to the field."""
+    """given an argument (ie: '2003', 'Liver', or 'Female') and returns the appropriate column that corresponds to the field.
+    Params: argument - a string corresponding to a specific argument value
+    Returns: a string related to the name of the column that the input data can be found in. Can either be 'state_name', 'case_year', 'leading_site', 'sex' or 'invalid' """
     possible_states = ['Alabama', 'Alaska', 'Arizona', 'Arkansas', 'California', 'Colorado', 'Connecticut', 'Delaware', 'District of Columbia', 'Florida', 'Georgia', 'Hawaii', 'Idaho', 'Illinois', 'Indiana', 'Iowa', 'Kansas', 'Kentucky', 'Louisiana', 'Maine', 'Maryland', 'Massachusetts', 'Michigan', 'Minnesota', 'Mississippi', 'Missouri',
                        'Montana', 'Nebraska', 'Nevada', 'New Hampshire', 'New Jersey', 'New Mexico', 'New York', 'North Carolina', 'North Dakota', 'Ohio', 'Oklahoma', 'Oregon', 'Pennsylvania', 'Rhode Island', 'South Carolina', 'South Dakota', 'Tennessee', 'Texas', 'Utah', 'Vermont', 'Virginia', 'Washington', 'West Virginia', 'Wisconsin', 'Wyoming']
 
