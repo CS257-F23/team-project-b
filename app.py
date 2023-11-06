@@ -6,7 +6,6 @@ from ProductionCode.datasource import *
 
 # other requirements
 
-
 def load_data():
     """Create the global 'dataset' variable to used in later functions.
     Params: None
@@ -91,7 +90,6 @@ def about_us():
     Returns: a rendering of about_us.html"""
     return render_template("about_us.html", title="About Us")
 
-
 @app.route('/contact')
 def contact_us():
     """The Contact Us page, giving an introduction to the website creators and links to communicate.
@@ -99,14 +97,12 @@ def contact_us():
     Returns: a rendering of contact_us.html"""
     return render_template("contact_us.html", title="Contact Us")
 
-
 @app.errorhandler(404)
 def page_not_found(e):
     """For when 404 error is encountered, such that a potentially possible but non-existant URL is used such as /year/4444.
     Params: an error value
     Returns: rendering of error_message.html"""
     return render_template("error_message.html", title="Error!", message="The URL that you have entered is invalid.")
-
 
 @app.errorhandler(500)
 def python_bug(e):
