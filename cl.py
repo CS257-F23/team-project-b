@@ -1,6 +1,6 @@
 """
 A simple command line program that provides the user with data from the cdc US cancer database from 2000-2020.
-To use, send "python3 /ProductionCode/watch.py --(argument) --(data of interest)
+To use, send "python3 cl.py --(argument) --(data of interest)
 Currently, two arguments are supported:
 --year (year between 2000-2020)
 --site '(site)'
@@ -14,9 +14,10 @@ import argparse
 from ProductionCode.datasource import *
 
 def parse_commandline_args(args):
-    """checks to see what arguments the user has given, and displays it. takes args, a Namespace containing args for year and site, and a CancerData object"""
+    """checks to see what arguments the user has given, and displays it. takes args, a Namespace containing args for year and site, and a CancerData object
+    Params: args - a namespace containing fields for site and year aswell as the user's arguments (if they provided one for the given field)
+    Returns: a string containing either the data the user was interested in, or a help statement to guide the user on how to use the app via command line."""
     if args.site != None:
-        # added total for revision of CLI
         return (str(database.get_data_by_site(args.site))+"\ntotal cases: "+str(database.get_total_for_site(args.site)))
     if args.year != None:
         return (str(database.get_data_from_year(args.year))+"\ntotal cases: "+str(database.get_total_for_year(args.year)))
