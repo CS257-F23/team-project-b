@@ -4,8 +4,6 @@ import io
 from flask import Flask, render_template, request, Response
 from ProductionCode.datasource import *
 
-# other requirements
-
 def load_data():
     """Create the global 'dataset' variable to used in later functions.
     Params: None
