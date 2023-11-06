@@ -21,7 +21,6 @@ def get_args_from_form(list_of_args):
             output_list.append(request.form[arg])
         elif request.method == "GET":
             output_list.append(request.args[arg])
-    print(output_list)
     return output_list
 
 app = Flask(__name__)
