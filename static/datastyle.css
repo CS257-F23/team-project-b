@@ -36,11 +36,12 @@ nav ul {
 }
 
 nav li {
-    float: left;
     padding-top: 10px; /* padding around the elements in the navbar*/
     padding-bottom: 10px; /* padding around the elements in the navbar*/
     padding-left: 10px; /* padding around the elements in the navbar*/
     padding-right: 10px; /* padding around the elements in the navbar*/
+    font-size: 1.1em;
+    text-align: center;
     font-size: 1.1em;
     font-weight: bold;
 }
@@ -52,19 +53,12 @@ nav li a {
     text-align: center;
     padding: 14px 16px;
     border-radius: 8px;
-
     transition: padding-top 0.2s, padding-bottom 0.2s;
 }
 
 nav li a:hover {
     color: white;
     background-color: #EBA51A;
-}
-
-nav li {
-    float: left;
-    font-size: 1.1em;
-    font-weight: bold;
 }
 
 
