@@ -86,6 +86,22 @@ class TestSiteDisplayPage(LoadData):
         expected_portion = b"here by mistake"
         failure_response = "Failed to fetch the error page correctly."
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)
-    
+
+class TestAboutUsPage(LoadData):
+    def test_about_us(self):
+        """Tests that the about us page appears as expected and has the correct content."""
+        url = '/about'
+        expected_portion = b"This is our Cancer Incidences dataset navigation software"
+        failure_response = "Failed to fetch the about us page correctly"
+        self.assertIn(expected_portion, self.get_route_data(url), failure_response)
+
+class TestContactUsPage(LoadData):
+    def test_contact_us(self):
+        """Tests that the contact us page appears as expected and has the correct content"""
+        url = '/contact'
+        expected_portion = b"Role: Fullstack developer"
+        failure_response = "Failed to fetch the contact us page correctly"
+        self.assertIn(expected_portion, self.get_route_data(url), failure_response)
+
 if __name__ == '__main__':
     unittest.main()
