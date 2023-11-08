@@ -125,3 +125,12 @@ class testGetStateData(unittest.TestCase):
         error_message = "Failed to display the corresponding top 10 list for the specified state"
         self.assertIn(expected_output, test_result, error_message)
 
+class testSimpleSearchAndFeatures(unittest.TestCase):
+    setUp()
+    def test_get_simple_search_data(self):
+        """Tests the get_simple_search_data function with a VALID state, year, and site. Input: '['Texas','2005','Liver','Male']' Expected Output: 1129"""
+        input_targets_tested = ["Texas","2005","Liver","Male"]
+        test_result = test.get_simple_search_data(input_targets_tested)
+        expected_output = 1129
+        error_message = "Failed to display the corresponding count for the simple search using the specified state, year, and site"
+        self.assertEqual(expected_output, test_result, error_message)
