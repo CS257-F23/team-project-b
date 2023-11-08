@@ -18,13 +18,36 @@ def parse_commandline_args(args):
     Params: args - a namespace containing fields for site and year aswell as the user's arguments (if they provided one for the given field)
     Returns: a string containing either the data the user was interested in, or a help statement to guide the user on how to use the app via command line."""
     if args.site != None:
-        return (str(database.get_data_by_site(args.site))+"\ntotal cases: "+str(database.get_total_for_site(args.site)))
+        return get_formatted_site_output(args.site)
     if args.year != None:
-        return (str(database.get_data_from_year(args.year))+"\ntotal cases: "+str(database.get_total_for_year(args.year)))
-    else:  # if the user enters no arguments, they'll get a helpful statement telling them how to proceed!
-        print("\n------Welcome to the WATCH app------ \n \nTo use via command line, try sending --year or --site, followed by the information of interest. \n \nFor more information, please consult the readme. You can also run --help to see valid arguments for each command")
-        return ""  # returns empty string to avoid printing of 'None'
+        return get_formatted_year_output(args.year)
+    else:  
+        return display_usage_info()
 
+def get_formatted_site_output(site:str):
+    """returns formatted data from the sql database for the command line
+    Params: site - a string corresponding to the cancer site 
+    Returns: a string containing all the database's data related to that site aswell as the total number of cases of that site"""
+    total_data = database.get_data_by_site(site)
+    total_cases = database.get_total_for_site(site)
+    output_str = str(total_data) + "\ntotal cases: " + str(total_cases)
+    return output_str
+
+def get_formatted_year_output(year):
+    """returns formatted data from the sql database for the command line
+    Params: year - an int corresponding to the cancer site 
+    Returns: a string containing all the database's data related to that site aswell as the total number of cases of that site"""
+    total_data = database.get_data_from_year(year)
+    total_cases = database.get_total_for_year(year)
+    output_str = str(total_data) + "\ntotal cases: " + str(total_cases)
+    return output_str 
+
+def display_usage_info():
+    """A simple function that stores the usage information so it can be easily printed
+    Params:
+    Returns: an empty string, so a none object isn't randomly printed to command line"""
+    print("\n------Welcome to the WATCH app------ \n \nTo use via command line, try sending --year or --site, followed by the information of interest. \n \nFor more information, please consult the readme. You can also run --help to see valid arguments for each command")
+    return ""  
 
 def main():
     global database
