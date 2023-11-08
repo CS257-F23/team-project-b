@@ -1,3 +1,4 @@
+/* vvv General Page Style vvv */
 body {
     margin-left: 5%;
     margin-right: 5%;
@@ -16,10 +17,44 @@ h1 {
     width: 100%;
 }
 
+p {
+    font-family: Verdana, Geneva, sans-serif;
+    line-height: 1.4;
+}
+
+ul {
+    width: 100%;
+}
+ 
+li {
+    font-family: Verdana, Geneva, sans-serif;
+    line-height: 1.4;
+}
+
+/* ^^^ General Page Style ^^^ */
+
+
+
+/* vvv General Page Style Extra Classes vvv */
+
 .category {
     text-decoration: underline;
     font-style: italic;
 }
+
+.row {
+    display: flex;
+}   
+
+.column {
+    flex: 33%;
+}
+
+/* ^^^ General Page Style Extra Classes ^^^ */
+
+
+
+/* vvv Physical Navbar Stuff vvv*/
 
 nav {
     border-radius: 8px;
@@ -33,13 +68,12 @@ nav ul {
     list-style-type: none;
     overflow: hidden;
     padding-left: 0px;
+    display: flex; /* Use flexbox to center items */
+    justify-content: center; /* Center the items horizontally */
 }
 
 nav li {
-    padding-top: 10px; /* padding around the elements in the navbar*/
-    padding-bottom: 10px; /* padding around the elements in the navbar*/
-    padding-left: 10px; /* padding around the elements in the navbar*/
-    padding-right: 10px; /* padding around the elements in the navbar*/
+    padding: 10px;
     font-size: 1.1em;
     text-align: center;
     font-size: 1.1em;
@@ -50,7 +84,7 @@ nav li a {
     display: block;
     color: #EB881A;
     text-decoration: none;
-    text-align: center;
+    text-align: center; /* Changes the position of text within each of their boxes */
     padding: 14px 16px;
     border-radius: 8px;
     transition: padding-top 0.2s, padding-bottom 0.2s;
@@ -61,33 +95,43 @@ nav li a:hover {
     background-color: #EBA51A;
 }
 
+/* ^^^ Physical Navbar Stuff ^^^ */
 
-p {
-    font-family: Verdana, Geneva, sans-serif;
-    /* This next line gives us some extras pacing within a paragraph*/
-    line-height: 1.4;
+
+
+/* vvv Navbar Animation vvv */
+
+.content {
+    padding: 50px;
 }
 
-ul {
-    width: 100%;
-}
- 
-li {
-    font-family: Verdana, Geneva, sans-serif;
-    line-height: 1.4;
+.sticky { /* Added with JS */ 
+    position: fixed;
+    top: 0;
+    width: 89.2%;
+    height: 0;
 }
 
-
-.row {
-    display: flex;
-}   
-
-.column {
-    flex: 33%;
+.sticky li {
+    padding-top: 10px;
+    padding-bottom: 10px;
 }
 
+.sticky li a {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
 
-/* referenced digitalOcean tutorial for form element styling */
+.sticky + .content {
+  padding-top: 10px;
+}
+
+/* ^^^ Navbar Animation ^^^ */ /* referenced w3 school tutorial */
+
+
+
+/* vvv Form Style vvv */
+
 form{
     text-align: center;
     margin-left: 25%;
@@ -95,23 +139,22 @@ form{
     border-radius: 2em;
 }
 
- button,
-fieldset, 
-input,
-legend,
-select,
-textarea {
-  appearance: none;
-  -webkit-appearance: none;
-  -moz-appearance: none;
-  background-color: antiquewhite ;
-  border: 3px solid;
-  border-color: black;
-  border-radius: 1em;
-  padding: .5em;
-  margin: .5em;
-  box-sizing: border-box;
-  font-family: Verdana, Geneva, sans-serif;
+fieldset {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+button, fieldset, input, legend, select, textarea {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: antiquewhite ;
+    border: 3px solid;
+    border-color: black;
+    border-radius: 1em;
+    padding: .5em;
+    margin: .5em;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, sans-serif;
 }
 
 
@@ -132,11 +175,10 @@ textarea{
     resize:none;
 }
 
-input[type="radio"],
-input[type="checkbox"] {
-  height: 1.5em;
-  width: 1.5em;
-  vertical-align: middle;
+input[type="radio"], input[type="checkbox"] {
+    height: 1.5em;
+    width: 1.5em;
+    vertical-align: middle;
 }
 
 input[type="radio"]:checked {
@@ -155,56 +197,9 @@ input[type=button], input[type=submit]:hover{
     transition-duration: 0.2s;
     cursor:pointer;
 }
-/* } referenced w3 school tutorial */
 
 select{
     background-color: white;
 }
 
-
-/* ADDAPTED FROM W3 Schools EXAMPLE*/
-/* Page content */
-.content {
-    padding: 50px;
-}
-
-/* The sticky class is added to the navbar with JS when it reaches its scroll position */
-.sticky {
-    position: fixed;
-    top: 0;
-    width: 89.2%;
-    height: 0;
-}
-
-.sticky li {
-    padding-top: 10px;
-    padding-bottom: 10px;
-}
-
-.sticky li a {
-    padding-top: 2px;
-    padding-bottom: 2px;
-}
-
-
-/* Add some top padding to the page content to prevent sudden quick movement (as the navigation bar gets a new position at the top of the page (position:fixed and top:0) */
-.sticky + .content {
-  padding-top: 10px;
-}
-
-
-/* .gear{
-    height: 50px;
-    width: 50px;
-    bottom: 10px;
-    right: 10px;
-    position: fixed;
-    fill: rgba(256, 256, 256, 0.3);
-    transform: rotate(-45deg);
-    transition-duration: 0.5s;
- }
- .gear:hover{
-    fill: rgba(256, 256, 256, 0.5);
-    transform: rotate(45deg);
-    transition-duration: 0.5s;
-} */
+/* ^^^ Form Style ^^^ */ /* referenced w3 school tutorial */
