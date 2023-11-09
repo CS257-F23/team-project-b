@@ -103,5 +103,6 @@ class TestContactUsPage(LoadData):
         failure_response = "Failed to fetch the contact us page correctly"
         self.assertIn(expected_portion, self.get_route_data(url), failure_response)
 
+
 if __name__ == '__main__':
     unittest.main()
