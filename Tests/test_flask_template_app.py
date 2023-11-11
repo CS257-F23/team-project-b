@@ -151,5 +151,20 @@ class TestStateInfo(LoadData):
         self.assertEqual(response.status_code, 200, failure_response)
 
 
+class TestArgsHelperFunction(LoadData):
+    def test_get_args_from_form_post(self):
+        """Test to make sure the helper function works with POST"""
+        response = self.app.post('/simpsearch',
+                                 data={'state': 'california', 'year': '2003'})
+        failure_response = "Failed to render correct page from POST"
+        self.assertEqual(response.status_code, 200, failure_response)
+
+    def test_get_args_from_form_get(self):
+        """Test to make sure the helper function works with GET"""
+        response = self.app.get('/simpsearch')
+        failure_response = "Failed to render correct page from GET"
+        self.assertEqual(response.status_code, 200, failure_response)
+
+
 if __name__ == '__main__':
     unittest.main()
