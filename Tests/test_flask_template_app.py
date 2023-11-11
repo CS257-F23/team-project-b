@@ -159,6 +159,21 @@ class TestArgsHelperFunction(LoadData):
         failure_response = "Failed to render correct page from POST"
         self.assertEqual(response.status_code, 200, failure_response)
 
+    def test_get_args_from_form_normal_usage(self):
+        """directly tests if requesting args (using get_args_from_form) returns expected list under normal conditions
+        referenced: https://flask.palletsprojects.com/en/3.0.x/reqcontext/"""
+        with app.test_request_context('/simpsearch',query_string = {'state':'Minnesota','site':'Liver'}):
+            args = get_args_from_form(['state','site'])
+            failure_response = "Failed to retrieve args with function"
+        self.assertEqual(args, ['Minnesota','Liver'])
+
+    def test_get_args_from_form_edge(self):
+        """directly tests if requesting args (using get_args_from_form) returns expected list with no requests"""
+        with app.test_request_context('/simpsearch',query_string = {'state':'Minnesota','site':'Liver'}):
+            args = get_args_from_form([])
+            failure_response = "Failed to retrieve args with function"
+        self.assertEqual(args, [])
+
     def test_get_args_from_form_get(self):
         """Test to make sure the helper function works with GET"""
         response = self.app.get('/simpsearch')
