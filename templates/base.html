@@ -1,0 +1,23 @@
+<html>
+    <head>
+        <title>{{ title }}</title>
+        <link rel="stylesheet" href="{{ url_for('static', filename='datastyle.css') }}">
+    </head>
+    <body>
+        <h1>W. A. T. C. H. <br> =Web Analysis Tool (of) Cancer History=</h1>
+        <div id="navbar">
+            <nav>
+                <ul>
+                    <li><a href="/">Home</a></li>
+                    <li><a href="/simpsearch">Simple Search</a></li>
+                    <li><a href="/contact">Contact Us</a></li>
+                    <li><a href="/about">About Us</a></li>
+                </ul>
+            </nav>
+        </div>
+        <div id="navbar-placeholder"></div>
+
+        {% block content %}{% endblock %}
+    <body>
+</html>
+<script src="{{ url_for('static', filename='script.js') }}"></script>

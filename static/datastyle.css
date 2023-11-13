@@ -1,0 +1,205 @@
+/* vvv General Page Style vvv */
+body {
+    margin-left: 5%;
+    margin-right: 5%;
+    background-color: whitesmoke;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+h1 {
+    padding-top: 0.5em;
+    padding-bottom: 0.5em;
+    background-color: #EBA51A;
+    color: white;
+    text-align: center;
+    font-family: 'Times New Roman', Times, serif;
+    border-radius: 8px;
+    width: 100%;
+}
+
+p {
+    font-family: Verdana, Geneva, sans-serif;
+    line-height: 1.4;
+}
+
+ul {
+    width: 100%;
+}
+ 
+li {
+    font-family: Verdana, Geneva, sans-serif;
+    line-height: 1.4;
+}
+
+/* ^^^ General Page Style ^^^ */
+
+
+
+/* vvv General Page Style Extra Classes vvv */
+
+.category {
+    text-decoration: underline;
+    font-style: italic;
+}
+
+.row {
+    display: flex;
+}   
+
+.column {
+    flex: 33%;
+}
+
+/* ^^^ General Page Style Extra Classes ^^^ */
+
+
+
+/* vvv Physical Navbar Stuff vvv*/
+
+nav {
+    border-radius: 8px;
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+nav ul {
+    background-color: antiquewhite;
+    border: 2.5px dashed #EB881A;
+    border-radius: 8px;
+    list-style-type: none;
+    overflow: hidden;
+    padding-left: 0px;
+    display: flex; /* Use flexbox to center items */
+    justify-content: center; /* Center the items horizontally */
+}
+
+nav li {
+    padding: 10px;
+    font-size: 1.1em;
+    text-align: center;
+    font-size: 1.1em;
+    font-weight: bold;
+}
+
+nav li a {
+    display: block;
+    color: #EB881A;
+    text-decoration: none;
+    text-align: center; /* Changes the position of text within each of their boxes */
+    padding: 14px 16px;
+    border-radius: 8px;
+    transition: padding-top 0.2s, padding-bottom 0.2s;
+}
+
+nav li a:hover {
+    color: white;
+    background-color: #EBA51A;
+}
+
+/* ^^^ Physical Navbar Stuff ^^^ */
+
+
+
+/* vvv Navbar Animation vvv */
+
+.content {
+    padding: 50px;
+}
+
+.sticky { /* Added with JS */ 
+    position: fixed;
+    top: 0;
+    width: 89.2%;
+    height: 0;
+}
+
+.sticky li {
+    padding-top: 10px;
+    padding-bottom: 10px;
+}
+
+.sticky li a {
+    padding-top: 2px;
+    padding-bottom: 2px;
+}
+
+.sticky + .content {
+  padding-top: 10px;
+}
+
+/* ^^^ Navbar Animation ^^^ */ /* referenced w3 school tutorial */
+
+
+
+/* vvv Form Style vvv */
+
+form{
+    text-align: center;
+    margin-left: 25%;
+    margin-right:25%;
+    border-radius: 2em;
+}
+
+fieldset {
+    box-shadow: 0 4px 8px 0 rgba(0, 0, 0, 0.25), 0 6px 20px 0 rgba(0, 0, 0, 0.19);
+}
+
+button, fieldset, input, legend, select, textarea {
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-color: antiquewhite ;
+    border: 3px solid;
+    border-color: black;
+    border-radius: 1em;
+    padding: .5em;
+    margin: .5em;
+    box-sizing: border-box;
+    font-family: Verdana, Geneva, sans-serif;
+}
+
+
+select:hover {
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    transition-duration: 0.2s;
+}
+
+legend  {
+    background-color:#EBA51A ;
+}
+
+textarea{
+    text-align: center;
+    font-size: Large;
+    font-family: Verdana, Geneva, sans-serif;
+    background-color: white;
+    resize:none;
+}
+
+input[type="radio"], input[type="checkbox"] {
+    height: 1.5em;
+    width: 1.5em;
+    vertical-align: middle;
+}
+
+input[type="radio"]:checked {
+    background-color: black;
+}
+
+input[type=button], input[type=submit] {
+    background-color: white;
+    font-size: Large;
+}
+
+input[type=button], input[type=submit]:hover{
+    background-color: #EBA51A;
+    color: white;
+    box-shadow: 0 2px 4px 0 rgba(0, 0, 0, 0.25), 0 3px 10px 0 rgba(0, 0, 0, 0.19);
+    transition-duration: 0.2s;
+    cursor:pointer;
+}
+
+select{
+    background-color: white;
+}
+
+/* ^^^ Form Style ^^^ */ /* referenced w3 school tutorial */

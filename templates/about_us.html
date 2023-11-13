@@ -1,0 +1,17 @@
+{% extends 'base.html' %}
+<html>
+    {% block content %}
+        <p>This is our Cancer Incidences dataset navigation software: the W. A. T. C. H. - Web Analysis Tool (of) Cancer History.</p>
+        <p>The purpose of this system is to guide you in the journey of further discovering the intricacies of the cdc 2000-2020 cancer incidence dataset.</p>
+        <p>The data is categorized by:
+            <ul>
+                <li>The [State] it happened in</li>
+                <li>The [Year] it happened (we only have the cases from the year 2000 to 2021)</li>
+                <li>The leading [Site] on the body where it happened</li>
+                <li>The [Sex] of the person unfortunately inflicted with cancer</li>
+                <li>Plus, a [Count] of occurences of each unique combination of the above factors.</li>
+            </ul>
+        </p>
+        <p>Currently, the site allows users to input desired queries, and the website will return matching information. It also has a built in visualization tool, which includes data plotting.</p>
+    {% endblock %}
+</html>
